@@ -12,7 +12,7 @@ def int_seed(seed):
         print(f"{k}, {seed}, done")
 
 
-Nstep = 1
+Nstep = 10
 int_seed(1)
-# with mp.Pool(cores-10) as p:
-#     p.map(int_seed, range(1,100, Nstep))
+with mp.Pool(cores-10) as p:
+    p.map(int_seed, range(1,1000, Nstep))

@@ -43,10 +43,10 @@ def def_params(flip =0):
             p = [h0, h1]
 
     elif model == "optical":  #genoni's paper
-        kappa0 = kappa1 = 5.
+        kappa0 = kappa1 = 1.
         xi0 = xi1 = 0.49*kappa1
         eta0 = eta1 = 1.
-        omega0, omega1 = 0.1*kappa1, 0.1001*kappa1
+        omega0, omega1 = 0.1*kappa1, 0.2*kappa1
 
         h0 = [kappa0, eta0, omega0, xi0]
         h1 = [kappa1, eta1, omega1, xi1]

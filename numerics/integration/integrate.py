@@ -162,7 +162,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument("--itraj", type=int, default=1)
     parser.add_argument("--ppg",type=float, default=1e3)
-    parser.add_argument("--T_param", type=float,default=100.)
+    parser.add_argument("--T_param", type=float,default=200.)
     parser.add_argument("--flip_params", type=int, default=0)
 
     args = parser.parse_args()
