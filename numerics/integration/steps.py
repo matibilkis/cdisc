@@ -48,7 +48,7 @@ def Robler_step(t, Yn, Ik, Iij, dt, f,G, d, m):
     """
     https://pypi.org/project/sdeint/
     https://dl.acm.org/doi/abs/10.1007/s10543-005-0039-7
-    """"
+    """
     fnh = f(Yn, t,dt)*dt # shape (d,)
     xicov = Gn = G()
     sum1 = np.dot(Gn, Iij)/np.sqrt(dt) # shape (d, m)

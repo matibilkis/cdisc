@@ -69,7 +69,7 @@ def Fhidden(s, t, dt):
 def Ghidden():
     return model_cte*XiCov1
 
-def integrate(params, total_time=10, dt=1e-6, itraj=1, exp_path="",**kwargs):
+def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
     """
     h1 is the hypothesis i use to get the data. (with al the coefficients gamma1...)
     """
@@ -85,7 +85,7 @@ def integrate(params, total_time=10, dt=1e-6, itraj=1, exp_path="",**kwargs):
         model_cte = np.sqrt(2) ### measurement model
 
         def give_matrices(kappa, eta, omega, xi):
-            A = np.array([[-gamma/2 -xi, omega],[-omega, xi -gamma/2]])
+            A = np.array([[-kappa/2 -xi, omega],[-omega, xi -kappa/2]])
             B = E = -np.sqrt(eta*kappa)*np.array([[1.,0.],[0.,0.]]) #homodyne
             D = np.diag([kappa]*2)
             C = -B.T
@@ -126,7 +126,6 @@ def integrate(params, total_time=10, dt=1e-6, itraj=1, exp_path="",**kwargs):
     s0_exper = np.array([x0in, p0in, lin0, lin1])
 
     times = np.arange(0,total_time+dt,dt)
-    params = [params1,params0]
 
     #### generate long trajectory of noises
     np.random.seed(itraj)
@@ -134,7 +133,7 @@ def integrate(params, total_time=10, dt=1e-6, itraj=1, exp_path="",**kwargs):
 
 
     hidden_state, exper_state, signals = IntegrationLoop(s0_hidden, s0_exper,  times, dt)
-    states1 = yhidden[:,0:2]
+    states1 = hidden_state[:,0:2]
     states0 = exper_state[:,:2]
     liks = exper_state[:,2:]
 
@@ -148,12 +147,12 @@ def integrate(params, total_time=10, dt=1e-6, itraj=1, exp_path="",**kwargs):
     logliks_short =  np.array([liks[ii] for ii in indis])
     states1_short =  np.array([states1[ii] for ii in indis])
     states0_short =  np.array([states0[ii] for ii in indis])
-    states0_short =  np.array([signals[ii] for ii in indis])
+    signals_short =  np.array([signals[ii] for ii in indis])
 
     np.save(path+"logliks",logliks_short)
-    np.save(path+"states1",states1)
-    np.save(path+"states0",states0)
-    np.save(path+"signals",signals)
+    np.save(path+"states1",states1_short)
+    np.save(path+"states0",states0_short)
+    np.save(path+"signals",signals_short)
 
 
     return

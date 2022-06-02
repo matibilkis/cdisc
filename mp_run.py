@@ -5,15 +5,14 @@ from numerics.utilities.misc import *
 
 cores = mp.cpu_count()
 
-mode="frequencies"
-dt = 1e-4
-total_time = 200.
-ppp=5*1e3
 def int_seed(seed):
-    for k in range(10):
-        os.system("python3 numerics/integration/integrate.py --itraj {} --mode {} --dt {} --total_time {} --ppp {}".format(seed+k, mode, dt, total_time, ppp))
-        os.system("python3 numerics/integration/integrate.py --itraj {} --flip_params 1 --mode {} --dt {} --total_time {} --ppp {}".format(seed+k, mode, dt, total_time, ppp))
+    for k in range(Nstep):
+        os.system("python3 numerics/integration/integrate.py --itraj {}".format(seed+k))
+        os.system("python3 numerics/integration/integrate.py --itraj {} --flip_params 1".format(seed+k))
         print(f"{k}, {seed}, done")
 
-with mp.Pool(cores-10) as p:
-    p.map(int_seed, range(1000,5000, 10))
+
+Nstep = 1
+int_seed(1)
+# with mp.Pool(cores-10) as p:
+#     p.map(int_seed, range(1,100, Nstep))

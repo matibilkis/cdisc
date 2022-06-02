@@ -20,16 +20,16 @@ def get_def_path():
         defpath = "/media/giq/Nuevo vol/quantera/trajectories/"
     else:
         defpath = "/data/uab-giq/scratch/matias/quantera/trajectories/"
-    if mode[-1] != "/":
-        mode+="/"
-    defpath+=mode
+    if model[-1] != "/":
+        model+="/"
+    defpath+=model
     return defpath
 
 
 def def_params(flip =0):
     model = give_model()
     if model == "mechanical":
-        gamma0 = gamma1 = 1000
+        gamma0 = gamma1 = 100
         eta0 = eta1 = 1
         kappa0 = kappa1 = 1e6
         n0 = n1 = 1
@@ -43,10 +43,10 @@ def def_params(flip =0):
             p = [h0, h1]
 
     elif model == "optical":  #genoni's paper
-        kappa0 = kappa1 = 1.
-        xi0 = xi1 = 0.1*kappa1
-        eta0 = eta1 = .9
-        omega0, omega1 = 0.1*kappa1, 0.2*kappa1
+        kappa0 = kappa1 = 5.
+        xi0 = xi1 = 0.49*kappa1
+        eta0 = eta1 = 1.
+        omega0, omega1 = 0.1*kappa1, 0.1001*kappa1
 
         h0 = [kappa0, eta0, omega0, xi0]
         h1 = [kappa1, eta1, omega1, xi1]
@@ -71,11 +71,24 @@ def load_data(exp_path="", itraj=1, total_time=1, dt=0.1, what="logliks.npy"):
 
 def load_liks(itraj=1, dt=1e-1, total_time=1):
     params, exp_path = def_params(flip=0)
-    logliks =load_data_discrimination_liks(itraj=itraj, total_time = total_time, dt=dt, exp_path = exp_path)
+    logliks =load_data(itraj=itraj, total_time = total_time, dt=dt, exp_path = exp_path, what="logliks.npy")
     l1  = logliks[:,0] - logliks[:,1]
 
     params, exp_path = def_params(flip=1)
-    logliks =load_data_discrimination_liks(itraj=itraj, total_time = total_time, dt=dt, exp_path = exp_path)
-    l0  = logliks[:,0] - logliks[:,1]
+    logliks =load_data(itraj=itraj, total_time = total_time, dt=dt, exp_path = exp_path, what="logliks.npy")
+    l0  = logliks[:,1] - logliks[:,0]
 
     return l0, l1#, tims
+
+def int_or_0(x):
+    try:
+        return int(x)
+    except Exception:
+        return 0
+
+def get_timind(total_time, dt, N=1e4):
+    times = np.arange(0,total_time+dt, dt)
+    indis = np.logspace(0,np.log10(len(times)-1), int(N))
+    indis = [int(k) for k in indis]
+    timind = [times[ind] for ind in indis]
+    return timind
