@@ -4,7 +4,7 @@ import os
 import getpass
 
 def give_model():
-    return "optical"
+    return "optical_heterodyne"
 
 def get_def_path():
     """
