@@ -74,8 +74,8 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
     h1 is the hypothesis i use to get the data. (with al the coefficients gamma1...)
     """
     global proj_C, A0, A1, XiCov0, XiCov1, C0, C1, dW, model_cte
-
-    if give_model() == "optical":
+    model = give_model()
+    if ((model == "optical_heterodyne") or (model == "optical_homodyne") or (model=="optical")):
         ### XiCov = S C.T + G.T
         #### dx  = (A - XiCov.C )x dt + (XiCov dy)/sqrt(2) = A x dt + XiCov dW/sqrt(2)
         #### dy = sqrt(2) C x dt + dW
@@ -96,7 +96,7 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
         A0, C0, D0, G0 = give_matrices(kappa0, eta0, omega0, xi0)
 
     else:
-         [gamma1, omega1, n1, eta1, kappa1], [gamma0, omega0, n0, eta0, kappa0]  = params
+        [gamma1, omega1, n1, eta1, kappa1], [gamma0, omega0, n0, eta0, kappa0]  = params
         model_cte = 1. ### measurement model
         ### XiCov = S C.T + G.T
         #### dx  = (A - XiCov.C )x dt + (XiCov dy) = A x dt + XiCov dW
@@ -116,6 +116,7 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
     proj_C = np.linalg.pinv(C1/C1[0,0])
     x1in ,p1in, x0in, p0in, dyxin, dypin, lin0, lin1 = np.zeros(8)
 
+    x1in = 1e5
     sst1 = solve_continuous_are( (A1-np.dot(G1.T,C1)).T, C1.T, D1 - np.dot(G1.T, G1), np.eye(2)) #### A.T because the way it's implemented!
     sst0 = solve_continuous_are( (A0-np.dot(G0.T,C0)).T, C0.T, D0 - np.dot(G0.T, G0), np.eye(2)) #### A.T because the way it's implemented!
 

@@ -1,0 +1,2633 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[    109596,       2625]
+NotebookOptionsPosition[    107800,       2587]
+NotebookOutlinePosition[    108227,       2604]
+CellTagsIndexPosition[    108184,       2601]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"A", " ", "=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", " ", 
+      RowBox[{
+       RowBox[{"-", 
+        RowBox[{"\[Gamma]", "/", "2"}]}], ",", " ", "\[Omega]"}], "}"}], ",", 
+     
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "\[Omega]"}], ",", " ", 
+       RowBox[{
+        RowBox[{"-", "\[Gamma]"}], "/", "2"}]}], "}"}]}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"CC", " ", "=", "  ", 
+   RowBox[{
+    RowBox[{"Sqrt", "[", 
+     FractionBox[
+      RowBox[{"\[Gamma]", " ", "\[Eta]"}], "2"], "]"}], "*", 
+    RowBox[{"IdentityMatrix", "[", "2", "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"DD", "=", " ", 
+   RowBox[{"\[Gamma]", "*", 
+    RowBox[{"IdentityMatrix", "[", "2", "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"GG", "=", " ", 
+   RowBox[{"-", "CC"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SS", " ", "=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"vx", ",", "cc"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"cc", ",", "vp"}], "}"}]}], "}"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.863262026306048*^9, 3.863262063108267*^9}, {
+  3.863262152137488*^9, 3.863262180059924*^9}, {3.863262480710047*^9, 
+  3.863262500610064*^9}, {3.863262620427907*^9, 3.8632626325679398`*^9}, {
+  3.863263800600072*^9, 3.863263850779952*^9}},
+ CellLabel->"In[57]:=",ExpressionUUID->"9a8bbc98-ef3f-4b65-8828-09338e33cd68"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"A", "-", 
+       RowBox[{"GG", ".", "CC"}]}], ")"}], ".", "SS"}], " ", "+", " ", 
+    RowBox[{"SS", ".", 
+     RowBox[{"Transpose", "[", 
+      RowBox[{"(", 
+       RowBox[{"A", "-", 
+        RowBox[{"GG", ".", "CC"}]}], ")"}], "]"}]}], " ", "+", " ", "DD", " ",
+     "-", " ", 
+    RowBox[{"GG", ".", "GG"}], " ", "-", " ", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"SS", ".", "CC"}], ")"}], ".", 
+     RowBox[{"(", 
+      RowBox[{"SS", ".", "CC"}], ")"}]}]}], " ", "//", "FullSimplify"}], " ", 
+  "//", "MatrixForm"}]], "Input",
+ CellChangeTimes->{{3.8632621818400173`*^9, 3.863262266032259*^9}},
+ CellLabel->"In[62]:=",ExpressionUUID->"844f168b-8cdc-4ddd-b02d-ab665e553c67"],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", 
+         FractionBox["1", "2"]}], " ", "\[Gamma]", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"2", " ", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"-", "1"}], "+", "vx"}], ")"}]}], "+", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             SuperscriptBox["cc", "2"], "+", 
+             SuperscriptBox[
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"-", "1"}], "+", "vx"}], ")"}], "2"]}], ")"}], " ", 
+           "\[Eta]"}]}], ")"}]}], "+", 
+       RowBox[{"2", " ", "cc", " ", "\[Omega]"}]}], 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", 
+         FractionBox["1", "2"]}], " ", "cc", " ", "\[Gamma]", " ", 
+        RowBox[{"(", 
+         RowBox[{"2", "+", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"-", "2"}], "+", "vp", "+", "vx"}], ")"}], " ", 
+           "\[Eta]"}]}], ")"}]}], "+", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"vp", "-", "vx"}], ")"}], " ", "\[Omega]"}]}]},
+     {
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", 
+         FractionBox["1", "2"]}], " ", "cc", " ", "\[Gamma]", " ", 
+        RowBox[{"(", 
+         RowBox[{"2", "+", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"-", "2"}], "+", "vp", "+", "vx"}], ")"}], " ", 
+           "\[Eta]"}]}], ")"}]}], "+", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"vp", "-", "vx"}], ")"}], " ", "\[Omega]"}]}], 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", 
+         FractionBox["1", "2"]}], " ", "\[Gamma]", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"2", " ", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"-", "1"}], "+", "vp"}], ")"}]}], "+", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             SuperscriptBox["cc", "2"], "+", 
+             SuperscriptBox[
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"-", "1"}], "+", "vp"}], ")"}], "2"]}], ")"}], " ", 
+           "\[Eta]"}]}], ")"}]}], "-", 
+       RowBox[{"2", " ", "cc", " ", "\[Omega]"}]}]}
+    },
+    GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}}], "\[NoBreak]", ")"}],
+  Function[BoxForm`e$, 
+   MatrixForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{
+  3.863262226814925*^9, {3.863262258152584*^9, 3.8632622662358*^9}, 
+   3.8632625032893887`*^9, 3.863262637527124*^9, {3.8632638104504128`*^9, 
+   3.863263852867268*^9}},
+ CellLabel->
+  "Out[62]//MatrixForm=",ExpressionUUID->"c4a4549a-489f-4bcb-b231-\
+8e2d68009590"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Solve", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"-", "\[Gamma]"}], " ", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"-", "1"}], "+", "vx", "+", 
+         RowBox[{
+          RowBox[{"(", 
+           SuperscriptBox[
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"-", "1"}], "+", "vx"}], ")"}], "2"], ")"}], " ", 
+          "\[Eta]"}]}], ")"}]}], "-", 
+      RowBox[{"2", " ", "vx", " ", "\[Chi]"}]}], "==", "0"}], ",", " ", 
+    "vx"}], "]"}], " ", "//", "FullSimplify"}]], "Input",
+ CellChangeTimes->{{3.863262669274907*^9, 3.8632626945665493`*^9}},
+ CellLabel->"In[39]:=",ExpressionUUID->"e3a0839d-3ddb-44ff-8a5c-7b60835b5057"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"vx", "\[Rule]", 
+     FractionBox[
+      RowBox[{
+       RowBox[{"-", "\[Gamma]"}], "+", 
+       RowBox[{"2", " ", "\[Gamma]", " ", "\[Eta]"}], "-", 
+       RowBox[{"2", " ", "\[Chi]"}], "+", 
+       SqrtBox[
+        RowBox[{
+         SuperscriptBox["\[Gamma]", "2"], "+", 
+         RowBox[{"\[Gamma]", " ", 
+          RowBox[{"(", 
+           RowBox[{"4", "-", 
+            RowBox[{"8", " ", "\[Eta]"}]}], ")"}], " ", "\[Chi]"}], "+", 
+         RowBox[{"4", " ", 
+          SuperscriptBox["\[Chi]", "2"]}]}]]}], 
+      RowBox[{"2", " ", "\[Gamma]", " ", "\[Eta]"}]]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"vx", "\[Rule]", 
+     RowBox[{"-", 
+      FractionBox[
+       RowBox[{"\[Gamma]", "-", 
+        RowBox[{"2", " ", "\[Gamma]", " ", "\[Eta]"}], "+", 
+        RowBox[{"2", " ", "\[Chi]"}], "+", 
+        SqrtBox[
+         RowBox[{
+          SuperscriptBox["\[Gamma]", "2"], "+", 
+          RowBox[{"\[Gamma]", " ", 
+           RowBox[{"(", 
+            RowBox[{"4", "-", 
+             RowBox[{"8", " ", "\[Eta]"}]}], ")"}], " ", "\[Chi]"}], "+", 
+          RowBox[{"4", " ", 
+           SuperscriptBox["\[Chi]", "2"]}]}]]}], 
+       RowBox[{"2", " ", "\[Gamma]", " ", "\[Eta]"}]]}]}], "}"}]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.8632626658095512`*^9, 3.863262694926423*^9}},
+ CellLabel->"Out[39]=",ExpressionUUID->"6c09d6f9-8081-48ad-87ff-1debda4665ec"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"$Assumptions", "=", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"\[Eta]", ",", "\[Gamma]", ",", "\[Chi]"}], "}"}], "\[Epsilon]", 
+    " ", "Reals"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.863262700665412*^9, 3.863262717678177*^9}},
+ CellLabel->"In[40]:=",ExpressionUUID->"ac163b2b-fe80-4ce7-a0a4-1f3e7f35d00b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FullSimplify", "[", 
+  FractionBox[
+   RowBox[{
+    RowBox[{"-", "\[Gamma]"}], "+", 
+    RowBox[{"2", " ", "\[Gamma]", " ", "\[Eta]"}], "-", 
+    RowBox[{"2", " ", "\[Chi]"}], "+", 
+    SqrtBox[
+     RowBox[{
+      SuperscriptBox["\[Gamma]", "2"], "+", 
+      RowBox[{"\[Gamma]", " ", 
+       RowBox[{"(", 
+        RowBox[{"4", "-", 
+         RowBox[{"8", " ", "\[Eta]"}]}], ")"}], " ", "\[Chi]"}], "+", 
+      RowBox[{"4", " ", 
+       SuperscriptBox["\[Chi]", "2"]}]}]]}], 
+   RowBox[{"2", " ", "\[Gamma]", " ", "\[Eta]"}]], "]"}]], "Input",
+ CellChangeTimes->{{3.863262725870903*^9, 3.8632627297534103`*^9}},
+ CellLabel->"In[41]:=",ExpressionUUID->"251ee1ee-e35c-47cb-9e8c-41cd5dcca214"],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{
+   RowBox[{"-", "\[Gamma]"}], "+", 
+   RowBox[{"2", " ", "\[Gamma]", " ", "\[Eta]"}], "-", 
+   RowBox[{"2", " ", "\[Chi]"}], "+", 
+   SqrtBox[
+    RowBox[{
+     SuperscriptBox["\[Gamma]", "2"], "+", 
+     RowBox[{"\[Gamma]", " ", 
+      RowBox[{"(", 
+       RowBox[{"4", "-", 
+        RowBox[{"8", " ", "\[Eta]"}]}], ")"}], " ", "\[Chi]"}], "+", 
+     RowBox[{"4", " ", 
+      SuperscriptBox["\[Chi]", "2"]}]}]]}], 
+  RowBox[{"2", " ", "\[Gamma]", " ", "\[Eta]"}]]], "Output",
+ CellChangeTimes->{3.863262730058742*^9},
+ CellLabel->"Out[41]=",ExpressionUUID->"c1bf437b-68b1-44cc-a990-6724f043372b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Solve", "[", 
+  RowBox[{
+   RowBox[{
+    TagBox[
+     RowBox[{"(", "\[NoBreak]", GridBox[{
+        {
+         RowBox[{
+          RowBox[{
+           RowBox[{"-", 
+            FractionBox["1", "2"]}], " ", "\[Gamma]", " ", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"2", " ", 
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"-", "1"}], "+", "vx"}], ")"}]}], "+", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                SuperscriptBox["cc", "2"], "+", 
+                SuperscriptBox[
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"-", "1"}], "+", "vx"}], ")"}], "2"]}], ")"}], " ",
+               "\[Eta]"}]}], ")"}]}], "+", 
+          RowBox[{"2", " ", "cc", " ", "\[Omega]"}]}], 
+         RowBox[{
+          RowBox[{
+           RowBox[{"-", 
+            FractionBox["1", "2"]}], " ", "cc", " ", "\[Gamma]", " ", 
+           RowBox[{"(", 
+            RowBox[{"2", "+", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"-", "2"}], "+", "vp", "+", "vx"}], ")"}], " ", 
+              "\[Eta]"}]}], ")"}]}], "+", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"vp", "-", "vx"}], ")"}], " ", "\[Omega]"}]}]},
+        {
+         RowBox[{
+          RowBox[{
+           RowBox[{"-", 
+            FractionBox["1", "2"]}], " ", "cc", " ", "\[Gamma]", " ", 
+           RowBox[{"(", 
+            RowBox[{"2", "+", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"-", "2"}], "+", "vp", "+", "vx"}], ")"}], " ", 
+              "\[Eta]"}]}], ")"}]}], "+", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"vp", "-", "vx"}], ")"}], " ", "\[Omega]"}]}], 
+         RowBox[{
+          RowBox[{
+           RowBox[{"-", 
+            FractionBox["1", "2"]}], " ", "\[Gamma]", " ", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"2", " ", 
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"-", "1"}], "+", "vp"}], ")"}]}], "+", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                SuperscriptBox["cc", "2"], "+", 
+                SuperscriptBox[
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"-", "1"}], "+", "vp"}], ")"}], "2"]}], ")"}], " ",
+               "\[Eta]"}]}], ")"}]}], "-", 
+          RowBox[{"2", " ", "cc", " ", "\[Omega]"}]}]}
+       },
+       GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.7]}, 
+           Offset[0.27999999999999997`]}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}}], "\[NoBreak]", ")"}],
+     Function[BoxForm`e$, 
+      MatrixForm[BoxForm`e$]]], "==", 
+    RowBox[{"0", "*", 
+     RowBox[{"IdentityMatrix", "[", "2", "]"}]}]}], ",", 
+   RowBox[{"{", 
+    RowBox[{"vx", ",", "vp", ",", "cc"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.86326386035163*^9, 3.863263878186862*^9}},
+ CellLabel->"In[64]:=",ExpressionUUID->"2a92d92f-58d3-4cde-989c-7048b3b2b177"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Solve", "fdimc", 
+   "\"When parameter values satisfy the condition \\!\\(\\*RowBox[{RowBox[{\\\
+\"\[Gamma]\\\", \\\"\[Equal]\\\", \\\"0\\\"}], \\\"&&\\\", RowBox[{\\\"\
+\[Omega]\\\", \\\"\[Equal]\\\", \\\"0\\\"}]}]\\), the solution set contains a \
+full-dimensional component; use Reduce for complete solution information.\"", 
+   2, 64, 6, 29814762944199887119, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{{3.86326386828076*^9, 3.863263878931264*^9}},
+ CellLabel->
+  "During evaluation of \
+In[64]:=",ExpressionUUID->"ce788931-6fc9-4070-b415-fe7f8d61b178"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Solve", "svars", 
+   "\"Equations may not give solutions for all \\\"solve\\\" variables.\"", 2,
+    64, 7, 29814762944199887119, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{{3.86326386828076*^9, 3.863263878951624*^9}},
+ CellLabel->
+  "During evaluation of \
+In[64]:=",ExpressionUUID->"b5035205-8f70-4680-af50-dbedfdd63019"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"vp", "\[Rule]", 
+      TemplateBox[{"vx", 
+        RowBox[{
+          RowBox[{"\[Gamma]", "\[Equal]", "0"}], "&&", 
+          RowBox[{"\[Omega]", "\[NotEqual]", "0"}]}]},
+       "ConditionalExpression"]}], ",", 
+     RowBox[{"cc", "\[Rule]", 
+      TemplateBox[{"0", 
+        RowBox[{
+          RowBox[{"\[Gamma]", "\[Equal]", "0"}], "&&", 
+          RowBox[{"\[Omega]", "\[NotEqual]", "0"}]}]},
+       "ConditionalExpression"]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"vx", "\[Rule]", 
+      TemplateBox[{
+        FractionBox[
+         RowBox[{"\[Gamma]", "+", 
+           RowBox[{"2", " ", "cc", " ", "\[Omega]"}]}], "\[Gamma]"], 
+        InterpretationBox[
+         DynamicModuleBox[{Typeset`open = False}, 
+          TemplateBox[{"Expression", 
+            StyleBox[
+             TagBox[
+              TooltipBox["\"condition\"", 
+               TagBox[
+                RowBox[{
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{"\[Eta]", "\[Equal]", "0"}], "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    RowBox[{"-", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}]}], 
+                    ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{"\[Eta]", "\[Equal]", "0"}], "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}], 
+                    ")"}]}], Short[#, 7]& ]], Annotation[#, 
+               Short[
+                Or[
+                 
+                 And[$CellContext`\[Gamma] != 0, $CellContext`\[Eta] == 
+                  0, $CellContext`\[Omega] == Complex[0, 
+                    Rational[-1, 2]] $CellContext`\[Gamma]], 
+                 
+                 And[$CellContext`\[Gamma] != 0, $CellContext`\[Eta] == 
+                  0, $CellContext`\[Omega] == Complex[0, 
+                    Rational[1, 2]] $CellContext`\[Gamma]]], 7], 
+               "Tooltip"]& ], "IconizedCustomName", StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Head: \"", "IconizedLabel"], "\[InvisibleSpace]", 
+                 TagBox["Or", "IconizedItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Byte count: \"", "IconizedLabel"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["888", "IconizedItem"]}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+             "Column", 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], 
+            Dynamic[Typeset`open]}, "IconizedObject"]], 
+         Or[
+          
+          And[$CellContext`\[Gamma] != 0, $CellContext`\[Eta] == 
+           0, $CellContext`\[Omega] == Complex[0, 
+              Rational[-1, 2]] $CellContext`\[Gamma]], 
+          
+          And[$CellContext`\[Gamma] != 0, $CellContext`\[Eta] == 
+           0, $CellContext`\[Omega] == Complex[0, 
+              Rational[1, 2]] $CellContext`\[Gamma]]], SelectWithContents -> 
+         True, Selectable -> False]},
+       "ConditionalExpression"]}], ",", 
+     RowBox[{"vp", "\[Rule]", 
+      TemplateBox[{
+        RowBox[{"2", "-", 
+          FractionBox[
+           RowBox[{"\[Gamma]", "+", 
+             RowBox[{"2", " ", "cc", " ", "\[Omega]"}]}], "\[Gamma]"]}], 
+        InterpretationBox[
+         DynamicModuleBox[{Typeset`open = False}, 
+          TemplateBox[{"Expression", 
+            StyleBox[
+             TagBox[
+              TooltipBox["\"condition\"", 
+               TagBox[
+                RowBox[{
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{"\[Eta]", "\[Equal]", "0"}], "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    RowBox[{"-", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}]}], 
+                    ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{"\[Eta]", "\[Equal]", "0"}], "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}], 
+                    ")"}]}], Short[#, 7]& ]], Annotation[#, 
+               Short[
+                Or[
+                 
+                 And[$CellContext`\[Gamma] != 0, $CellContext`\[Eta] == 
+                  0, $CellContext`\[Omega] == Complex[0, 
+                    Rational[-1, 2]] $CellContext`\[Gamma]], 
+                 
+                 And[$CellContext`\[Gamma] != 0, $CellContext`\[Eta] == 
+                  0, $CellContext`\[Omega] == Complex[0, 
+                    Rational[1, 2]] $CellContext`\[Gamma]]], 7], 
+               "Tooltip"]& ], "IconizedCustomName", StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Head: \"", "IconizedLabel"], "\[InvisibleSpace]", 
+                 TagBox["Or", "IconizedItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Byte count: \"", "IconizedLabel"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["888", "IconizedItem"]}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+             "Column", 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], 
+            Dynamic[Typeset`open]}, "IconizedObject"]], 
+         Or[
+          
+          And[$CellContext`\[Gamma] != 0, $CellContext`\[Eta] == 
+           0, $CellContext`\[Omega] == Complex[0, 
+              Rational[-1, 2]] $CellContext`\[Gamma]], 
+          
+          And[$CellContext`\[Gamma] != 0, $CellContext`\[Eta] == 
+           0, $CellContext`\[Omega] == Complex[0, 
+              Rational[1, 2]] $CellContext`\[Gamma]]], SelectWithContents -> 
+         True, Selectable -> False]},
+       "ConditionalExpression"]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"vx", "\[Rule]", 
+      TemplateBox[{
+        FractionBox[
+         RowBox[{
+           RowBox[{"-", "\[Gamma]"}], "+", 
+           RowBox[{"\[Gamma]", " ", "\[Eta]"}], "-", 
+           SqrtBox[
+            RowBox[{
+              SuperscriptBox["\[Gamma]", "2"], "-", 
+              RowBox[{
+                SuperscriptBox["cc", "2"], " ", 
+                SuperscriptBox["\[Gamma]", "2"], " ", 
+                SuperscriptBox["\[Eta]", "2"]}], "+", 
+              
+              RowBox[{"4", " ", "cc", " ", "\[Gamma]", " ", "\[Eta]", " ", 
+                "\[Omega]"}]}]]}], 
+         RowBox[{"\[Gamma]", " ", "\[Eta]"}]], 
+        InterpretationBox[
+         DynamicModuleBox[{Typeset`open = False}, 
+          TemplateBox[{"Expression", 
+            StyleBox[
+             TagBox[
+              TooltipBox["\"condition\"", 
+               TagBox[
+                RowBox[{
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"cc", " ", "\[Gamma]", " ", "\[Eta]"}], "-", 
+                    RowBox[{"2", " ", "\[Omega]"}]}], "\[NotEqual]", "0"}], 
+                    "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", "0"}]}], ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"cc", " ", "\[Gamma]", " ", "\[Eta]"}], "-", 
+                    RowBox[{"2", " ", "\[Omega]"}]}], "\[NotEqual]", "0"}], 
+                    "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    RowBox[{"-", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}]}], 
+                    ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"cc", " ", "\[Gamma]", " ", "\[Eta]"}], "-", 
+                    RowBox[{"2", " ", "\[Omega]"}]}], "\[NotEqual]", "0"}], 
+                    "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}], 
+                    ")"}]}], Short[#, 7]& ]], Annotation[#, 
+               Short[
+                Or[
+                 
+                 And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`cc $CellContext`\[Gamma] \
+$CellContext`\[Eta] - 2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 
+                  0], 
+                 
+                 And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`cc $CellContext`\[Gamma] \
+$CellContext`\[Eta] - 2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 
+                  Complex[0, 
+                    Rational[-1, 2]] $CellContext`\[Gamma]], 
+                 
+                 And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`cc $CellContext`\[Gamma] \
+$CellContext`\[Eta] - 2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 
+                  Complex[0, 
+                    Rational[1, 2]] $CellContext`\[Gamma]]], 7], 
+               "Tooltip"]& ], "IconizedCustomName", StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Head: \"", "IconizedLabel"], "\[InvisibleSpace]", 
+                 TagBox["Or", "IconizedItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Byte count: \"", "IconizedLabel"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["1920", "IconizedItem"]}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+             "Column", 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], 
+            Dynamic[Typeset`open]}, "IconizedObject"]], 
+         Or[
+          
+          And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`cc $CellContext`\[Gamma] $CellContext`\[Eta] - 
+            2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 0], 
+          
+          And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`cc $CellContext`\[Gamma] $CellContext`\[Eta] - 
+            2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 
+           Complex[0, 
+              Rational[-1, 2]] $CellContext`\[Gamma]], 
+          
+          And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`cc $CellContext`\[Gamma] $CellContext`\[Eta] - 
+            2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 
+           Complex[0, 
+              Rational[1, 2]] $CellContext`\[Gamma]]], SelectWithContents -> 
+         True, Selectable -> False]},
+       "ConditionalExpression"]}], ",", 
+     RowBox[{"vp", "\[Rule]", 
+      TemplateBox[{
+        FractionBox[
+         RowBox[{
+           RowBox[{
+             RowBox[{"-", "2"}], " ", "cc", " ", "\[Gamma]"}], "+", 
+           RowBox[{"2", " ", "cc", " ", "\[Gamma]", " ", "\[Eta]"}], "-", 
+           RowBox[{"cc", " ", 
+             RowBox[{"(", 
+               RowBox[{
+                 RowBox[{"-", "\[Gamma]"}], "+", 
+                 RowBox[{"\[Gamma]", " ", "\[Eta]"}], "-", 
+                 SqrtBox[
+                  RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], "-", 
+                    RowBox[{
+                    SuperscriptBox["cc", "2"], " ", 
+                    SuperscriptBox["\[Gamma]", "2"], " ", 
+                    SuperscriptBox["\[Eta]", "2"]}], "+", 
+                    RowBox[{
+                    "4", " ", "cc", " ", "\[Gamma]", " ", "\[Eta]", " ", 
+                    "\[Omega]"}]}]]}], ")"}]}], "-", 
+           FractionBox[
+            RowBox[{"2", " ", "\[Omega]", " ", 
+              RowBox[{"(", 
+                RowBox[{
+                  RowBox[{"-", "\[Gamma]"}], "+", 
+                  RowBox[{"\[Gamma]", " ", "\[Eta]"}], "-", 
+                  SqrtBox[
+                   RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], "-", 
+                    RowBox[{
+                    SuperscriptBox["cc", "2"], " ", 
+                    SuperscriptBox["\[Gamma]", "2"], " ", 
+                    SuperscriptBox["\[Eta]", "2"]}], "+", 
+                    
+                    RowBox[{
+                    "4", " ", "cc", " ", "\[Gamma]", " ", "\[Eta]", " ", 
+                    "\[Omega]"}]}]]}], ")"}]}], 
+            RowBox[{"\[Gamma]", " ", "\[Eta]"}]]}], 
+         RowBox[{
+           RowBox[{"cc", " ", "\[Gamma]", " ", "\[Eta]"}], "-", 
+           RowBox[{"2", " ", "\[Omega]"}]}]], 
+        InterpretationBox[
+         DynamicModuleBox[{Typeset`open = False}, 
+          TemplateBox[{"Expression", 
+            StyleBox[
+             TagBox[
+              TooltipBox["\"condition\"", 
+               TagBox[
+                RowBox[{
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"cc", " ", "\[Gamma]", " ", "\[Eta]"}], "-", 
+                    RowBox[{"2", " ", "\[Omega]"}]}], "\[NotEqual]", "0"}], 
+                    "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", "0"}]}], ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"cc", " ", "\[Gamma]", " ", "\[Eta]"}], "-", 
+                    RowBox[{"2", " ", "\[Omega]"}]}], "\[NotEqual]", "0"}], 
+                    "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    RowBox[{"-", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}]}], 
+                    ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"cc", " ", "\[Gamma]", " ", "\[Eta]"}], "-", 
+                    RowBox[{"2", " ", "\[Omega]"}]}], "\[NotEqual]", "0"}], 
+                    "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}], 
+                    ")"}]}], Short[#, 7]& ]], Annotation[#, 
+               Short[
+                Or[
+                 
+                 And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`cc $CellContext`\[Gamma] \
+$CellContext`\[Eta] - 2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 
+                  0], 
+                 
+                 And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`cc $CellContext`\[Gamma] \
+$CellContext`\[Eta] - 2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 
+                  Complex[0, 
+                    Rational[-1, 2]] $CellContext`\[Gamma]], 
+                 
+                 And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`cc $CellContext`\[Gamma] \
+$CellContext`\[Eta] - 2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 
+                  Complex[0, 
+                    Rational[1, 2]] $CellContext`\[Gamma]]], 7], 
+               "Tooltip"]& ], "IconizedCustomName", StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Head: \"", "IconizedLabel"], "\[InvisibleSpace]", 
+                 TagBox["Or", "IconizedItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Byte count: \"", "IconizedLabel"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["1920", "IconizedItem"]}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+             "Column", 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], 
+            Dynamic[Typeset`open]}, "IconizedObject"]], 
+         Or[
+          
+          And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`cc $CellContext`\[Gamma] $CellContext`\[Eta] - 
+            2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 0], 
+          
+          And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`cc $CellContext`\[Gamma] $CellContext`\[Eta] - 
+            2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 
+           Complex[0, 
+              Rational[-1, 2]] $CellContext`\[Gamma]], 
+          
+          And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`cc $CellContext`\[Gamma] $CellContext`\[Eta] - 
+            2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 
+           Complex[0, 
+              Rational[1, 2]] $CellContext`\[Gamma]]], SelectWithContents -> 
+         True, Selectable -> False]},
+       "ConditionalExpression"]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"vx", "\[Rule]", 
+      TemplateBox[{
+        FractionBox[
+         RowBox[{
+           RowBox[{"-", "\[Gamma]"}], "+", 
+           RowBox[{"\[Gamma]", " ", "\[Eta]"}], "+", 
+           SqrtBox[
+            RowBox[{
+              SuperscriptBox["\[Gamma]", "2"], "-", 
+              RowBox[{
+                SuperscriptBox["cc", "2"], " ", 
+                SuperscriptBox["\[Gamma]", "2"], " ", 
+                SuperscriptBox["\[Eta]", "2"]}], "+", 
+              
+              RowBox[{"4", " ", "cc", " ", "\[Gamma]", " ", "\[Eta]", " ", 
+                "\[Omega]"}]}]]}], 
+         RowBox[{"\[Gamma]", " ", "\[Eta]"}]], 
+        InterpretationBox[
+         DynamicModuleBox[{Typeset`open = False}, 
+          TemplateBox[{"Expression", 
+            StyleBox[
+             TagBox[
+              TooltipBox["\"condition\"", 
+               TagBox[
+                RowBox[{
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"cc", " ", "\[Gamma]", " ", "\[Eta]"}], "-", 
+                    RowBox[{"2", " ", "\[Omega]"}]}], "\[NotEqual]", "0"}], 
+                    "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", "0"}]}], ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"cc", " ", "\[Gamma]", " ", "\[Eta]"}], "-", 
+                    RowBox[{"2", " ", "\[Omega]"}]}], "\[NotEqual]", "0"}], 
+                    "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    RowBox[{"-", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}]}], 
+                    ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"cc", " ", "\[Gamma]", " ", "\[Eta]"}], "-", 
+                    RowBox[{"2", " ", "\[Omega]"}]}], "\[NotEqual]", "0"}], 
+                    "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}], 
+                    ")"}]}], Short[#, 7]& ]], Annotation[#, 
+               Short[
+                Or[
+                 
+                 And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`cc $CellContext`\[Gamma] \
+$CellContext`\[Eta] - 2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 
+                  0], 
+                 
+                 And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`cc $CellContext`\[Gamma] \
+$CellContext`\[Eta] - 2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 
+                  Complex[0, 
+                    Rational[-1, 2]] $CellContext`\[Gamma]], 
+                 
+                 And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`cc $CellContext`\[Gamma] \
+$CellContext`\[Eta] - 2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 
+                  Complex[0, 
+                    Rational[1, 2]] $CellContext`\[Gamma]]], 7], 
+               "Tooltip"]& ], "IconizedCustomName", StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Head: \"", "IconizedLabel"], "\[InvisibleSpace]", 
+                 TagBox["Or", "IconizedItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Byte count: \"", "IconizedLabel"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["1920", "IconizedItem"]}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+             "Column", 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], 
+            Dynamic[Typeset`open]}, "IconizedObject"]], 
+         Or[
+          
+          And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`cc $CellContext`\[Gamma] $CellContext`\[Eta] - 
+            2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 0], 
+          
+          And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`cc $CellContext`\[Gamma] $CellContext`\[Eta] - 
+            2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 
+           Complex[0, 
+              Rational[-1, 2]] $CellContext`\[Gamma]], 
+          
+          And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`cc $CellContext`\[Gamma] $CellContext`\[Eta] - 
+            2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 
+           Complex[0, 
+              Rational[1, 2]] $CellContext`\[Gamma]]], SelectWithContents -> 
+         True, Selectable -> False]},
+       "ConditionalExpression"]}], ",", 
+     RowBox[{"vp", "\[Rule]", 
+      TemplateBox[{
+        FractionBox[
+         RowBox[{
+           RowBox[{
+             RowBox[{"-", "2"}], " ", "cc", " ", "\[Gamma]"}], "+", 
+           RowBox[{"2", " ", "cc", " ", "\[Gamma]", " ", "\[Eta]"}], "-", 
+           RowBox[{"cc", " ", 
+             RowBox[{"(", 
+               RowBox[{
+                 RowBox[{"-", "\[Gamma]"}], "+", 
+                 RowBox[{"\[Gamma]", " ", "\[Eta]"}], "+", 
+                 SqrtBox[
+                  RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], "-", 
+                    RowBox[{
+                    SuperscriptBox["cc", "2"], " ", 
+                    SuperscriptBox["\[Gamma]", "2"], " ", 
+                    SuperscriptBox["\[Eta]", "2"]}], "+", 
+                    
+                    RowBox[{
+                    "4", " ", "cc", " ", "\[Gamma]", " ", "\[Eta]", " ", 
+                    "\[Omega]"}]}]]}], ")"}]}], "-", 
+           FractionBox[
+            RowBox[{"2", " ", "\[Omega]", " ", 
+              RowBox[{"(", 
+                RowBox[{
+                  RowBox[{"-", "\[Gamma]"}], "+", 
+                  RowBox[{"\[Gamma]", " ", "\[Eta]"}], "+", 
+                  SqrtBox[
+                   RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], "-", 
+                    RowBox[{
+                    SuperscriptBox["cc", "2"], " ", 
+                    SuperscriptBox["\[Gamma]", "2"], " ", 
+                    SuperscriptBox["\[Eta]", "2"]}], "+", 
+                    
+                    RowBox[{
+                    "4", " ", "cc", " ", "\[Gamma]", " ", "\[Eta]", " ", 
+                    "\[Omega]"}]}]]}], ")"}]}], 
+            RowBox[{"\[Gamma]", " ", "\[Eta]"}]]}], 
+         RowBox[{
+           RowBox[{"cc", " ", "\[Gamma]", " ", "\[Eta]"}], "-", 
+           RowBox[{"2", " ", "\[Omega]"}]}]], 
+        InterpretationBox[
+         DynamicModuleBox[{Typeset`open = False}, 
+          TemplateBox[{"Expression", 
+            StyleBox[
+             TagBox[
+              TooltipBox["\"condition\"", 
+               TagBox[
+                RowBox[{
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"cc", " ", "\[Gamma]", " ", "\[Eta]"}], "-", 
+                    RowBox[{"2", " ", "\[Omega]"}]}], "\[NotEqual]", "0"}], 
+                    "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", "0"}]}], ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"cc", " ", "\[Gamma]", " ", "\[Eta]"}], "-", 
+                    RowBox[{"2", " ", "\[Omega]"}]}], "\[NotEqual]", "0"}], 
+                    "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    RowBox[{"-", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}]}], 
+                    ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"cc", " ", "\[Gamma]", " ", "\[Eta]"}], "-", 
+                    RowBox[{"2", " ", "\[Omega]"}]}], "\[NotEqual]", "0"}], 
+                    "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}], 
+                    ")"}]}], Short[#, 7]& ]], Annotation[#, 
+               Short[
+                Or[
+                 
+                 And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`cc $CellContext`\[Gamma] \
+$CellContext`\[Eta] - 2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 
+                  0], 
+                 
+                 And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`cc $CellContext`\[Gamma] \
+$CellContext`\[Eta] - 2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 
+                  Complex[0, 
+                    Rational[-1, 2]] $CellContext`\[Gamma]], 
+                 
+                 And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`cc $CellContext`\[Gamma] \
+$CellContext`\[Eta] - 2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 
+                  Complex[0, 
+                    Rational[1, 2]] $CellContext`\[Gamma]]], 7], 
+               "Tooltip"]& ], "IconizedCustomName", StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Head: \"", "IconizedLabel"], "\[InvisibleSpace]", 
+                 TagBox["Or", "IconizedItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Byte count: \"", "IconizedLabel"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["1920", "IconizedItem"]}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+             "Column", 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], 
+            Dynamic[Typeset`open]}, "IconizedObject"]], 
+         Or[
+          
+          And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`cc $CellContext`\[Gamma] $CellContext`\[Eta] - 
+            2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 0], 
+          
+          And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`cc $CellContext`\[Gamma] $CellContext`\[Eta] - 
+            2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 
+           Complex[0, 
+              Rational[-1, 2]] $CellContext`\[Gamma]], 
+          
+          And[$CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`cc $CellContext`\[Gamma] $CellContext`\[Eta] - 
+            2 $CellContext`\[Omega] != 0, $CellContext`\[Omega] == 
+           Complex[0, 
+              Rational[1, 2]] $CellContext`\[Gamma]]], SelectWithContents -> 
+         True, Selectable -> False]},
+       "ConditionalExpression"]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"vx", "\[Rule]", 
+      TemplateBox[{"1", 
+        RowBox[{
+          RowBox[{"\[Gamma]", "\[NotEqual]", "0"}], "&&", 
+          RowBox[{"\[Eta]", "\[NotEqual]", "0"}], "&&", 
+          RowBox[{"\[Omega]", "\[Equal]", "0"}]}]},
+       "ConditionalExpression"]}], ",", 
+     RowBox[{"vp", "\[Rule]", 
+      TemplateBox[{
+        FractionBox[
+         RowBox[{
+           RowBox[{"-", "2"}], "+", "\[Eta]"}], "\[Eta]"], 
+        RowBox[{
+          RowBox[{"\[Gamma]", "\[NotEqual]", "0"}], "&&", 
+          RowBox[{"\[Eta]", "\[NotEqual]", "0"}], "&&", 
+          RowBox[{"\[Omega]", "\[Equal]", "0"}]}]},
+       "ConditionalExpression"]}], ",", 
+     RowBox[{"cc", "\[Rule]", 
+      TemplateBox[{"0", 
+        RowBox[{
+          RowBox[{"\[Gamma]", "\[NotEqual]", "0"}], "&&", 
+          RowBox[{"\[Eta]", "\[NotEqual]", "0"}], "&&", 
+          RowBox[{"\[Omega]", "\[Equal]", "0"}]}]},
+       "ConditionalExpression"]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"vx", "\[Rule]", 
+      TemplateBox[{"1", 
+        RowBox[{
+          RowBox[{"\[Eta]", "\[Equal]", "0"}], "&&", 
+          RowBox[{"\[Omega]", "\[Equal]", "0"}], "&&", 
+          RowBox[{
+            SuperscriptBox["\[Gamma]", "2"], "\[NotEqual]", "0"}], "&&", 
+          RowBox[{"\[Gamma]", "\[NotEqual]", "0"}]}]},
+       "ConditionalExpression"]}], ",", 
+     RowBox[{"vp", "\[Rule]", 
+      TemplateBox[{"1", 
+        RowBox[{
+          RowBox[{"\[Eta]", "\[Equal]", "0"}], "&&", 
+          RowBox[{"\[Omega]", "\[Equal]", "0"}], "&&", 
+          RowBox[{
+            SuperscriptBox["\[Gamma]", "2"], "\[NotEqual]", "0"}], "&&", 
+          RowBox[{"\[Gamma]", "\[NotEqual]", "0"}]}]},
+       "ConditionalExpression"]}], ",", 
+     RowBox[{"cc", "\[Rule]", 
+      TemplateBox[{"0", 
+        RowBox[{
+          RowBox[{"\[Eta]", "\[Equal]", "0"}], "&&", 
+          RowBox[{"\[Omega]", "\[Equal]", "0"}], "&&", 
+          RowBox[{
+            SuperscriptBox["\[Gamma]", "2"], "\[NotEqual]", "0"}], "&&", 
+          RowBox[{"\[Gamma]", "\[NotEqual]", "0"}]}]},
+       "ConditionalExpression"]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"vx", "\[Rule]", 
+      TemplateBox[{"1", 
+        InterpretationBox[
+         DynamicModuleBox[{Typeset`open = False}, 
+          TemplateBox[{"Expression", 
+            StyleBox[
+             TagBox[
+              TooltipBox["\"condition\"", 
+               TagBox[
+                RowBox[{
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{"\[Eta]", "\[Equal]", "0"}], "&&", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Omega]"}], "+", 
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "3"]}]}], "\[NotEqual]", 
+                    "0"}]}], ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{"\[Eta]", "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", "0"}]}], ")"}]}], 
+                Short[#, 7]& ]], Annotation[#, 
+               Short[
+                Or[
+                 
+                 And[$CellContext`\[Gamma] != 0, $CellContext`\[Eta] == 
+                  0, $CellContext`\[Gamma]^2 $CellContext`\[Omega] + 
+                   4 $CellContext`\[Omega]^3 != 0], 
+                 
+                 And[$CellContext`\[Gamma] != 0, $CellContext`\[Eta] != 
+                  0, $CellContext`\[Omega] == 0]], 7], "Tooltip"]& ], 
+             "IconizedCustomName", StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Head: \"", "IconizedLabel"], "\[InvisibleSpace]", 
+                 TagBox["Or", "IconizedItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Byte count: \"", "IconizedLabel"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["944", "IconizedItem"]}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+             "Column", 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], 
+            Dynamic[Typeset`open]}, "IconizedObject"]], 
+         Or[
+          
+          And[$CellContext`\[Gamma] != 0, $CellContext`\[Eta] == 
+           0, $CellContext`\[Gamma]^2 $CellContext`\[Omega] + 
+            4 $CellContext`\[Omega]^3 != 0], 
+          
+          And[$CellContext`\[Gamma] != 0, $CellContext`\[Eta] != 
+           0, $CellContext`\[Omega] == 0]], SelectWithContents -> True, 
+         Selectable -> False]},
+       "ConditionalExpression"]}], ",", 
+     RowBox[{"vp", "\[Rule]", 
+      TemplateBox[{"1", 
+        InterpretationBox[
+         DynamicModuleBox[{Typeset`open = False}, 
+          TemplateBox[{"Expression", 
+            StyleBox[
+             TagBox[
+              TooltipBox["\"condition\"", 
+               TagBox[
+                RowBox[{
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{"\[Eta]", "\[Equal]", "0"}], "&&", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Omega]"}], "+", 
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "3"]}]}], "\[NotEqual]", 
+                    "0"}]}], ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{"\[Eta]", "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", "0"}]}], ")"}]}], 
+                Short[#, 7]& ]], Annotation[#, 
+               Short[
+                Or[
+                 
+                 And[$CellContext`\[Gamma] != 0, $CellContext`\[Eta] == 
+                  0, $CellContext`\[Gamma]^2 $CellContext`\[Omega] + 
+                   4 $CellContext`\[Omega]^3 != 0], 
+                 
+                 And[$CellContext`\[Gamma] != 0, $CellContext`\[Eta] != 
+                  0, $CellContext`\[Omega] == 0]], 7], "Tooltip"]& ], 
+             "IconizedCustomName", StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Head: \"", "IconizedLabel"], "\[InvisibleSpace]", 
+                 TagBox["Or", "IconizedItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Byte count: \"", "IconizedLabel"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["944", "IconizedItem"]}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+             "Column", 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], 
+            Dynamic[Typeset`open]}, "IconizedObject"]], 
+         Or[
+          
+          And[$CellContext`\[Gamma] != 0, $CellContext`\[Eta] == 
+           0, $CellContext`\[Gamma]^2 $CellContext`\[Omega] + 
+            4 $CellContext`\[Omega]^3 != 0], 
+          
+          And[$CellContext`\[Gamma] != 0, $CellContext`\[Eta] != 
+           0, $CellContext`\[Omega] == 0]], SelectWithContents -> True, 
+         Selectable -> False]},
+       "ConditionalExpression"]}], ",", 
+     RowBox[{"cc", "\[Rule]", 
+      TemplateBox[{"0", 
+        InterpretationBox[
+         DynamicModuleBox[{Typeset`open = False}, 
+          TemplateBox[{"Expression", 
+            StyleBox[
+             TagBox[
+              TooltipBox["\"condition\"", 
+               TagBox[
+                RowBox[{
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{"\[Eta]", "\[Equal]", "0"}], "&&", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Omega]"}], "+", 
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "3"]}]}], "\[NotEqual]", 
+                    "0"}]}], ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{"\[Eta]", "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", "0"}]}], ")"}]}], 
+                Short[#, 7]& ]], Annotation[#, 
+               Short[
+                Or[
+                 
+                 And[$CellContext`\[Gamma] != 0, $CellContext`\[Eta] == 
+                  0, $CellContext`\[Gamma]^2 $CellContext`\[Omega] + 
+                   4 $CellContext`\[Omega]^3 != 0], 
+                 
+                 And[$CellContext`\[Gamma] != 0, $CellContext`\[Eta] != 
+                  0, $CellContext`\[Omega] == 0]], 7], "Tooltip"]& ], 
+             "IconizedCustomName", StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Head: \"", "IconizedLabel"], "\[InvisibleSpace]", 
+                 TagBox["Or", "IconizedItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Byte count: \"", "IconizedLabel"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["944", "IconizedItem"]}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+             "Column", 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], 
+            Dynamic[Typeset`open]}, "IconizedObject"]], 
+         Or[
+          
+          And[$CellContext`\[Gamma] != 0, $CellContext`\[Eta] == 
+           0, $CellContext`\[Gamma]^2 $CellContext`\[Omega] + 
+            4 $CellContext`\[Omega]^3 != 0], 
+          
+          And[$CellContext`\[Gamma] != 0, $CellContext`\[Eta] != 
+           0, $CellContext`\[Omega] == 0]], SelectWithContents -> True, 
+         Selectable -> False]},
+       "ConditionalExpression"]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"vx", "\[Rule]", 
+      TemplateBox[{
+        FractionBox[
+         RowBox[{
+           RowBox[{"-", "2"}], "+", "\[Eta]"}], "\[Eta]"], 
+        RowBox[{
+          RowBox[{"\[Gamma]", "\[NotEqual]", "0"}], "&&", 
+          RowBox[{"\[Eta]", "\[NotEqual]", "0"}], "&&", 
+          RowBox[{"\[Omega]", "\[Equal]", "0"}]}]},
+       "ConditionalExpression"]}], ",", 
+     RowBox[{"vp", "\[Rule]", 
+      TemplateBox[{"1", 
+        RowBox[{
+          RowBox[{"\[Gamma]", "\[NotEqual]", "0"}], "&&", 
+          RowBox[{"\[Eta]", "\[NotEqual]", "0"}], "&&", 
+          RowBox[{"\[Omega]", "\[Equal]", "0"}]}]},
+       "ConditionalExpression"]}], ",", 
+     RowBox[{"cc", "\[Rule]", 
+      TemplateBox[{"0", 
+        RowBox[{
+          RowBox[{"\[Gamma]", "\[NotEqual]", "0"}], "&&", 
+          RowBox[{"\[Eta]", "\[NotEqual]", "0"}], "&&", 
+          RowBox[{"\[Omega]", "\[Equal]", "0"}]}]},
+       "ConditionalExpression"]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"vx", "\[Rule]", 
+      TemplateBox[{
+        FractionBox[
+         RowBox[{
+           RowBox[{"-", "2"}], "+", "\[Eta]"}], "\[Eta]"], 
+        RowBox[{
+          RowBox[{"\[Gamma]", "\[NotEqual]", "0"}], "&&", 
+          RowBox[{"\[Eta]", "\[NotEqual]", "0"}], "&&", 
+          RowBox[{"\[Omega]", "\[Equal]", "0"}]}]},
+       "ConditionalExpression"]}], ",", 
+     RowBox[{"vp", "\[Rule]", 
+      TemplateBox[{
+        FractionBox[
+         RowBox[{
+           RowBox[{"-", "2"}], "+", "\[Eta]"}], "\[Eta]"], 
+        RowBox[{
+          RowBox[{"\[Gamma]", "\[NotEqual]", "0"}], "&&", 
+          RowBox[{"\[Eta]", "\[NotEqual]", "0"}], "&&", 
+          RowBox[{"\[Omega]", "\[Equal]", "0"}]}]},
+       "ConditionalExpression"]}], ",", 
+     RowBox[{"cc", "\[Rule]", 
+      TemplateBox[{"0", 
+        RowBox[{
+          RowBox[{"\[Gamma]", "\[NotEqual]", "0"}], "&&", 
+          RowBox[{"\[Eta]", "\[NotEqual]", "0"}], "&&", 
+          RowBox[{"\[Omega]", "\[Equal]", "0"}]}]},
+       "ConditionalExpression"]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"vx", "\[Rule]", 
+      TemplateBox[{
+        FractionBox[
+         RowBox[{
+           RowBox[{"-", "\[Gamma]"}], "-", 
+           SqrtBox[
+            SuperscriptBox["\[Gamma]", "2"]], "+", 
+           RowBox[{"\[Gamma]", " ", "\[Eta]"}]}], 
+         RowBox[{"\[Gamma]", " ", "\[Eta]"}]], 
+        RowBox[{
+          RowBox[{
+            RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}], "&&", 
+          RowBox[{
+            RowBox[{
+              RowBox[{"-", "2"}], " ", "\[Omega]"}], "\[NotEqual]", "0"}], 
+          "&&", 
+          RowBox[{
+            RowBox[{"\[Omega]", " ", 
+              RowBox[{"(", 
+                RowBox[{
+                  SuperscriptBox["\[Gamma]", "2"], "+", 
+                  RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}]}], ")"}]}], 
+            "\[NotEqual]", "0"}]}]},
+       "ConditionalExpression"]}], ",", 
+     RowBox[{"vp", "\[Rule]", 
+      TemplateBox[{
+        FractionBox[
+         RowBox[{
+           RowBox[{"-", "\[Gamma]"}], "-", 
+           SqrtBox[
+            SuperscriptBox["\[Gamma]", "2"]], "+", 
+           RowBox[{"\[Gamma]", " ", "\[Eta]"}]}], 
+         RowBox[{"\[Gamma]", " ", "\[Eta]"}]], 
+        RowBox[{
+          RowBox[{
+            RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}], "&&", 
+          RowBox[{
+            RowBox[{
+              RowBox[{"-", "2"}], " ", "\[Omega]"}], "\[NotEqual]", "0"}], 
+          "&&", 
+          RowBox[{
+            RowBox[{"\[Omega]", " ", 
+              RowBox[{"(", 
+                RowBox[{
+                  SuperscriptBox["\[Gamma]", "2"], "+", 
+                  RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}]}], ")"}]}], 
+            "\[NotEqual]", "0"}]}]},
+       "ConditionalExpression"]}], ",", 
+     RowBox[{"cc", "\[Rule]", 
+      TemplateBox[{"0", 
+        RowBox[{
+          RowBox[{
+            RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}], "&&", 
+          RowBox[{
+            RowBox[{
+              RowBox[{"-", "2"}], " ", "\[Omega]"}], "\[NotEqual]", "0"}], 
+          "&&", 
+          RowBox[{
+            RowBox[{"\[Omega]", " ", 
+              RowBox[{"(", 
+                RowBox[{
+                  SuperscriptBox["\[Gamma]", "2"], "+", 
+                  RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}]}], ")"}]}], 
+            "\[NotEqual]", "0"}]}]},
+       "ConditionalExpression"]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"vx", "\[Rule]", 
+      TemplateBox[{
+        FractionBox[
+         RowBox[{
+           RowBox[{"-", "\[Gamma]"}], "+", 
+           SqrtBox[
+            SuperscriptBox["\[Gamma]", "2"]], "+", 
+           RowBox[{"\[Gamma]", " ", "\[Eta]"}]}], 
+         RowBox[{"\[Gamma]", " ", "\[Eta]"}]], 
+        RowBox[{
+          RowBox[{
+            RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}], "&&", 
+          RowBox[{
+            RowBox[{
+              RowBox[{"-", "2"}], " ", "\[Omega]"}], "\[NotEqual]", "0"}], 
+          "&&", 
+          RowBox[{
+            RowBox[{"\[Omega]", " ", 
+              RowBox[{"(", 
+                RowBox[{
+                  SuperscriptBox["\[Gamma]", "2"], "+", 
+                  RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}]}], ")"}]}], 
+            "\[NotEqual]", "0"}]}]},
+       "ConditionalExpression"]}], ",", 
+     RowBox[{"vp", "\[Rule]", 
+      TemplateBox[{
+        FractionBox[
+         RowBox[{
+           RowBox[{"-", "\[Gamma]"}], "+", 
+           SqrtBox[
+            SuperscriptBox["\[Gamma]", "2"]], "+", 
+           RowBox[{"\[Gamma]", " ", "\[Eta]"}]}], 
+         RowBox[{"\[Gamma]", " ", "\[Eta]"}]], 
+        RowBox[{
+          RowBox[{
+            RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}], "&&", 
+          RowBox[{
+            RowBox[{
+              RowBox[{"-", "2"}], " ", "\[Omega]"}], "\[NotEqual]", "0"}], 
+          "&&", 
+          RowBox[{
+            RowBox[{"\[Omega]", " ", 
+              RowBox[{"(", 
+                RowBox[{
+                  SuperscriptBox["\[Gamma]", "2"], "+", 
+                  RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}]}], ")"}]}], 
+            "\[NotEqual]", "0"}]}]},
+       "ConditionalExpression"]}], ",", 
+     RowBox[{"cc", "\[Rule]", 
+      TemplateBox[{"0", 
+        RowBox[{
+          RowBox[{
+            RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}], "&&", 
+          RowBox[{
+            RowBox[{
+              RowBox[{"-", "2"}], " ", "\[Omega]"}], "\[NotEqual]", "0"}], 
+          "&&", 
+          RowBox[{
+            RowBox[{"\[Omega]", " ", 
+              RowBox[{"(", 
+                RowBox[{
+                  SuperscriptBox["\[Gamma]", "2"], "+", 
+                  RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}]}], ")"}]}], 
+            "\[NotEqual]", "0"}]}]},
+       "ConditionalExpression"]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"vx", "\[Rule]", 
+      TemplateBox[{
+        RowBox[{"1", "+", 
+          FractionBox[
+           RowBox[{"4", " ", 
+             SuperscriptBox["\[Omega]", "2"]}], 
+           RowBox[{
+             SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]]}], 
+        InterpretationBox[
+         DynamicModuleBox[{Typeset`open = False}, 
+          TemplateBox[{"Expression", 
+            StyleBox[
+             TagBox[
+              TooltipBox["\"condition\"", 
+               TagBox[
+                RowBox[{
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"2", " ", "\[Omega]"}], 
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}]], "\[NotEqual]", 
+                    "0"}], "&&", 
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]], 
+                    "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", "0"}]}], ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"2", " ", "\[Omega]"}], 
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}]], "\[NotEqual]", 
+                    "0"}], "&&", 
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]], 
+                    "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    RowBox[{"-", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}]}], 
+                    ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"2", " ", "\[Omega]"}], 
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}]], "\[NotEqual]", 
+                    "0"}], "&&", 
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]], 
+                    "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}], 
+                    ")"}]}], Short[#, 7]& ]], Annotation[#, 
+               Short[
+                Or[
+                 And[
+                 2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega] != 0, 
+                  4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`\[Omega] == 0], 
+                 And[
+                 2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega] != 0, 
+                  4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`\[Omega] == Complex[0, 
+                    Rational[-1, 2]] $CellContext`\[Gamma]], 
+                 And[
+                 2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega] != 0, 
+                  4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`\[Omega] == Complex[0, 
+                    Rational[1, 2]] $CellContext`\[Gamma]]], 7], 
+               "Tooltip"]& ], "IconizedCustomName", StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Head: \"", "IconizedLabel"], "\[InvisibleSpace]", 
+                 TagBox["Or", "IconizedItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Byte count: \"", "IconizedLabel"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["3192", "IconizedItem"]}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+             "Column", 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], 
+            Dynamic[Typeset`open]}, "IconizedObject"]], 
+         Or[
+          And[
+          2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) $CellContext`\
+\[Omega] != 0, 
+           4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`\[Omega] == 0], 
+          And[
+          2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) $CellContext`\
+\[Omega] != 0, 
+           4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`\[Omega] == Complex[0, 
+              Rational[-1, 2]] $CellContext`\[Gamma]], 
+          And[
+          2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) $CellContext`\
+\[Omega] != 0, 
+           4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`\[Omega] == Complex[0, 
+              Rational[1, 2]] $CellContext`\[Gamma]]], SelectWithContents -> 
+         True, Selectable -> False]},
+       "ConditionalExpression"]}], ",", 
+     RowBox[{"vp", "\[Rule]", 
+      TemplateBox[{
+        FractionBox[
+         RowBox[{
+           SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]", " ", 
+           RowBox[{"(", 
+             RowBox[{
+               RowBox[{"-", "1"}], "-", 
+               FractionBox[
+                RowBox[{"4", " ", 
+                  SuperscriptBox["\[Omega]", "2"]}], 
+                RowBox[{
+                  SuperscriptBox["\[Gamma]", "2"], " ", 
+                  SuperscriptBox["\[Eta]", "2"]}]], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                  RowBox[{"1", "+", 
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]]}], 
+                  ")"}], "2"], "-", 
+               SqrtBox[
+                RowBox[{
+                  SuperscriptBox[
+                   RowBox[{"(", 
+                    RowBox[{"1", "+", 
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", 
+                    SuperscriptBox["\[Eta]", "2"]}]], "-", 
+                    SuperscriptBox[
+                    RowBox[{"(", 
+                    RowBox[{"1", "+", 
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]]}], 
+                    ")"}], "2"]}], ")"}], "2"], "-", 
+                  FractionBox[
+                   RowBox[{"16", " ", 
+                    SuperscriptBox["\[Omega]", "2"], " ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"-", "1"}], "-", 
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", 
+                    SuperscriptBox["\[Eta]", "2"]}]], "-", 
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]], "+", 
+                    FractionBox[
+                    RowBox[{"48", " ", 
+                    SuperscriptBox["\[Omega]", "4"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "4"], " ", 
+                    SuperscriptBox["\[Eta]", "3"]}]], "+", 
+                    SuperscriptBox[
+                    RowBox[{"(", 
+                    RowBox[{"1", "+", 
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]]}], 
+                    ")"}], "2"]}], ")"}]}], 
+                   RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]]}]]}], 
+             ")"}]}], 
+         RowBox[{"8", " ", 
+           SuperscriptBox["\[Omega]", "2"]}]], 
+        InterpretationBox[
+         DynamicModuleBox[{Typeset`open = False}, 
+          TemplateBox[{"Expression", 
+            StyleBox[
+             TagBox[
+              TooltipBox["\"condition\"", 
+               TagBox[
+                RowBox[{
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"2", " ", "\[Omega]"}], 
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}]], "\[NotEqual]", 
+                    "0"}], "&&", 
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]], 
+                    "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", "0"}]}], ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"2", " ", "\[Omega]"}], 
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}]], "\[NotEqual]", 
+                    "0"}], "&&", 
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]], 
+                    "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    RowBox[{"-", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}]}], 
+                    ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"2", " ", "\[Omega]"}], 
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}]], "\[NotEqual]", 
+                    "0"}], "&&", 
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]], 
+                    "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}], 
+                    ")"}]}], Short[#, 7]& ]], Annotation[#, 
+               Short[
+                Or[
+                 And[
+                 2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega] != 0, 
+                  4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`\[Omega] == 0], 
+                 And[
+                 2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega] != 0, 
+                  4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`\[Omega] == Complex[0, 
+                    Rational[-1, 2]] $CellContext`\[Gamma]], 
+                 And[
+                 2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega] != 0, 
+                  4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`\[Omega] == Complex[0, 
+                    Rational[1, 2]] $CellContext`\[Gamma]]], 7], 
+               "Tooltip"]& ], "IconizedCustomName", StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Head: \"", "IconizedLabel"], "\[InvisibleSpace]", 
+                 TagBox["Or", "IconizedItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Byte count: \"", "IconizedLabel"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["3192", "IconizedItem"]}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+             "Column", 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], 
+            Dynamic[Typeset`open]}, "IconizedObject"]], 
+         Or[
+          And[
+          2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) $CellContext`\
+\[Omega] != 0, 
+           4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`\[Omega] == 0], 
+          And[
+          2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) $CellContext`\
+\[Omega] != 0, 
+           4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`\[Omega] == Complex[0, 
+              Rational[-1, 2]] $CellContext`\[Gamma]], 
+          And[
+          2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) $CellContext`\
+\[Omega] != 0, 
+           4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`\[Omega] == Complex[0, 
+              Rational[1, 2]] $CellContext`\[Gamma]]], SelectWithContents -> 
+         True, Selectable -> False]},
+       "ConditionalExpression"]}], ",", 
+     RowBox[{"cc", "\[Rule]", 
+      TemplateBox[{
+        FractionBox[
+         RowBox[{"2", " ", "\[Omega]"}], 
+         RowBox[{"\[Gamma]", " ", "\[Eta]"}]], 
+        InterpretationBox[
+         DynamicModuleBox[{Typeset`open = False}, 
+          TemplateBox[{"Expression", 
+            StyleBox[
+             TagBox[
+              TooltipBox["\"condition\"", 
+               TagBox[
+                RowBox[{
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"2", " ", "\[Omega]"}], 
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}]], "\[NotEqual]", 
+                    "0"}], "&&", 
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]], 
+                    "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", "0"}]}], ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"2", " ", "\[Omega]"}], 
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}]], "\[NotEqual]", 
+                    "0"}], "&&", 
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]], 
+                    "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    RowBox[{"-", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}]}], 
+                    ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"2", " ", "\[Omega]"}], 
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}]], "\[NotEqual]", 
+                    "0"}], "&&", 
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]], 
+                    "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}], 
+                    ")"}]}], Short[#, 7]& ]], Annotation[#, 
+               Short[
+                Or[
+                 And[
+                 2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega] != 0, 
+                  4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`\[Omega] == 0], 
+                 And[
+                 2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega] != 0, 
+                  4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`\[Omega] == Complex[0, 
+                    Rational[-1, 2]] $CellContext`\[Gamma]], 
+                 And[
+                 2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega] != 0, 
+                  4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`\[Omega] == Complex[0, 
+                    Rational[1, 2]] $CellContext`\[Gamma]]], 7], 
+               "Tooltip"]& ], "IconizedCustomName", StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Head: \"", "IconizedLabel"], "\[InvisibleSpace]", 
+                 TagBox["Or", "IconizedItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Byte count: \"", "IconizedLabel"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["3192", "IconizedItem"]}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+             "Column", 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], 
+            Dynamic[Typeset`open]}, "IconizedObject"]], 
+         Or[
+          And[
+          2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) $CellContext`\
+\[Omega] != 0, 
+           4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`\[Omega] == 0], 
+          And[
+          2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) $CellContext`\
+\[Omega] != 0, 
+           4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`\[Omega] == Complex[0, 
+              Rational[-1, 2]] $CellContext`\[Gamma]], 
+          And[
+          2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) $CellContext`\
+\[Omega] != 0, 
+           4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`\[Omega] == Complex[0, 
+              Rational[1, 2]] $CellContext`\[Gamma]]], SelectWithContents -> 
+         True, Selectable -> False]},
+       "ConditionalExpression"]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"vx", "\[Rule]", 
+      TemplateBox[{
+        RowBox[{"1", "+", 
+          FractionBox[
+           RowBox[{"4", " ", 
+             SuperscriptBox["\[Omega]", "2"]}], 
+           RowBox[{
+             SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]]}], 
+        InterpretationBox[
+         DynamicModuleBox[{Typeset`open = False}, 
+          TemplateBox[{"Expression", 
+            StyleBox[
+             TagBox[
+              TooltipBox["\"condition\"", 
+               TagBox[
+                RowBox[{
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"2", " ", "\[Omega]"}], 
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}]], "\[NotEqual]", 
+                    "0"}], "&&", 
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]], 
+                    "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", "0"}]}], ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"2", " ", "\[Omega]"}], 
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}]], "\[NotEqual]", 
+                    "0"}], "&&", 
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]], 
+                    "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    RowBox[{"-", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}]}], 
+                    ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"2", " ", "\[Omega]"}], 
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}]], "\[NotEqual]", 
+                    "0"}], "&&", 
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]], 
+                    "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}], 
+                    ")"}]}], Short[#, 7]& ]], Annotation[#, 
+               Short[
+                Or[
+                 And[
+                 2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega] != 0, 
+                  4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`\[Omega] == 0], 
+                 And[
+                 2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega] != 0, 
+                  4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`\[Omega] == Complex[0, 
+                    Rational[-1, 2]] $CellContext`\[Gamma]], 
+                 And[
+                 2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega] != 0, 
+                  4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`\[Omega] == Complex[0, 
+                    Rational[1, 2]] $CellContext`\[Gamma]]], 7], 
+               "Tooltip"]& ], "IconizedCustomName", StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Head: \"", "IconizedLabel"], "\[InvisibleSpace]", 
+                 TagBox["Or", "IconizedItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Byte count: \"", "IconizedLabel"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["3192", "IconizedItem"]}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+             "Column", 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], 
+            Dynamic[Typeset`open]}, "IconizedObject"]], 
+         Or[
+          And[
+          2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) $CellContext`\
+\[Omega] != 0, 
+           4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`\[Omega] == 0], 
+          And[
+          2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) $CellContext`\
+\[Omega] != 0, 
+           4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`\[Omega] == Complex[0, 
+              Rational[-1, 2]] $CellContext`\[Gamma]], 
+          And[
+          2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) $CellContext`\
+\[Omega] != 0, 
+           4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`\[Omega] == Complex[0, 
+              Rational[1, 2]] $CellContext`\[Gamma]]], SelectWithContents -> 
+         True, Selectable -> False]},
+       "ConditionalExpression"]}], ",", 
+     RowBox[{"vp", "\[Rule]", 
+      TemplateBox[{
+        FractionBox[
+         RowBox[{
+           SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]", " ", 
+           RowBox[{"(", 
+             RowBox[{
+               RowBox[{"-", "1"}], "-", 
+               FractionBox[
+                RowBox[{"4", " ", 
+                  SuperscriptBox["\[Omega]", "2"]}], 
+                RowBox[{
+                  SuperscriptBox["\[Gamma]", "2"], " ", 
+                  SuperscriptBox["\[Eta]", "2"]}]], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                  RowBox[{"1", "+", 
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]]}], 
+                  ")"}], "2"], "+", 
+               SqrtBox[
+                RowBox[{
+                  SuperscriptBox[
+                   RowBox[{"(", 
+                    RowBox[{"1", "+", 
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", 
+                    SuperscriptBox["\[Eta]", "2"]}]], "-", 
+                    SuperscriptBox[
+                    RowBox[{"(", 
+                    RowBox[{"1", "+", 
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]]}], 
+                    ")"}], "2"]}], ")"}], "2"], "-", 
+                  FractionBox[
+                   RowBox[{"16", " ", 
+                    SuperscriptBox["\[Omega]", "2"], " ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"-", "1"}], "-", 
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", 
+                    SuperscriptBox["\[Eta]", "2"]}]], "-", 
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]], "+", 
+                    FractionBox[
+                    RowBox[{"48", " ", 
+                    SuperscriptBox["\[Omega]", "4"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "4"], " ", 
+                    SuperscriptBox["\[Eta]", "3"]}]], "+", 
+                    SuperscriptBox[
+                    RowBox[{"(", 
+                    RowBox[{"1", "+", 
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]]}], 
+                    ")"}], "2"]}], ")"}]}], 
+                   RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]]}]]}], 
+             ")"}]}], 
+         RowBox[{"8", " ", 
+           SuperscriptBox["\[Omega]", "2"]}]], 
+        InterpretationBox[
+         DynamicModuleBox[{Typeset`open = False}, 
+          TemplateBox[{"Expression", 
+            StyleBox[
+             TagBox[
+              TooltipBox["\"condition\"", 
+               TagBox[
+                RowBox[{
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"2", " ", "\[Omega]"}], 
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}]], "\[NotEqual]", 
+                    "0"}], "&&", 
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]], 
+                    "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", "0"}]}], ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"2", " ", "\[Omega]"}], 
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}]], "\[NotEqual]", 
+                    "0"}], "&&", 
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]], 
+                    "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    RowBox[{"-", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}]}], 
+                    ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"2", " ", "\[Omega]"}], 
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}]], "\[NotEqual]", 
+                    "0"}], "&&", 
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]], 
+                    "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}], 
+                    ")"}]}], Short[#, 7]& ]], Annotation[#, 
+               Short[
+                Or[
+                 And[
+                 2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega] != 0, 
+                  4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`\[Omega] == 0], 
+                 And[
+                 2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega] != 0, 
+                  4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`\[Omega] == Complex[0, 
+                    Rational[-1, 2]] $CellContext`\[Gamma]], 
+                 And[
+                 2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega] != 0, 
+                  4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`\[Omega] == Complex[0, 
+                    Rational[1, 2]] $CellContext`\[Gamma]]], 7], 
+               "Tooltip"]& ], "IconizedCustomName", StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Head: \"", "IconizedLabel"], "\[InvisibleSpace]", 
+                 TagBox["Or", "IconizedItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Byte count: \"", "IconizedLabel"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["3192", "IconizedItem"]}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+             "Column", 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], 
+            Dynamic[Typeset`open]}, "IconizedObject"]], 
+         Or[
+          And[
+          2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) $CellContext`\
+\[Omega] != 0, 
+           4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`\[Omega] == 0], 
+          And[
+          2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) $CellContext`\
+\[Omega] != 0, 
+           4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`\[Omega] == Complex[0, 
+              Rational[-1, 2]] $CellContext`\[Gamma]], 
+          And[
+          2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) $CellContext`\
+\[Omega] != 0, 
+           4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`\[Omega] == Complex[0, 
+              Rational[1, 2]] $CellContext`\[Gamma]]], SelectWithContents -> 
+         True, Selectable -> False]},
+       "ConditionalExpression"]}], ",", 
+     RowBox[{"cc", "\[Rule]", 
+      TemplateBox[{
+        FractionBox[
+         RowBox[{"2", " ", "\[Omega]"}], 
+         RowBox[{"\[Gamma]", " ", "\[Eta]"}]], 
+        InterpretationBox[
+         DynamicModuleBox[{Typeset`open = False}, 
+          TemplateBox[{"Expression", 
+            StyleBox[
+             TagBox[
+              TooltipBox["\"condition\"", 
+               TagBox[
+                RowBox[{
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"2", " ", "\[Omega]"}], 
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}]], "\[NotEqual]", 
+                    "0"}], "&&", 
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]], 
+                    "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", "0"}]}], ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"2", " ", "\[Omega]"}], 
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}]], "\[NotEqual]", 
+                    "0"}], "&&", 
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]], 
+                    "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    RowBox[{"-", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}]}], 
+                    ")"}], "||", 
+                  RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"2", " ", "\[Omega]"}], 
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}]], "\[NotEqual]", 
+                    "0"}], "&&", 
+                    RowBox[{
+                    FractionBox[
+                    RowBox[{"4", " ", 
+                    SuperscriptBox["\[Omega]", "2"]}], 
+                    RowBox[{
+                    SuperscriptBox["\[Gamma]", "2"], " ", "\[Eta]"}]], 
+                    "\[NotEqual]", "0"}], "&&", 
+                    RowBox[{
+                    RowBox[{"\[Gamma]", " ", "\[Eta]"}], "\[NotEqual]", "0"}],
+                     "&&", 
+                    RowBox[{"\[Omega]", "\[Equal]", 
+                    FractionBox[
+                    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}], "2"]}]}], 
+                    ")"}]}], Short[#, 7]& ]], Annotation[#, 
+               Short[
+                Or[
+                 And[
+                 2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega] != 0, 
+                  4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`\[Omega] == 0], 
+                 And[
+                 2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega] != 0, 
+                  4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`\[Omega] == Complex[0, 
+                    Rational[-1, 2]] $CellContext`\[Gamma]], 
+                 And[
+                 2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega] != 0, 
+                  4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+                  0, $CellContext`\[Omega] == Complex[0, 
+                    Rational[1, 2]] $CellContext`\[Gamma]]], 7], 
+               "Tooltip"]& ], "IconizedCustomName", StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Head: \"", "IconizedLabel"], "\[InvisibleSpace]", 
+                 TagBox["Or", "IconizedItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Byte count: \"", "IconizedLabel"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["3192", "IconizedItem"]}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+             "Column", 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], 
+            Dynamic[Typeset`open]}, "IconizedObject"]], 
+         Or[
+          And[
+          2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) $CellContext`\
+\[Omega] != 0, 
+           4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`\[Omega] == 0], 
+          And[
+          2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) $CellContext`\
+\[Omega] != 0, 
+           4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`\[Omega] == Complex[0, 
+              Rational[-1, 2]] $CellContext`\[Gamma]], 
+          And[
+          2 $CellContext`\[Gamma]^(-1) $CellContext`\[Eta]^(-1) $CellContext`\
+\[Omega] != 0, 
+           4 $CellContext`\[Gamma]^(-2) $CellContext`\[Eta]^(-1) \
+$CellContext`\[Omega]^2 != 0, $CellContext`\[Gamma] $CellContext`\[Eta] != 
+           0, $CellContext`\[Omega] == Complex[0, 
+              Rational[1, 2]] $CellContext`\[Gamma]]], SelectWithContents -> 
+         True, Selectable -> False]},
+       "ConditionalExpression"]}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.8632638683799477`*^9, 3.863263878976597*^9}},
+ CellLabel->"Out[64]=",ExpressionUUID->"a4e4ce1b-47fd-4c52-a00e-ac9532a02e93"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Solve", "[", 
+  RowBox[{
+   RowBox[{
+    TagBox[
+     RowBox[{"(", "\[NoBreak]", GridBox[{
+        {
+         RowBox[{
+          RowBox[{
+           RowBox[{"-", "\[Gamma]"}], " ", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"-", "1"}], "+", "vx", "+", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                SuperscriptBox["cc", "2"], "+", 
+                SuperscriptBox[
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"-", "1"}], "+", "vx"}], ")"}], "2"]}], ")"}], " ",
+               "\[Eta]"}]}], ")"}]}], "-", 
+          RowBox[{"2", " ", "vx", " ", "\[Chi]"}], "+", 
+          RowBox[{"2", " ", "cc", " ", "\[Omega]"}]}], 
+         RowBox[{
+          RowBox[{
+           RowBox[{"-", "cc"}], " ", "\[Gamma]", " ", 
+           RowBox[{"(", 
+            RowBox[{"1", "+", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"-", "2"}], "+", "vp", "+", "vx"}], ")"}], " ", 
+              "\[Eta]"}]}], ")"}]}], "+", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"vp", "-", "vx"}], ")"}], " ", "\[Omega]"}]}]},
+        {
+         RowBox[{
+          RowBox[{
+           RowBox[{"-", "cc"}], " ", "\[Gamma]", " ", 
+           RowBox[{"(", 
+            RowBox[{"1", "+", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"-", "2"}], "+", "vp", "+", "vx"}], ")"}], " ", 
+              "\[Eta]"}]}], ")"}]}], "+", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"vp", "-", "vx"}], ")"}], " ", "\[Omega]"}]}], 
+         RowBox[{
+          RowBox[{
+           RowBox[{"-", "\[Gamma]"}], " ", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"-", "1"}], "+", "vp", "+", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                SuperscriptBox["cc", "2"], "+", 
+                SuperscriptBox[
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"-", "1"}], "+", "vp"}], ")"}], "2"]}], ")"}], " ",
+               "\[Eta]"}]}], ")"}]}], "+", 
+          RowBox[{"2", " ", "vp", " ", "\[Chi]"}], "-", 
+          RowBox[{"2", " ", "cc", " ", "\[Omega]"}]}]}
+       },
+       GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.7]}, 
+           Offset[0.27999999999999997`]}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}}], "\[NoBreak]", ")"}],
+     Function[BoxForm`e$, 
+      MatrixForm[BoxForm`e$]]], " ", "==", " ", 
+    RowBox[{"0", "*", 
+     RowBox[{"IdentityMatrix", "[", "2", "]"}]}]}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"vx", ",", "vp", ",", "cc"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.863262858826476*^9, 3.863262878217194*^9}},
+ CellLabel->"In[43]:=",ExpressionUUID->"83b4487b-e63a-4f81-968f-de7e85935fab"],
+
+Cell[BoxData["$Aborted"], "Output",
+ CellChangeTimes->{3.863262873504567*^9, 3.863263804521283*^9},
+ CellLabel->"Out[43]=",ExpressionUUID->"a98eee33-16a8-488f-bf59-33f1e0b5b3fa"]
+}, Open  ]]
+},
+WindowSize->{1920., 1028.25},
+WindowMargins->{{0, Automatic}, {0, Automatic}},
+Magnification:>1.9 Inherited,
+FrontEndVersion->"13.0 for Linux x86 (64-bit) (February 4, 2022)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"15a22e35-c829-4d76-95fe-90f716a16146"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 1482, 44, 260, "Input",ExpressionUUID->"9a8bbc98-ef3f-4b65-8828-09338e33cd68"],
+Cell[CellGroupData[{
+Cell[2065, 68, 776, 22, 80, "Input",ExpressionUUID->"844f168b-8cdc-4ddd-b02d-ab665e553c67"],
+Cell[2844, 92, 2943, 90, 136, "Output",ExpressionUUID->"c4a4549a-489f-4bcb-b231-8e2d68009590"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5824, 187, 733, 21, 84, "Input",ExpressionUUID->"e3a0839d-3ddb-44ff-8a5c-7b60835b5057"],
+Cell[6560, 210, 1441, 39, 121, "Output",ExpressionUUID->"6c09d6f9-8081-48ad-87ff-1debda4665ec"]
+}, Open  ]],
+Cell[8016, 252, 348, 8, 80, "Input",ExpressionUUID->"ac163b2b-fe80-4ce7-a0a4-1f3e7f35d00b"],
+Cell[CellGroupData[{
+Cell[8389, 264, 714, 18, 126, "Input",ExpressionUUID->"251ee1ee-e35c-47cb-9e8c-41cd5dcca214"],
+Cell[9106, 284, 636, 17, 121, "Output",ExpressionUUID->"c1bf437b-68b1-44cc-a990-6724f043372b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9779, 306, 3258, 92, 189, "Input",ExpressionUUID->"2a92d92f-58d3-4cde-989c-7048b3b2b177"],
+Cell[13040, 400, 616, 12, 84, "Message",ExpressionUUID->"ce788931-6fc9-4070-b415-fe7f8d61b178"],
+Cell[13659, 414, 382, 9, 52, "Message",ExpressionUUID->"b5035205-8f70-4680-af50-dbedfdd63019"],
+Cell[14044, 425, 90494, 2066, 1843, "Output",ExpressionUUID->"a4e4ce1b-47fd-4c52-a00e-ac9532a02e93"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[104575, 2496, 3028, 84, 180, "Input",ExpressionUUID->"83b4487b-e63a-4f81-968f-de7e85935fab"],
+Cell[107606, 2582, 178, 2, 87, "Output",ExpressionUUID->"a98eee33-16a8-488f-bf59-33f1e0b5b3fa"]
+}, Open  ]]
+}
+]
+*)
+
