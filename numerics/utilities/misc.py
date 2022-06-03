@@ -4,7 +4,7 @@ import os
 import getpass
 
 def give_model():
-    return "mechanical_freq"
+    return "mechanical_damp"
 
 def get_def_path():
     """
