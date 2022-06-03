@@ -4,7 +4,7 @@ import os
 import getpass
 
 def give_model():
-    return "optical_heterodyne"
+    return "optical_homodyne"
 
 def get_def_path():
     """
@@ -44,7 +44,7 @@ def def_params(flip =0):
 
     elif ((model == "optical_heterodyne") or (model == "optical_homodyne") or (model=="optical")):  #genoni's paper
         kappa0 = kappa1 = 1.
-        xi0 = xi1 = 0.#0.49*kappa1
+        xi0 = xi1 = 0.49*kappa1
         eta0 = eta1 = 1.
         omega0, omega1 = 0.1*kappa1, 0.2*kappa1
 

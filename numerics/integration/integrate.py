@@ -116,7 +116,6 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
     proj_C = np.linalg.pinv(C1/C1[0,0])
     x1in ,p1in, x0in, p0in, dyxin, dypin, lin0, lin1 = np.zeros(8)
 
-    x1in = 1e5
     sst1 = solve_continuous_are( (A1-np.dot(G1.T,C1)).T, C1.T, D1 - np.dot(G1.T, G1), np.eye(2)) #### A.T because the way it's implemented!
     sst0 = solve_continuous_are( (A0-np.dot(G0.T,C0)).T, C0.T, D0 - np.dot(G0.T, G0), np.eye(2)) #### A.T because the way it's implemented!
 

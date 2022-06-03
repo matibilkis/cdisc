@@ -11,10 +11,8 @@ def int_seed(seed):
         os.system("python3 numerics/integration/integrate.py --itraj {} --flip_params 1".format(seed+k))
         print(f"{k}, {seed}, done")
 
-Nstep = 1
-int_seed(1)
 # cores = 5
-# Nstep = cores-1
-# int_seed(1)
-# with mp.Pool(cores-1) as p:
-#     p.map(int_seed, range(1,2000, Nstep))
+Nstep = 5-1
+int_seed(1)
+with mp.Pool(cores-1) as p:
+    p.map(int_seed, range(1,5000, Nstep))
