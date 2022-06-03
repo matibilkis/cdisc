@@ -96,7 +96,7 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
         A0, C0, D0, G0 = give_matrices(kappa0, eta0, omega0, xi0)
 
     else:
-        [gamma0, omega0, n0, eta0, kappa0], [gamma1, omega1, n1, eta1, kappa1]  = params
+        [gamma1, omega1, n1, eta1, kappa1],[gamma0, omega0, n0, eta0, kappa0],   = params
         model_cte = 1. ### measurement model
         ### XiCov = S C.T + G.T
         #### dx  = (A - XiCov.C )x dt + (XiCov dy) = A x dt + XiCov dW
@@ -113,7 +113,7 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
         A1, C1, D1, G1 = give_matrices(gamma1, omega1, n1, eta1, kappa1)
         A0, C0, D0, G0 = give_matrices(gamma0, omega0, n0, eta0, kappa0)
 
-    proj_C = np.linalg.pinv(C1/np.sum(C1))
+    proj_C = np.linalg.pinv(C1/C1[0,0])
     x1in ,p1in, x0in, p0in, dyxin, dypin, lin0, lin1 = np.zeros(8)
 
     sst1 = solve_continuous_are( (A1-np.dot(G1.T,C1)).T, C1.T, D1 - np.dot(G1.T, G1), np.eye(2)) #### A.T because the way it's implemented!

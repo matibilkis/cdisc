@@ -17,4 +17,4 @@ int_seed(1)
 Nstep = cores-1
 int_seed(1)
 with mp.Pool(cores-1) as p:
-    p.map(int_seed, range(1,2000, Nstep))
+    p.map(int_seed, range(1,100, Nstep))

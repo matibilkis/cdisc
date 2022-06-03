@@ -80,12 +80,12 @@ def load_liks(itraj=1, dt=1e-1, total_time=1):
     ### because
     return l_1true, l_0true#, tims
 
-def get_timind_indis(total_time, dt, N=1e4):
+def get_timind_indis(total_time, dt, N=1e4, begin=0):
     times = np.arange(0,total_time+dt, dt)
     if len(times)>1e4:
-        indis = np.logspace(0,np.log10(len(times)-1), int(N))
+        indis = np.logspace(begin,np.log10(len(times)-1), int(N))
     else:
-        indis = np.arange(0,len(times))#imtimes[-1],times[1]-times[0]).astype(int)
+        indis = np.arange(begin,len(times))#imtimes[-1],times[1]-times[0]).astype(int)
     indis = [int(k) for k in indis]
     timind = [times[ind] for ind in indis]
     return timind, indis
