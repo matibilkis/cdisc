@@ -72,19 +72,15 @@ def load_data(exp_path="", itraj=1, total_time=1, dt=0.1, what="logliks.npy"):
 def load_liks(itraj=1, dt=1e-1, total_time=1):
     params, exp_path = def_params(flip=0)
     logliks =load_data(itraj=itraj, total_time = total_time, dt=dt, exp_path = exp_path, what="logliks.npy")
-    l1  = logliks[:,0] - logliks[:,1]
+    l_1true  = logliks[:,1] - logliks[:,0]   ### this is l(h1) - l(h0)   be pos --> \inft
 
     params, exp_path = def_params(flip=1)
     logliks =load_data(itraj=itraj, total_time = total_time, dt=dt, exp_path = exp_path, what="logliks.npy")
-    l0  = logliks[:,1] - logliks[:,0]
+    l_0true  = logliks[:,0] - logliks[:,1]    ### this is l(h1) - l(h0)   under hypothesis 0 is true (should be negative --> \inft). It's flipped
+    ### because
+    return l_1true, l_0true#, tims
 
-    return l0, l1#, tims
 
-def int_or_0(x):
-    try:
-        return int(x)
-    except Exception:
-        return 0
 
 def get_timind_indis(total_time, dt, N=1e4, begin=0):
     times = np.arange(0,total_time+dt, dt)

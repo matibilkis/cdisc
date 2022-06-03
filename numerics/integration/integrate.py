@@ -81,7 +81,7 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
         #### dy = sqrt(2) C x dt + dW
         #### dS/dt = AS + SA.T + D - xiCov xiCov.T
 
-        [kappa0, eta0, omega0, xi0], [kappa1, eta1, omega1, xi1] = params
+        [kappa1, eta1, omega1, xi1], [kappa0, eta0, omega0, xi0]  = params
         model_cte = np.sqrt(2) ### measurement model
 
         def give_matrices(kappa, eta, omega, xi):
@@ -96,7 +96,7 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
         A0, C0, D0, G0 = give_matrices(kappa0, eta0, omega0, xi0)
 
     else:
-        [gamma0, omega0, n0, eta0, kappa0], [gamma1, omega1, n1, eta1, kappa1]  = params
+         [gamma1, omega1, n1, eta1, kappa1], [gamma0, omega0, n0, eta0, kappa0]  = params
         model_cte = 1. ### measurement model
         ### XiCov = S C.T + G.T
         #### dx  = (A - XiCov.C )x dt + (XiCov dy) = A x dt + XiCov dW
@@ -140,8 +140,10 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
     path = get_path_config(total_time=total_time, dt=dt, itraj=itraj, exp_path=exp_path)
     os.makedirs(path, exist_ok=True)
 
-    indis = np.logspace(0,np.log10(len(times)-1), int(1e4))
-    indis = [int(k) for k in indis]
+    if len(times)>1e4:
+        indis = np.logspace(0,np.log10(len(times)-1), int(1e4)).astype(int)
+    else:
+        indis = np.arange(0,len(times))#imtimes[-1],times[1]-times[0]).astype(int)
     timind = [times[ind] for ind in indis]
 
     logliks_short =  np.array([liks[ii] for ii in indis])
