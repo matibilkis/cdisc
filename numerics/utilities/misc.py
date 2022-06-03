@@ -92,3 +92,10 @@ def get_timind(total_time, dt, N=1e4):
     indis = [int(k) for k in indis]
     timind = [times[ind] for ind in indis]
     return timind
+
+def get_timind_indis(total_time, dt, N=1e4):
+    times = np.arange(0,total_time+dt, dt)
+    indis = np.logspace(0,np.log10(len(times)-1), int(N))
+    indis = [int(k) for k in indis]
+    timind = [times[ind] for ind in indis]
+    return timind, indis
