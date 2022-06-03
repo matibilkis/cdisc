@@ -108,7 +108,7 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
             if model == "mechanical_damp":
                 mm = np.eye(2)#homodyne but in Rotating Frame
             elif model =="mechanical_freq":
-                mm = np.array([1.,0.],[0.,0.])#homodyne
+                mm = np.array([[1.,0.],[0.,0.]])#homodyne
             C = np.sqrt(4*eta*kappa)*mm#
             D = np.diag([gamma*(n+0.5) + kappa]*2)
             G = np.zeros((2,2))
