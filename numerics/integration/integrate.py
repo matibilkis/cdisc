@@ -105,7 +105,7 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
 
         def give_matrices(gamma, omega, n, eta, kappa):
             A = np.array([[-gamma/2, omega],[-omega, -gamma/2]])
-            C = np.sqrt(4*eta*kappa)*np.array([[1.,0.],[0.,0.]]) #homodyne
+            C = np.sqrt(4*eta*kappa)*np.array([[1.,0.],[0.,1.]]) #homodyne
             D = np.diag([gamma*(n+0.5) + kappa]*2)
             G = np.zeros((2,2))
             return A, C, D,G
@@ -140,8 +140,11 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
     path = get_path_config(total_time=total_time, dt=dt, itraj=itraj, exp_path=exp_path)
     os.makedirs(path, exist_ok=True)
 
-    indis = np.logspace(0,np.log10(len(times)-1), int(1e4))
-    indis = [int(k) for k in indis]
+    if len(times)>1e4:
+        indis = np.logspace(0,np.log10(len(times)-1), int(1e4)).astype(int)
+    else:
+        indis = np.arange(0,len(times))#imtimes[-1],times[1]-times[0]).astype(int)
+
     timind = [times[ind] for ind in indis]
 
     logliks_short =  np.array([liks[ii] for ii in indis])
@@ -161,7 +164,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument("--itraj", type=int, default=1)
-    parser.add_argument("--ppg",type=float, default=1e3)
+    parser.add_argument("--ppg",type=float, default=5*1e3)
     parser.add_argument("--T_param", type=float,default=200.)
     parser.add_argument("--flip_params", type=int, default=0)
 
@@ -175,8 +178,12 @@ if __name__ == "__main__":
     params, exp_path = def_params(flip = flip_params)
 
     damping = params[1][0]
-    total_time = T_param*damping
-    dt = damping/ppg
+    omega = .5*(params[1][1] + params[0][1])
+
+    period = 2*np.pi/omega
+    total_time = T_param*period
+    # dt = damping/ppg
+    dt = period/ppg
 
     integrate(params=params,
               total_time = total_time,
