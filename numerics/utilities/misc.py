@@ -4,7 +4,7 @@ import os
 import getpass
 
 def give_model():
-    return "mechanical"
+    return "mechanical_freq"
 
 def get_def_path():
     """
@@ -28,7 +28,7 @@ def get_def_path():
 
 def def_params(flip =0):
     model = give_model()
-    if model == "mechanical":
+    if model == "mechanical_freq":
         gamma0 = gamma1 = 100
         eta0 = eta1 = 1
         kappa0 = kappa1 = 1e6
@@ -41,7 +41,23 @@ def def_params(flip =0):
             p = [h1, h0]
         else:
             p = [h0, h1]
+    elif model == "mechanical_damp":
+        gamma1 = 14*2*np.pi
+        gamma0 = 19*2*np.pi #(Hz)
+        eta1 = 0.9
+        eta0 = 0.9
+        n1 = 14.0
+        n0 = 14.0
+        kappa1 = 2*np.pi*360
+        kappa0 = 2*np.pi*360 #(Hz)
+        omega0 = omega1 = 0.
 
+        h0 = [gamma0, omega0, n0, eta0, kappa0]
+        h1 = [gamma1, omega1, n1, eta1, kappa1]
+        if flip == 0:
+            p = [h1, h0]
+        else:
+            p = [h0, h1]
     elif model == "optical":  #genoni's paper
         kappa0 = kappa1 = 1.
         xi0 = xi1 = 0.49*kappa1

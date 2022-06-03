@@ -73,9 +73,9 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
     """
     h1 is the hypothesis i use to get the data. (with al the coefficients gamma1...)
     """
-    global proj_C, A0, A1, XiCov0, XiCov1, C0, C1, dW, model_cte
-
-    if give_model() == "optical":
+    global proj_C, A0, A1, XiCov0, XiCov1, C0, C1, dW, model_cte, model
+    model = give_model()
+    if model == "optical":
         ### XiCov = S C.T + G.T
         #### dx  = (A - XiCov.C )x dt + (XiCov dy)/sqrt(2) = A x dt + XiCov dW/sqrt(2)
         #### dy = sqrt(2) C x dt + dW
@@ -105,7 +105,11 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
 
         def give_matrices(gamma, omega, n, eta, kappa):
             A = np.array([[-gamma/2, omega],[-omega, -gamma/2]])
-            C = np.sqrt(4*eta*kappa)*np.array([[1.,0.],[0.,1.]]) #homodyne
+            if model == "mechanical_damp":
+                mm = np.eye(2)#homodyne but in Rotating Frame
+            elif model =="mechanical_freq":
+                mm = np.array([1.,0.],[0.,0.])#homodyne
+            C = np.sqrt(4*eta*kappa)*mm#
             D = np.diag([gamma*(n+0.5) + kappa]*2)
             G = np.zeros((2,2))
             return A, C, D,G
@@ -180,10 +184,14 @@ if __name__ == "__main__":
     damping = params[1][0]
     omega = .5*(params[1][1] + params[0][1])
 
-    period = 2*np.pi/omega
-    total_time = T_param*period
-    # dt = damping/ppg
-    dt = period/ppg
+    which = give_model()
+    if which == "mechanical_damp":
+        total_time = 4.
+        dt = 1e-5
+    elif which == "mechanical_freq":
+        period = 2*np.pi/omega
+        total_time = T_param*period
+        dt = period/ppg
 
     integrate(params=params,
               total_time = total_time,
