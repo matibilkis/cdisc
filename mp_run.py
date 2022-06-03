@@ -14,5 +14,5 @@ def int_seed(seed):
 
 Nstep = 10
 int_seed(1)
-with mp.Pool(cores-10) as p:
+with mp.Pool(cores-1) as p:
     p.map(int_seed, range(1,1000, Nstep))
