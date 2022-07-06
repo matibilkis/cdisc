@@ -4,7 +4,7 @@ import os
 import getpass
 
 def give_model():
-    return "mechanical_damp"
+    return "mechanical_damp_3"
 
 def get_def_path():
     """
@@ -41,21 +41,42 @@ def def_params(flip =0):
             p = [h1, h0]
         else:
             p = [h0, h1]
-    elif model == "mechanical_damp":
-        gamma1 = 14*2*np.pi
-        gamma0 = 19*2*np.pi #(Hz)
-        eta1 = 0.9
-        eta0 = 0.9
-        n1 = 14.0
-        n0 = 14.0
-        kappa1 = 2*np.pi*360
-        kappa0 = 2*np.pi*360 #(Hz)
-        omega0 = omega1 = 0.
+    elif "mechanical_damp" in model:
+        
+        if "0" in model:
+            kappa0, kappa1, eta0 , eta1, n0, n1, gamma0, gamma1 = 1e4, 1e4 ,1, 1, 1, 1, 50, 100
+        elif "1" in model:
+            gamma0 = 10.02
+            gamma1 = 4*gamma0
+            n1 = n0 = .05
+            kappa0 = kappa1 = 4. 
+            eta0 = eta1 = 1
+        elif "2" in model:
+            gamma0 = 20.02
+            gamma1 = 4*gamma0
+            n1 = n0 = 2.7
+            eta1 = eta0 = 1.
+            kappa1 = kappa0 = 4.
+        elif "3" in model:
+            gamma0 = 100.02
+            gamma1 = 4*gamma0
+            n1 = n0 = 1e-4
+            eta1 = eta0 = 1
+            kappa1 = kappa0 = 100.
+        else:
+            gamma1 = 14*2*np.pi
+            gamma0 = 19*2*np.pi #(Hz)
+            eta1 = 0.9
+            eta0 = 0.9
+            n1 = 14.0
+            n0 = 14.0
+            kappa1 = 2*np.pi*360
+            kappa0 = 2*np.pi*360 #(Hz)
+            omega0 = omega1 = 0.
 
         # kappa0, kappa1, eta0 , eta1, n0, n1, gamma0, gamma1 = 100, 100 ,1, 1, 10, 10, 100, 1000
         # kappa0, kappa1, eta0 , eta1, n0, n1, gamma0, gamma1 = 1e6, 1e6 ,1, 1, 14, 14, 50, 150
         # kappa0, kappa1, eta0 , eta1, n0, n1, gamma0, gamma1 = 1e2, 1e2 ,1, 1, 14, 14, 50, 150
-        kappa0, kappa1, eta0 , eta1, n0, n1, gamma0, gamma1 = 1e4, 1e4 ,1, 1, 1, 1, 50, 100
         h0 = [gamma0, omega0, n0, eta0, kappa0]
         h1 = [gamma1, omega1, n1, eta1, kappa1]
         if flip == 0:

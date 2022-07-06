@@ -105,7 +105,7 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
 
         def give_matrices(gamma, omega, n, eta, kappa):
             A = np.array([[-gamma/2, omega],[-omega, -gamma/2]])
-            if model == "mechanical_damp":
+            if "mechanical_damp" in model:
                 mm = np.eye(2)#homodyne but in Rotating Frame
             elif model =="mechanical_freq":
                 mm = np.array([1.,0.],[0.,0.])#homodyne
