@@ -52,6 +52,10 @@ def def_params(flip =0):
         kappa0 = 2*np.pi*360 #(Hz)
         omega0 = omega1 = 0.
 
+        # kappa0, kappa1, eta0 , eta1, n0, n1, gamma0, gamma1 = 100, 100 ,1, 1, 10, 10, 100, 1000
+        # kappa0, kappa1, eta0 , eta1, n0, n1, gamma0, gamma1 = 1e6, 1e6 ,1, 1, 14, 14, 50, 150
+        # kappa0, kappa1, eta0 , eta1, n0, n1, gamma0, gamma1 = 1e2, 1e2 ,1, 1, 14, 14, 50, 150
+        kappa0, kappa1, eta0 , eta1, n0, n1, gamma0, gamma1 = 1e4, 1e4 ,1, 1, 1, 1, 50, 100
         h0 = [gamma0, omega0, n0, eta0, kappa0]
         h1 = [gamma1, omega1, n1, eta1, kappa1]
         if flip == 0:

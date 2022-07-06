@@ -35,7 +35,7 @@ elif (which == "optical_homodyne") or (which == "optical_heterodyne"):
 timind, indis, indis_range = get_timind_indis(total_time, dt, rrange=True)
 
 
-Ntraj = 5000
+Ntraj = 10000
 B = 8.
 dB = .1
 boundsB= np.arange(-B,B+dB,dB)
@@ -56,7 +56,7 @@ intindis = np.arange(0,len(indis))
 
 n=1
 ers = []
-for itraj in tqdm(range(1,Ntraj)):
+for itraj in tqdm(range(int(Ntraj/2),Ntraj)):
     try:
 
         log_lik_ratio, log_lik_ratio_swap = load_liks(itraj=itraj, total_time=total_time, dt=dt)
@@ -158,7 +158,7 @@ for indb, b in enumerate(bpos):
 
 ### saving
 
-path_data = get_def_path()+"analysis/{}/".format(Ntraj,mode)
+path_data = get_def_path()+"analysis/muDIff/{}/".format(Ntraj,mode)
 os.makedirs(path_data,exist_ok=True)
 
 with open(path_data+"stop.pickle","wb") as f:
@@ -179,28 +179,6 @@ np.save(path_data+"times_to_err_det",times_alpha_to_errB)
 np.save(path_data+"times_to_err_stoch",stoch)
 
 print("data saved in {}\n".format(path_data))
-
-
-#### load (just in case)
-# timbin1 = np.load(path_data+"timbin.npy")
-# timbin0 = np.load(path_data+"timbin.npy")#, timbin0)
-
-# deter_data_h1_h0 = np.load(path_data+"deth1h0.npy")#, deter_data_h1_h0)
-# deteR_data_h0_h1 = np.load(path_data+"deth0h1.npy")#, deter_data_h0_h1)
-# anals0 = np.load(path_data+"anals0.npy")
-# anals1 = np.load(path_data+"anals1.npy")#,anals1)
-# l0 = np.load(path_data+"l0.npy")
-# l1 = np.load(path_data+"l1.npy")
-#
-# with open(path_data+"stop.pickle","rb") as f:
-#     stop = pickle.load( f)#, protocol=pickle.HIGHEST_PROTOCOL)
-#
-# with open(path_data+"deter.pickle","rb") as f:
-#     deter = pickle.load(f)#, protocol=pickle.HIGHEST_PROTOCOL)
-
-
-
-
 
 
 

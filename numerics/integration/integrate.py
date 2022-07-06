@@ -157,9 +157,9 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
     signals_short =  np.array([signals[ii] for ii in indis])
 
     np.save(path+"logliks",logliks_short)
-    np.save(path+"states1",states1_short)
-    np.save(path+"states0",states0_short)
-    np.save(path+"signals",signals_short)
+    # np.save(path+"states1",states1_short)
+    # np.save(path+"states0",states0_short)
+    # np.save(path+"signals",signals_short)
 
 
     return
@@ -186,7 +186,7 @@ if __name__ == "__main__":
 
     which = give_model()
     if which == "mechanical_damp":
-        total_time = 4.
+        total_time = 4.#~.3
         dt = 1e-5
     elif which == "mechanical_freq":
         period = 2*np.pi/omega

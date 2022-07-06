@@ -50,8 +50,8 @@ timind, indis, indis_range = get_timind_indis(total_time, dt, rrange=True)
 Ntraj = 5000
 
 
-path_data = get_def_path()+"analysis/{}/".format(Ntraj,mode)
-path_data_save = get_def_path()+"analysis/{}/done/".format(Ntraj,mode)
+path_data = get_def_path()+"analysis/muDIff/{}/".format(Ntraj,mode)
+path_data_save = get_def_path()+"analysis/muDIff/{}/done/".format(Ntraj,mode)
 
 os.makedirs(path_data_save, exist_ok=True)
 
