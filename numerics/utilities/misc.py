@@ -4,7 +4,7 @@ import os
 import getpass
 
 def give_model():
-    return "mechanical_damp_3"
+    return "mechanical_damp_trampa"
 
 def get_def_path():
     """
@@ -13,20 +13,20 @@ def get_def_path():
     model =give_model()
     user = getpass.getuser()
     if user == "cooper-cooper":
-        defpath = '../quantera/trajectories/'
+        defpath = '../quantera/ou-hidden/'
     elif (user =="matias") or (user == "mati"):# or (user=="giq"):
-        defpath = '../quantera/trajectories/'
+        defpath = '../quantera/ou-hidden/'
     elif (user=="giq"):
-        defpath = "/media/giq/Nuevo vol/quantera/trajectories/"
+        defpath = "/media/giq/Nuevo vol/quantera/ou-hidden/"
     else:
-        defpath = "/data/uab-giq/scratch/matias/quantera/trajectories/"
+        defpath = "/data/uab-giq/scratch/matias/quantera/ou-hidden/"
     if model[-1] != "/":
         model+="/"
     defpath+=model
     return defpath
 
 
-def def_params(flip =0):
+def def_params(a):
     model = give_model()
     if model == "mechanical_freq":
         gamma0 = gamma1 = 100
@@ -49,7 +49,7 @@ def def_params(flip =0):
             gamma0 = 10.02
             gamma1 = 4*gamma0
             n1 = n0 = .05
-            kappa0 = kappa1 = 4. 
+            kappa0 = kappa1 = 4.
             eta0 = eta1 = 1
         elif "2" in model:
             gamma0 = 20.02
