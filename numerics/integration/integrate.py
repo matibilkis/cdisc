@@ -185,7 +185,7 @@ if __name__ == "__main__":
     omega = .5*(params[1][1] + params[0][1])
 
     which = give_model()
-    if which == "mechanical_damp":
+    if "mechanical_damp" in which:
         total_time = 4.#~.3
         dt = 1e-5
     elif which == "mechanical_freq":

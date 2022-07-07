@@ -42,7 +42,7 @@ def def_params(flip =0):
         else:
             p = [h0, h1]
     elif "mechanical_damp" in model:
-        
+        omega0 = omega1 = 0.
         if "0" in model:
             kappa0, kappa1, eta0 , eta1, n0, n1, gamma0, gamma1 = 1e4, 1e4 ,1, 1, 1, 1, 50, 100
         elif "1" in model:
