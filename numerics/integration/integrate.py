@@ -145,7 +145,7 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
     os.makedirs(path, exist_ok=True)
 
     if len(times)>1e4:
-        indis = np.linspace(0,len(times),int(1e4)).astype("int")
+        indis = np.linspace(0,len(times)-1,int(1e4)).astype("int")
     else:
         indis = np.arange(0,len(times))#imtimes[-1],times[1]-times[0]).astype(int)
 
