@@ -109,6 +109,7 @@ def integrate(params, aa, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
     path = get_path_config(total_time=total_time, dt=dt, itraj=itraj, exp_path=exp_path)
     os.makedirs(path, exist_ok=True)
 
+    
     if len(times)>1e4:
         indis = np.linspace(0,len(times)-1,int(1e4)).astype("int")
     else:
@@ -138,7 +139,7 @@ if __name__ == "__main__":
 
     params = [np.zeros(5)]*2
     exp_path = str(a)+"/"
-    total_time = 4.
+    total_time = 10.
     dt = 1e-5
 
     integrate(params=params,
