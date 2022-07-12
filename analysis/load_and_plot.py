@@ -112,3 +112,5 @@ ax.tick_params(axis='both', which='major', labelsize=TS)
 ax.set_ylabel(r'$\frac{t_d}{t_s}$', size=LS)
 ax.get_xaxis().set_major_formatter(matplotlib.ticker.ScalarFormatter())
 plt.savefig(path_data_save+"ratio.pdf")
+
+print("all saved in ", path_data_save)
