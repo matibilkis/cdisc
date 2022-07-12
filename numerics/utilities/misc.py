@@ -4,7 +4,7 @@ import os
 import getpass
 
 def give_model():
-    return "mechanical_damp"
+    return "hidden_ou"
 
 def get_def_path():
     """
@@ -26,51 +26,13 @@ def get_def_path():
     return defpath
 
 
-def def_params(flip =0):
+def def_params():
     model = give_model()
-    if model == "mechanical_freq":
-        gamma0 = gamma1 = 100
-        eta0 = eta1 = 1
-        kappa0 = kappa1 = 1e6
-        n0 = n1 = 1
-        omega0, omega1 = 1e4, 1.05e4
-
-        h0 = [gamma0, omega0, n0, eta0, kappa0]
-        h1 = [gamma1, omega1, n1, eta1, kappa1]
-        if flip == 0:
-            p = [h1, h0]
-        else:
-            p = [h0, h1]
-    elif model == "mechanical_damp":
-        gamma1 = 14*2*np.pi
-        gamma0 = 19*2*np.pi #(Hz)
-        eta1 = 0.9
-        eta0 = 0.9
-        n1 = 14.0
-        n0 = 14.0
-        kappa1 = 2*np.pi*360
-        kappa0 = 2*np.pi*360 #(Hz)
-        omega0 = omega1 = 0.
-
-        h0 = [gamma0, omega0, n0, eta0, kappa0]
-        h1 = [gamma1, omega1, n1, eta1, kappa1]
-        if flip == 0:
-            p = [h1, h0]
-        else:
-            p = [h0, h1]
-    elif model == "optical":  #genoni's paper
-        kappa0 = kappa1 = 1.
-        xi0 = xi1 = 0.49*kappa1
-        eta0 = eta1 = 1.
-        omega0, omega1 = 0.1*kappa1, 0.2*kappa1
-
-        h0 = [kappa0, eta0, omega0, xi0]
-        h1 = [kappa1, eta1, omega1, xi1]
-
-        if flip == 0:
-            p = [h1, h0]
-        else:
-            p = [h0, h1]
+    a = -1.0
+    b = 1.0
+    alpha = 1.0
+    beta = 1.0
+    p = [a, b, alpha, beta]
     return p, str(p)+"/"
 
 
@@ -99,9 +61,10 @@ def load_liks(itraj=1, dt=1e-1, total_time=1):
 def get_timind_indis(total_time, dt, N=1e4, begin=0, rrange=True):
     times = np.arange(0,total_time+dt, dt)
     if len(times)>1e4:
-        indis = np.logspace(begin,np.log10(len(times)-1), int(N))
+        indis = np.linspace(0,len(times)-1,int(1e4)).astype("int")
     else:
-        indis = np.arange(begin,len(times))#imtimes[-1],times[1]-times[0]).astype(int)
+        indis = np.arange(0,len(times))#imtimes[-1],times[1]-times[0]).astype(int)
+
     indis = [int(k) for k in indis]
     timind = [times[ind] for ind in indis]
     if rrange == True:
