@@ -1,13 +1,12 @@
 executable=subash.sh
 
-output = ../jobs/outs/diffMu_$(Item).out
-error = ../jobs/errs/diffMu_$(mode)_1$(Item).err
-log = ../jobs/logs/diffMu_$(Item).log
+output = ../jobs/outs/gamma_$(Item).out
+error = ../jobs/errs/gamma_$(Item).err
+log = ../jobs/logs/gamma_$(Item).log
 request_cpus = 1
 request_memory = 2 GB
+requirements= Has_avx == true
 +flavour="medium"
 
-mode='damping'
-tim=6
-args=$(Item) $(mode) $(tim)
-queue from seq 1 100 20000 |
+args=$(Item)
+queue from seq 501 1 1000 |

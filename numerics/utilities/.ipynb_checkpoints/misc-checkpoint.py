@@ -2,9 +2,11 @@ import numpy as np
 import ast
 import os
 import getpass
+import pyarrow.parquet as pq
+import pyarrow as pa
 
 def give_model():
-    return "mechanical_damp_3"
+    return "mechanical_damp"
 
 def get_def_path():
     """
@@ -104,19 +106,22 @@ def get_path_config(exp_path="", itraj=1, total_time=1, dt=.1):
     return pp
 
 
-def load_data(exp_path="", itraj=1, total_time=1, dt=0.1, what="logliks.npy"):
+def load_data(exp_path="", itraj=1, total_time=1, dt=0.1, what="logliks"):
     path = get_path_config(total_time = total_time, dt= dt, itraj=itraj, exp_path=exp_path)
     logliks = np.load(path+what,allow_pickle=True,fix_imports=True,encoding='latin1') ### this is \textbf{q}(t)
     return logliks
+    #path = get_path_config(total_time = total_time, dt= dt, itraj=itraj, exp_path=exp_path)
+    #pq.read_table(path+what)["data"].to_numpy()
+    #return logliks
 
 
 def load_liks(itraj=1, dt=1e-1, total_time=1):
     params, exp_path = def_params(flip=0)
-    logliks =load_data(itraj=itraj, total_time = total_time, dt=dt, exp_path = exp_path, what="logliks.npy")
+    logliks =load_data(itraj=itraj, total_time = total_time, dt=dt, exp_path = exp_path, what="logliks")
     l_1true  = logliks[:,1] - logliks[:,0]   ### this is l(h1) - l(h0)   be pos --> \inft
 
     params, exp_path = def_params(flip=1)
-    logliks =load_data(itraj=itraj, total_time = total_time, dt=dt, exp_path = exp_path, what="logliks.npy")
+    logliks =load_data(itraj=itraj, total_time = total_time, dt=dt, exp_path = exp_path, what="logliks")
     l_0true  = logliks[:,0] - logliks[:,1]    ### this is l(h1) - l(h0)   under hypothesis 0 is true (should be negative --> \inft). It's flipped
     ### because
     return l_1true, l_0true#, tims

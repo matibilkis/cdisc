@@ -1,13 +1,16 @@
 #!/bin/bash
 itraj=$1
-mode=$2
-tim=$3
-cd ~/cdisc_3
+cd ~/cdisc
 . ~/qenv_bilkis/bin/activate
-for k in $(seq 0 1 99)
+#for k in $(seq 0 1 10)
+for gam in $(seq 110 100 10000)
 do
-    nitraj=$(($itraj+$k))
-    python3 numerics/integration/integrate.py --itraj $nitraj
-    python3 numerics/integration/integrate.py --itraj $nitraj --flip_params 1
+    #nitraj=$(($itraj+$k))
+    START=$(date +%s.%N)
+    python3 numerics/integration/integrate.py --itraj $itraj --gamma $gam
+    python3 numerics/integration/integrate.py --itraj $itraj --flip_params 1 --gamma $gam
+    END=$(date +%s.%N)
+    DIFF=$(echo "$END - $START" | bc)
+    echo $DIFF
 done
 deactivate

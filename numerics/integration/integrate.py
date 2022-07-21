@@ -9,7 +9,8 @@ import argparse
 import ast
 from numba import jit
 from scipy.linalg import solve_continuous_are
-
+import pyarrow.parquet as pq
+import pyarrow as pa
 
 def IntegrationLoop(y0_hidden, y0_exp, times, dt):
     """
@@ -145,7 +146,7 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
     os.makedirs(path, exist_ok=True)
 
     if len(times)>1e4:
-        indis = np.logspace(0,np.log10(len(times)-1), int(1e4)).astype(int)
+        indis = np.logspace(0,len(times)-1, int(1e4)).astype(int)
     else:
         indis = np.arange(0,len(times))#imtimes[-1],times[1]-times[0]).astype(int)
 
@@ -154,13 +155,15 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
     logliks_short =  np.array([liks[ii] for ii in indis])
     states1_short =  np.array([states1[ii] for ii in indis])
     states0_short =  np.array([states0[ii] for ii in indis])
-    signals_short =  np.array([signals[ii] for ii in indis])
-
+    #signals_short =  np.array([signals[ii] for ii in indis])
+    #np.save(path+"signals",signals_short)
     np.save(path+"logliks",logliks_short)
     np.save(path+"states1",states1_short)
     np.save(path+"states0",states0_short)
-    np.save(path+"signals",signals_short)
-
+    
+#    pq.write_table(pa.table({str(k):logliks_short[k] for k in range(logliks_short.shape[0])}), "logliks")
+#    pq.write_table(pa.table({str(k):states1_short[k] for k in range(states1_short.shape[0])}), "states1")
+#    pq.write_table(pa.table({str(k):states0_short[k] for k in range(states0_short.shape[0])}), "states0")
 
     return
 
@@ -168,31 +171,26 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument("--itraj", type=int, default=1)
-    parser.add_argument("--ppg",type=float, default=5*1e3)
-    parser.add_argument("--T_param", type=float,default=200.)
     parser.add_argument("--flip_params", type=int, default=0)
+    parser.add_argument("--gamma", type=float, default=110.)
 
     args = parser.parse_args()
 
     itraj = args.itraj ###this determines the seed
-    T_param = args.T_param
-    ppg = args.ppg
     flip_params = args.flip_params
-
-    params, exp_path = def_params(flip = flip_params)
-
-    damping = params[1][0]
-    omega = .5*(params[1][1] + params[0][1])
-
-    which = give_model()
-    if "mechanical_damp" in which:
-        total_time = 4.#~.3
-        dt = 1e-5
-    elif which == "mechanical_freq":
-        period = 2*np.pi/omega
-        total_time = T_param*period
-        dt = period/ppg
-
+    gamma = args.gamma
+    
+    h0 = gamma0, omega0, n0, eta0, kappa0 = 100., 0., 1., 1., 9
+    h1 = gamma1, omega1, n1, eta1, kappa1 = gamma, 0., 1., 1., 9
+    if flip_params == 1:
+        params = [h0, h1]
+    else:
+        params = [h1,h0]
+    exp_path = str(params)+"/"
+    
+    total_time = 8.
+    dt = 1e-5
+    
     integrate(params=params,
               total_time = total_time,
               dt = dt,
