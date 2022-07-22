@@ -1,0 +1,11 @@
+executable=HPC/subash_likelihoods.sh
+
+output = ../jobs/outs/ANAgamma_$(Item).out
+error = ../jobs/errs/ANAgamma_$(Item).err
+log = ../jobs/logs/ANAgamma_$(Item).log
+request_cpus = 1
+request_memory = 2 GB
++flavour="short"
+
+args=$(Item)
+queue from seq 110 100 10000|

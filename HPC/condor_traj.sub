@@ -1,12 +1,11 @@
-executable=subash.sh
+executable=HPC/subash_traj.sh
 
 output = ../jobs/outs/gamma_$(Item).out
 error = ../jobs/errs/gamma_$(Item).err
 log = ../jobs/logs/gamma_$(Item).log
 request_cpus = 1
 request_memory = 2 GB
-requirements= Has_avx == true
 +flavour="medium"
 
 args=$(Item)
-queue from seq 501 1 1000 |
+queue from seq 1501 1 2000 |

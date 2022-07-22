@@ -80,7 +80,7 @@ l1/=(Ntraj - len(ers))
 
 
 
-#### type I and II errors
+# ### type I and II errors
 
 alphas = list(deter["h0/h1"].values())
 betas = list(deter["h1/h0"].values())
@@ -129,7 +129,7 @@ avg_err_alpha = lambda o: (1-np.exp(-o))/(np.exp(o) - np.exp(-o))
 errs = [avg_err_alpha(b) for b in bpos]
 times_alpha_to_errB = [timind[np.argmin(np.abs(alphas[indb+len(bneg),:]+betas[len(bneg)-indb+1,:] - errs[indb]))] for indb in range(len(bpos))]
 
-##############3 HISTOGRAM
+# #############3 HISTOGRAM
 
 
 
@@ -156,7 +156,7 @@ for indb, b in enumerate(bpos):
 
 
 
-### saving
+# ## saving
 
 path_data = get_def_path()+"analysis/{}/".format(Ntraj,mode)
 os.makedirs(path_data,exist_ok=True)
@@ -182,7 +182,7 @@ print("data saved in {}\n".format(path_data))
 
 
 
-#### ploting
+# ### ploting
 
 def prob_craft(t, b, mu):
     S= np.sqrt(2*mu)

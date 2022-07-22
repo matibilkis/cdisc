@@ -101,8 +101,12 @@ def def_params(flip =0):
     return p, str(p)+"/"
 
 
-def get_path_config(exp_path="", itraj=1, total_time=1, dt=.1):
-    pp = get_def_path()+ exp_path +"{}itraj/T_{}_dt_{}/".format(itraj, total_time, dt)
+def get_path_config(exp_path="", itraj=1, total_time=1, dt=.1, noitraj=False):
+    if noitraj == True:
+        pp = get_def_path()+ exp_path +"/T_{}_dt_{}/".format(total_time, dt)
+    else:
+        
+        pp = get_def_path()+ exp_path +"{}itraj/T_{}_dt_{}/".format(itraj, total_time, dt)
     return pp
 
 
