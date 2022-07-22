@@ -76,6 +76,11 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
     """
     global proj_C, A0, A1, XiCov0, XiCov1, C0, C1, dW, model_cte, model
     model = give_model()
+    pdt = kwargs.get("pdt",1)
+    times = np.arange(0,total_time+dt,dt)
+
+    dW = np.sqrt(pdt*dt)*np.random.randn(len(times),2)[::pdt,:]
+    dt = dt*pdt
     if model == "optical":
         ### XiCov = S C.T + G.T
         #### dx  = (A - XiCov.C )x dt + (XiCov dy)/sqrt(2) = A x dt + XiCov dW/sqrt(2)
@@ -134,7 +139,6 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
 
     #### generate long trajectory of noises
     np.random.seed(itraj)
-    dW = np.sqrt(dt)*np.random.randn(len(times),2)
 
 
     hidden_state, exper_state, signals = IntegrationLoop(s0_hidden, s0_exper,  times, dt)
@@ -173,12 +177,16 @@ if __name__ == "__main__":
     parser.add_argument("--itraj", type=int, default=1)
     parser.add_argument("--flip_params", type=int, default=0)
     parser.add_argument("--gamma", type=float, default=110.)
+    parser.add_argument("--dt", type=float, default=1e-5)
+    parser.add_argument("--pdt", type=int, default=1)
 
     args = parser.parse_args()
 
     itraj = args.itraj ###this determines the seed
     flip_params = args.flip_params
     gamma = args.gamma
+    dt = args.dt
+    pdt = args.pdt
     
     h0 = gamma0, omega0, n0, eta0, kappa0 = 100., 0., 1., 1., 9
     h1 = gamma1, omega1, n1, eta1, kappa1 = gamma, 0., 1., 1., 9
@@ -189,13 +197,13 @@ if __name__ == "__main__":
     exp_path = str(params)+"/"
     
     total_time = 8.
-    dt = 1e-5
     
     integrate(params=params,
               total_time = total_time,
               dt = dt,
               itraj=itraj,
-              exp_path = exp_path)
+              exp_path = exp_path,
+             pdt = pdt)
 
 
 ###
