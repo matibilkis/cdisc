@@ -142,3 +142,28 @@ def get_timind_indis(total_time, dt, N=1e4, begin=0, rrange=True):
         return timind, indis, list(range(len(indis)))
     else:
         return timind, indis
+
+    
+    
+def get_stop_time(ell,b, times, mode_log=True):
+    logicals = np.logical_and(ell < b, ell > -b)
+    ind_times = np.argmin(logicals)
+
+    if (np.sum(logicals) == 0) or (ind_times==0):
+        return np.nan
+    else:
+        return times[ind_times]
+
+    
+    
+    ### this is shortcut for sweeping fgamma...
+#def get_exp_path(gamma, flip_params=0):#
+#
+#    h0 = gamma0, omega0, n0, eta0, kappa0 = 100., 0., 1., 1., 9
+#    h1 = gamma1, omega1, n1, eta1, kappa1 = gamma, 0., 1., 1., 9
+#    if flip_params == 1:
+#        params = [h0, h1]
+#    else:
+#        params = [h1,h0]
+#    exp_path = str(params)+"/"
+#    return exp_path

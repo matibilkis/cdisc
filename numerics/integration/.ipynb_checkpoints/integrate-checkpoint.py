@@ -144,7 +144,7 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
     hidden_state, exper_state, signals = IntegrationLoop(s0_hidden, s0_exper,  times, dt)
     states1 = hidden_state[:,0:2]
     states0 = exper_state[:,:2]
-    liks = exper_state[:,2:]
+    liks = exper_state[:,2:]   ###[l0, l1]
 
     path = get_path_config(total_time=total_time, dt=dt, itraj=itraj, exp_path=exp_path)
     os.makedirs(path, exist_ok=True)

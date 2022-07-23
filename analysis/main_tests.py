@@ -101,26 +101,6 @@ times_to_errs_det = np.array([timind[np.argmin(np.abs(symmetric - bound_err))] f
 
 
 ### sequential test
-
-stops0 = [[] for k in range(len(bpos))]
-stops1 = [[] for k in range(len(bpos))]
-
-values1 = list(stop["_1"].values())
-values0 = list(stop["_0"].values())
-for k,val in enumerate(values1):
-    if len(val)!=0:
-        for indb in range(len(val)):
-            if ~np.isnan([values1[k][indb]])[0] == True:
-                stops1[indb].append(np.squeeze(values1[k][indb]))
-
-for k,val in enumerate(values0):
-    if len(val)!=0:
-        for indb in range(len(val)):
-            if ~np.isnan([values0[k][indb]])[0] == True:
-                stops0[indb].append(np.squeeze(values0[k][indb]))
-
-
-
 avg_times1 = np.array([np.mean(k) for k in stops1])
 avg_times0 = np.array([np.mean(k) for k in stops0])
 
@@ -128,6 +108,27 @@ times_sequential = 0.5*(avg_times0 + avg_times1)
 
 
 #
+
+### sequential test
+
+#stops0 = [[] for k in range(len(bpos))]
+#stops1 = [[] for k in range(len(bpos))]
+
+#values1 = list(stop["_1"].values())
+#values0 = list(stop["_0"].values())
+#for k,val in enumerate(values1):
+#    if len(val)!=0:
+#        for indb in range(len(val)):
+#            if ~np.isnan([values1[k][indb]])[0] == True:
+#                stops1[indb].append(np.squeeze(values1[k][indb]))#
+
+#for k,val in enumerate(values0):
+#    if len(val)!=0:
+#        for indb in range(len(val)):
+#            if ~np.isnan([values0[k][indb]])[0] == True:
+#                stops0[indb].append(np.squeeze(values0[k][indb]))
+
+
 # cons1, cons0 = [], []
 # anals1, anals0 = [], []
 # timbin0, timbin1 = [], []
@@ -153,8 +154,8 @@ path_data = save_path
 #path_data = get_def_path()+"analysis/{}/".format(Ntraj,mode)
 os.makedirs(path_data,exist_ok=True)
 
-with open(path_data+"stop.pickle","wb") as f:
-    pickle.dump(stop, f, protocol=pickle.HIGHEST_PROTOCOL)
+with open(path_data+"stop.pickle","wb") as g:
+    pickle.dump(stop, g, protocol=pickle.HIGHEST_PROTOCOL)
 
 with open(path_data+"deter.pickle","wb") as f:
     pickle.dump(deter, f, protocol=pickle.HIGHEST_PROTOCOL)
