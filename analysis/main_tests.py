@@ -13,9 +13,12 @@ import argparse
 
 parser = argparse.ArgumentParser(add_help=False)
 parser.add_argument("--gamma", type=float, default=110.)
+parser.add_argument("--Ntraj", type=int, default=1000)
+
 args = parser.parse_args()
 
 gamma = args.gamma
+Ntraj=int(args.Ntraj)
 
 exp_path = "sweep_gamma/{}/".format(gamma)
 save_path = get_path_config(exp_path=exp_path,total_time=8., dt=1e-5, noitraj=True)
@@ -32,7 +35,6 @@ timind = [times[k] for k in indis]
 indis_range = list(range(len(indis)))
 
 
-Ntraj = int(1e3)
 B = 8.
 dB = .2
 boundsB= np.arange(-B,B+dB,dB)
@@ -63,7 +65,6 @@ def load_gamma(gamma, itraj, what="logliks.npy", flip_params=0):
 
 n=1
 ers = []
-Ntraj = 1000
 for itraj in tqdm(range(1,Ntraj)):
     try:
 

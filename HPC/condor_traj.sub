@@ -5,7 +5,7 @@ error = ../jobs/errs/gamma_$(Item).err
 log = ../jobs/logs/gamma_$(Item).log
 request_cpus = 1
 request_memory = 2 GB
-+flavour="short"
++flavour="medium"
 
 args=$(Item)
-queue from seq 1 1 1 |
+queue from seq 1501 1 2000 |

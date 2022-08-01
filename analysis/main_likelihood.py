@@ -27,13 +27,13 @@ def load_gamma(gamma, itraj, what="logliks.npy", flip_params=0):
     return l
 
 
-def get_likelihood_stats(gamma):
+def get_likelihood_stats(gamma,**kwargs):
+    Ntraj = kwargs.get("Ntraj",1000)
     
-    M=int(1e3)
     ll1 = []
     ll0 = []
     ers=[]
-    for itraj in tqdm(range(1,M)):
+    for itraj in tqdm(range(1,Ntraj)):
         try:
             [l1_1,l0_1], [l0_0,l1_0] = load_gamma(gamma, itraj=itraj,what="logliks.npy", flip_params=0).T, load_gamma(gamma, itraj=itraj,what="logliks.npy", flip_params=1).T
             ll1.append(l1_1-l0_1)
@@ -54,10 +54,11 @@ def get_likelihood_stats(gamma):
     return np.concatenate([np.array(timcum),cum_vals])
 
                           
-def get_diffS(gamma):
+def get_diffS(gamma,**kwargs):
+    Ntraj = kwargs.get("Ntraj",1000)
     dfs = []
     ers = []
-    for itraj in tqdm(range(1,1000)):
+    for itraj in tqdm(range(1,Ntraj)):
         try:
 
             st11, st01 = load_gamma(gamma, itraj=itraj,what="states1.npy", flip_params=0).T, load_gamma(gamma, itraj=itraj,what="states0.npy", flip_params=0).T
@@ -83,18 +84,20 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument("--gamma", type=float, default=110.)
+    parser.add_argument("--Ntraj", type=int, default=1000)
+
     args = parser.parse_args()
 
     gamma = args.gamma
-    
+    Ntraj = int(args.Ntraj)
     exp_path = "sweep_gamma/{}/".format(gamma)
 
     save_path = get_path_config(exp_path=exp_path,total_time=8., dt=1e-5, noitraj=True)
     os.makedirs(save_path, exist_ok=True)
     
     
-    lik_stats = get_likelihood_stats(gamma)
-    dif_state_stats = get_diffS(gamma)
+    lik_stats = get_likelihood_stats(gamma,Ntraj=Ntraj)
+    dif_state_stats = get_diffS(gamma,Ntraj=Ntraj)
 
 
     np.save(save_path+"lik_cum",lik_stats)
