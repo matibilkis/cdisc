@@ -4,7 +4,6 @@ sys.path.insert(0, os.getcwd())
 
 import numpy as np
 from numerics.utilities.misc import *
-from analysis.misc import *
 import pickle
 import numpy as np
 from tqdm import tqdm
@@ -30,7 +29,7 @@ os.makedirs(save_path, exist_ok=True)
 total_time = 8.
 dt = 1e-5
 times = np.arange(0, 8 + dt, dt )
-indis = np.logspace(0,np.log10(len(times)-1), int(1e4)).astype(int)
+indis = np.linspace(0,len(times)-1, int(1e4)).astype(int)
 timind = [times[k] for k in indis]
 indis_range = list(range(len(indis)))
 
@@ -101,6 +100,25 @@ times_to_errs_det = np.array([timind[np.argmin(np.abs(symmetric - bound_err))] f
 
 
 
+
+stops0 = [[] for k in range(len(bpos))]
+stops1 = [[] for k in range(len(bpos))]
+
+values1 = list(stop["_1"].values())
+values0 = list(stop["_0"].values())
+for k,val in enumerate(values1):
+    if len(val)!=0:
+        for indb in range(len(val)):
+            if ~np.isnan([values1[k][indb]])[0] == True:
+                stops1[indb].append(np.squeeze(values1[k][indb]))#
+
+for k,val in enumerate(values0):
+    if len(val)!=0:
+        for indb in range(len(val)):
+            if ~np.isnan([values0[k][indb]])[0] == True:
+                stops0[indb].append(np.squeeze(values0[k][indb]))
+
+
 ### sequential test
 avg_times1 = np.array([np.mean(k) for k in stops1])
 avg_times0 = np.array([np.mean(k) for k in stops0])
@@ -110,24 +128,6 @@ times_sequential = 0.5*(avg_times0 + avg_times1)
 
 #
 
-### sequential test
-
-#stops0 = [[] for k in range(len(bpos))]
-#stops1 = [[] for k in range(len(bpos))]
-
-#values1 = list(stop["_1"].values())
-#values0 = list(stop["_0"].values())
-#for k,val in enumerate(values1):
-#    if len(val)!=0:
-#        for indb in range(len(val)):
-#            if ~np.isnan([values1[k][indb]])[0] == True:
-#                stops1[indb].append(np.squeeze(values1[k][indb]))#
-
-#for k,val in enumerate(values0):
-#    if len(val)!=0:
-#        for indb in range(len(val)):
-#            if ~np.isnan([values0[k][indb]])[0] == True:
-#                stops0[indb].append(np.squeeze(values0[k][indb]))
 
 
 # cons1, cons0 = [], []
