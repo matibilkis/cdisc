@@ -2,9 +2,11 @@ import numpy as np
 import ast
 import os
 import getpass
+import pyarrow.parquet as pq
+import pyarrow as pa
 
 def give_model():
-    return "mechanical_damp_3"
+    return "mechanical_damp"
 
 def get_def_path():
     """
@@ -99,24 +101,31 @@ def def_params(flip =0):
     return p, str(p)+"/"
 
 
-def get_path_config(exp_path="", itraj=1, total_time=1, dt=.1):
-    pp = get_def_path()+ exp_path +"{}itraj/T_{}_dt_{}/".format(itraj, total_time, dt)
+def get_path_config(exp_path="", itraj=1, total_time=1, dt=.1, noitraj=False):
+    if noitraj == True:
+        pp = get_def_path()+ exp_path +"/T_{}_dt_{}/".format(total_time, dt)
+    else:
+        
+        pp = get_def_path()+ exp_path +"{}itraj/T_{}_dt_{}/".format(itraj, total_time, dt)
     return pp
 
 
-def load_data(exp_path="", itraj=1, total_time=1, dt=0.1, what="logliks.npy"):
+def load_data(exp_path="", itraj=1, total_time=1, dt=0.1, what="logliks"):
     path = get_path_config(total_time = total_time, dt= dt, itraj=itraj, exp_path=exp_path)
     logliks = np.load(path+what,allow_pickle=True,fix_imports=True,encoding='latin1') ### this is \textbf{q}(t)
     return logliks
+    #path = get_path_config(total_time = total_time, dt= dt, itraj=itraj, exp_path=exp_path)
+    #pq.read_table(path+what)["data"].to_numpy()
+    #return logliks
 
 
 def load_liks(itraj=1, dt=1e-1, total_time=1):
     params, exp_path = def_params(flip=0)
-    logliks =load_data(itraj=itraj, total_time = total_time, dt=dt, exp_path = exp_path, what="logliks.npy")
+    logliks =load_data(itraj=itraj, total_time = total_time, dt=dt, exp_path = exp_path, what="logliks")
     l_1true  = logliks[:,1] - logliks[:,0]   ### this is l(h1) - l(h0)   be pos --> \inft
 
     params, exp_path = def_params(flip=1)
-    logliks =load_data(itraj=itraj, total_time = total_time, dt=dt, exp_path = exp_path, what="logliks.npy")
+    logliks =load_data(itraj=itraj, total_time = total_time, dt=dt, exp_path = exp_path, what="logliks")
     l_0true  = logliks[:,0] - logliks[:,1]    ### this is l(h1) - l(h0)   under hypothesis 0 is true (should be negative --> \inft). It's flipped
     ### because
     return l_1true, l_0true#, tims
@@ -133,3 +142,28 @@ def get_timind_indis(total_time, dt, N=1e4, begin=0, rrange=True):
         return timind, indis, list(range(len(indis)))
     else:
         return timind, indis
+
+    
+    
+def get_stop_time(ell,b, times, mode_log=True):
+    logicals = np.logical_and(ell < b, ell > -b)
+    ind_times = np.argmin(logicals)
+
+    if (np.sum(logicals) == 0) or (ind_times==0):
+        return np.nan
+    else:
+        return times[ind_times]
+
+    
+    
+    ### this is shortcut for sweeping fgamma...
+#def get_exp_path(gamma, flip_params=0):#
+#
+#    h0 = gamma0, omega0, n0, eta0, kappa0 = 100., 0., 1., 1., 9
+#    h1 = gamma1, omega1, n1, eta1, kappa1 = gamma, 0., 1., 1., 9
+#    if flip_params == 1:
+#        params = [h0, h1]
+#    else:
+#        params = [h1,h0]
+#    exp_path = str(params)+"/"
+#    return exp_path
