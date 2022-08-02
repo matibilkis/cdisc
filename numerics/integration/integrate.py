@@ -135,7 +135,7 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
     s0_hidden = np.array([x1in, p1in])
     s0_exper = np.array([x0in, p0in, lin0, lin1])
 
-    times = np.arange(0,total_time+dt,dt)[:(dW.shape[0])]
+    times = np.arange(0,total_time+dt,dt)#[:(dW.shape[0])]
 
     #### generate long trajectory of noises
     np.random.seed(itraj)

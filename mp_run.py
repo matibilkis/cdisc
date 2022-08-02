@@ -5,7 +5,7 @@ from datetime import datetime
 
 cores = mp.cpu_count()
 
-pdts = [1, 10, 100, 1000]
+pdts = [1, 10, 100]
 def int_seed(seed):
     for pdt in pdts:
         s1 = datetime.now()
@@ -16,4 +16,4 @@ def int_seed(seed):
 
 int_seed(1)
 with mp.Pool(cores-1) as p:
-    p.map(int_seed, range(1,100))
+    p.map(int_seed, range(1,10))
