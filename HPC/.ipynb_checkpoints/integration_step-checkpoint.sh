@@ -2,13 +2,13 @@
 itraj=$1
 cd ~/cdisc
 . ~/qenv_bilkis/bin/activate
-for pdt in $(seq 1 50 1000)
+for pdt in 1 10 50 100 500 1000 5000
 do
     START=$(date +%s.%N)
-    python3 numerics/integration/integrate.py --itraj $itraj --gamma 110. --pdt $pdt
+    python3 numerics/integration/integrate.py --itraj $itraj --gamma 11000. --pdt $pdt --dt 1e-6 --total_time 8.
     END=$(date +%s.%N)
     DIFF=$(echo "$END - $START" | bc)
-    echo $DIFF 
+    echo $DIFF
     echo $pdt
 done
 deactivate
