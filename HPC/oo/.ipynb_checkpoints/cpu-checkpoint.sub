@@ -1,0 +1,9 @@
+executable=HPC/cpu.sh
+
+output = ../jobs/outs/cpu$(Item).out
+error = ../jobs/errs/cpu$(Item).err
+log = ../jobs/logs/cpu$(Item).log
+request_cpus = 1
++flavour="short"
+
+queue from seq 1 100 500|

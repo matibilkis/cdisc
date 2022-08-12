@@ -2,18 +2,23 @@ import os
 import multiprocessing as mp
 from numerics.utilities.misc import *
 from datetime import datetime
+import argparse
 
-cores = mp.cpu_count()
+parser = argparse.ArgumentParser(add_help=False)
+parser.add_argument("--itraj", type=int, default=1)
+args = parser.parse_args()
+global itraj
+itraj = args.itraj
 
-pdts = [1, 10, 100]
-def int_seed(seed):
-    for pdt in pdts:
-        s1 = datetime.now()
-        os.system("python3 numerics/integration/integrate.py --itraj {} --pdt {} --total_time 1.".format(seed, pdt))
-        #os.system("python3 numerics/integration/integrate.py --itraj {} --flip_params 1".format(seed+k))
-        print(f"{seed} done")
-        #print(f" {seed}, done")
+#cores =  mp.cpu_count()
+cores = 8#32
+gammas = np.linspace(110., 10000, 32)
 
-int_seed(1)
-with mp.Pool(cores-1) as p:
-    p.map(int_seed, range(1,10))
+def simu(gamma):
+    st = datetime.now()
+    os.system("python3 numerics/integration/integrate.py --itraj {} --gamma {} --pdt 1 --dt 1e-4".format(itraj,gamma))
+    os.system("python3 numerics/integration/integrate.py --itraj {} --flip_params 1 --gamma {} --pdt 1 --dt 1e-4".format(itraj, gamma))
+    print(itraj, cores, gamma, (datetime.now() - st).seconds)
+
+with mp.Pool(cores) as p:
+    p.map(simu, gammas)
