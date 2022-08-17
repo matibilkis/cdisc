@@ -12,7 +12,7 @@ import argparse
 
 parser = argparse.ArgumentParser(add_help=False)
 parser.add_argument("--gamma", type=float, default=110.)
-parser.add_argument("--Ntraj", type=int, default=5000)
+parser.add_argument("--Ntraj", type=int, default=30000)
 parser.add_argument("--indgamma", type=int, default=0)
 
 args = parser.parse_args()

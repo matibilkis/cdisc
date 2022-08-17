@@ -26,7 +26,6 @@ def load_gamma(gamma, itraj, what="logliks.npy", flip_params=0):
     l =load_data(exp_path=exp_path, itraj=itraj, total_time=8., dt=1e-4, what=what)
     return l
 
-
 def get_likelihood_stats(gamma,**kwargs):
     Ntraj = kwargs.get("Ntraj",1000)
     
@@ -40,19 +39,38 @@ def get_likelihood_stats(gamma,**kwargs):
             ll0.append(l1_0-l0_0)    
         except Exception:
             ers.append(itraj)
-    ll1 = np.stack(ll1)
-    ll0 = np.stack(ll0)
+    #i invert them, since it's actually swapped! (sorry)
+    ll0 = np.stack(ll1)
+    ll1 = np.stack(ll0)
 
-    cumulants = {}
-    timind_cum = range(0, ll1.shape[1], 100)
+    print(ll1.shape)
+
+    times = np.arange(0,8. + 1e-4, 1e-4)
+    indis = np.linspace(0,len(times)-1, int(1e4)).astype(int)
+    timind = [times[k] for k in indis]
+    ind_cum = np.linspace(0, ll1.shape[1]-1, 100).astype(int)
+    timind_cum = [timind[k] for k in ind_cum]
+
+    cumulants0, cumulants1 = {}, {}
+
     for k in range(1,5):
-        cumulants[k] = [kstat(ll1[:,t], k) for t in timind_cum]
+        cumulants1[k] = [kstat(ll1[:,t], k) for t in ind_cum]
+        cumulants0[k] = [kstat(ll0[:,t], k) for t in ind_cum]
 
-    timcum = np.array([timind[k] for k in timind_cum])[np.newaxis]
-    cum_vals = np.stack(cumulants.values())
+    cum_vals0 = np.stack(cumulants0.values())
+    cum_vals1 = np.stack(cumulants1.values())
+    k0 = np.concatenate([np.array(timind_cum)[np.newaxis],cum_vals0])
+    k1 = np.concatenate([np.array(timind_cum)[np.newaxis],cum_vals1])
+
+    m1 = [np.mean(ll1[:,t]) for t in ind_cum]
+    m0 = [np.mean(ll0[:,t]) for t in ind_cum]
+
+    s1 = [np.std(ll1[:,t]) for t in ind_cum]
+    s0 = [np.std(ll0[:,t]) for t in ind_cum]
+
+    mm = np.stack([timind_cum,m1, m0, s1,s0])
     
-    return np.concatenate([np.array(timcum),cum_vals])
-
+    return k0, k1, mm
                           
 def get_diffS(gamma,**kwargs):
     Ntraj = kwargs.get("Ntraj",1000)
@@ -100,11 +118,12 @@ if __name__ == "__main__":
     os.makedirs(save_path, exist_ok=True)
     
     
-    lik_stats = get_likelihood_stats(gamma,Ntraj=Ntraj)
+    lik_stats1, lik_stats0 = get_likelihood_stats(gamma,Ntraj=Ntraj)
     dif_state_stats = get_diffS(gamma,Ntraj=Ntraj)
 
 
-    np.save(save_path+"lik_cum",lik_stats)
+    np.save(save_path+"lik1_cum",lik_stats1)
+    np.save(save_path+"lik0_cum",lik_stats0)
     np.save(save_path+"st_cum",dif_state_stats)
 # 
 # 
