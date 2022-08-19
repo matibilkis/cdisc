@@ -38,8 +38,8 @@ timind = [times[k] for k in indis]
 indis_range = list(range(len(indis)))
 
 
-B = 8.
-dB = .2
+B = 6.
+dB = .05
 boundsB= np.arange(-B,B+dB,dB)
 
 bpos = boundsB[boundsB>=0]
@@ -71,12 +71,12 @@ ers = []
 for itraj in range(1,Ntraj):
     try:
 
-        [l1_1,l0_1], [l0_0,l1_0] = load_gamma(gamma, itraj=itraj,what="logliks.npy", flip_params=0).T, load_gamma(gamma, itraj=itraj,what="logliks.npy", flip_params=1).T
+        [l0_1,l1_1], [l1_0,l0_0] = load_gamma(gamma, itraj=itraj,what="logliks.npy", flip_params=0).T, load_gamma(gamma, itraj=itraj,what="logliks.npy", flip_params=1).T
         log_lik_ratio, log_lik_ratio_swap = l1_1-l0_1, l1_0-l0_0
 
         for indb,b in enumerate(boundsB):
             deter["h0/h1"][indb] += ((log_lik_ratio[indis_range] < b).astype(int)  - deter["h0/h1"][indb])/n
-            deter["h1/h0"][indb] += ((log_lik_ratio_swap[indis_range] < b).astype(int)  - deter["h1/h0"][indb])/n
+            deter["h1/h0"][indb] += ((log_lik_ratio_swap[indis_range] > b).astype(int)  - deter["h1/h0"][indb])/n
             if b>=0:
                 stop["_1"][itraj].append(get_stop_time(log_lik_ratio, b, timind))
                 stop["_0"][itraj].append(get_stop_time(log_lik_ratio_swap, b,timind))
@@ -97,9 +97,9 @@ betas = np.stack(betas)
 avg_err= lambda b: (1-np.exp(-abs(b)))/(np.exp(abs(b)) - np.exp(-abs(b)))
 
 errs_bound = np.array([avg_err(b) for b in bpos])
-tot_err = 0.5*(alphas+alphas)
+tot_err = 0.5*(alphas+betas)
 
-symmetric = tot_err[40,:]
+symmetric = tot_err[np.argmin(np.abs(boundsB)),:]
 times_to_errs_det = np.array([timind[np.argmin(np.abs(symmetric - bound_err))] for bound_err in errs_bound])
 
 
@@ -155,7 +155,7 @@ times_sequential = 0.5*(avg_times0 + avg_times1)
 #
 ### saving
 
-path_data = save_path
+path_data = save_path+"B{}_db{}_{}/".format(B,dB,Ntraj)
 #path_data = get_def_path()+"analysis/{}/".format(Ntraj,mode)
 os.makedirs(path_data,exist_ok=True)
 

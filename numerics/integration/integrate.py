@@ -102,7 +102,7 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
         A0, C0, D0, G0 = give_matrices(kappa0, eta0, omega0, xi0)
 
     else:
-        [gamma1, omega1, n1, eta1, kappa1],[gamma0, omega0, n0, eta0, kappa0],   = params
+        [gamma1, omega1, n1, eta1, kappa1],[gamma0, omega0, n0, eta0, kappa0] = params
         model_cte = 1. ### measurement model
         ### XiCov = S C.T + G.T
         #### dx  = (A - XiCov.C )x dt + (XiCov dy) = A x dt + XiCov dW
