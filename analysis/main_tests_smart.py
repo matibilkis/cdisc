@@ -11,31 +11,7 @@ from tqdm import tqdm
 import argparse
 from scipy.special import erf
 
-
-parser = argparse.ArgumentParser(add_help=False)
-parser.add_argument("--gamma", type=float, default=110.)
-parser.add_argument("--Ntraj", type=int, default=30000)
-parser.add_argument("--indgamma", type=int, default=0)
-
-args = parser.parse_args()
-
-#gamma = args.gamma
-indgamma = args.indgamma
-
-
-gammas = np.linspace(110., 10000, 32)
-gamma = gammas[indgamma]
-Ntraj=int(args.Ntraj)
-
 Ntraj = 1000
-
-exp_path = ""
-exp_path = "sweep_gamma/{}/".format(gamma)
-save_path = get_path_config(exp_path=exp_path,total_time=8., dt=1e-4, noitraj=True)
-os.makedirs(save_path, exist_ok=True)
-
-
-
 
 ###########################
 ####### LOAD DATA
@@ -82,11 +58,21 @@ boundsB= np.arange(-B,B+dB,dB)
 bpos = boundsB[boundsB>=0]
 bneg = boundsB[boundsB<0]
 
-deter, stop = {}, {}
+deter, deter_smart, stop = {}, {}, {}
+
 stop["_0"] = {i:[] for i in range(1,Ntraj)}
 stop["_1"] = {i:[] for i in range(1,Ntraj)}
 deter["h0/h1"] ={indb:[0]*len(indis) for indb in range(len(boundsB))}
 deter["h1/h0"] = {indb:[0]*len(indis) for indb in range(len(boundsB))}
+
+deter_smart["h0/h1"] ={indb:[0]*len(indis) for indb in range(len(boundsB))}
+deter_smart["h1/h0"] = {indb:[0]*len(indis) for indb in range(len(boundsB))}
+
+
+itraj = 1
+b=1
+[l0_1,l1_1], [l1_0,l0_0] = load_gamma(gamma, itraj=itraj,what="logliks.npy", flip_params=0).T, load_gamma(gamma, itraj=itraj,what="logliks.npy", flip_params=1).T
+log_lik_ratio, log_lik_ratio_swap = l1_1-l0_1, l1_0-l0_0
 
 
 n=1
@@ -103,6 +89,9 @@ for itraj in tqdm(range(1,5000)):
         for indb,b in enumerate(boundsB):
             deter["h0/h1"][indb] += ((log_lik_ratio[indis_range] < b).astype(int)  - deter["h0/h1"][indb])/n
             deter["h1/h0"][indb] += ((log_lik_ratio_swap[indis_range] > b).astype(int)  - deter["h1/h0"][indb])/n
+
+            deter_smart["h0/h1"][indb] += (np.exp(log_lik_ratio_swap[indis_range])*(log_lik_ratio_swap[indis_range] < b).astype(int)  - deter_smart["h0/h1"][indb])/n
+            deter_smart["h1/h0"][indb] += (np.exp(-log_lik_ratio[indis_range])*(log_lik_ratio[indis_range] > b).astype(int)  - deter_smart["h1/h0"][indb])/n
             if b>=0:
                 stop["_1"][itraj].append(get_stop_time(log_lik_ratio, b, timind))
                 stop["_0"][itraj].append(get_stop_time(log_lik_ratio_swap, b,timind))
@@ -112,16 +101,18 @@ for itraj in tqdm(range(1,5000)):
         print("error {}".format(itraj))
 
 
-
-path_data = "data/"
+path_data = "data_smart/"
 os.makedirs(path_data, exist_ok=True)
 
 with open(path_data+"stop.pickle","wb") as f:
     pickle.dump(stop, f, protocol=pickle.HIGHEST_PROTOCOL)
 
-
 with open(path_data+"deter.pickle","wb") as f:
     pickle.dump(deter, f, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(path_data+"deter_smart.pickle","wb") as f:
+    pickle.dump(deter_smart, f, protocol=pickle.HIGHEST_PROTOCOL)
+
 
 ll1, ll0 = np.stack(ll1), np.stack(ll0)
 
@@ -131,9 +122,8 @@ np.save(path_data+"ll1.npy",ll1)
 ###########################
 #### type I and II errors
 
-
-
-path_data = "data/"
+len(stop["_0"].keys())
+path_data = "data_smart/"
 
 with open(path_data+"stop.pickle","rb") as f:
     stop = pickle.load( f)#, protocol=pickle.HIGHEST_PROTOCOL)
@@ -141,9 +131,24 @@ with open(path_data+"stop.pickle","rb") as f:
 with open(path_data+"deter.pickle","rb") as f:
     deter = pickle.load(f)#, protocol=pickle.HIGHEST_PROTOCOL
 
+with open(path_data+"deter_smart.pickle","rb") as f:
+    deter_smart = pickle.load(f)#, protocol=pickle.HIGHEST_PROTOCOL
+
 ll0 = np.load(path_data+"ll0.npy")
 ll1 = np.load(path_data+"ll1.npy")
 
+#### convert data to probabilities & get times
+alphas = list(deter["h1/h0"].values())
+betas = list(deter["h0/h1"].values())
+
+alphas = np.stack(alphas)
+betas = np.stack(betas)
+
+alphas_smart = list(deter_smart["h1/h0"].values())
+betas_smart = list(deter_smart["h0/h1"].values())
+
+alphas_smart = np.stack(alphas_smart)
+betas_smart = np.stack(betas_smart)
 
 
 ml1 = np.mean(ll1, axis=0)
@@ -157,23 +162,33 @@ np.polyfit(timind,ml1,1)
 np.polyfit(timind,ml0,1)
 
 
-alphas.shape
-plt.plot(timind,alphas[len(bneg),:])
-plt.plot(timind,alphas[len(bneg)+10,:])
+
+len(indis_range)
+k= 300
+c1, ti1 = np.histogram(ll1[:,indis_range[k]], bins=50)
+c0, ti0 = np.histogram(ll0[:,indis_range[k]], bins=50)
+
+ax=plt.subplot(111)
+ax.plot(ti0[:-1],c0)
+ax.plot(ti1[:-1],c1)
+ax.axvline(boundsB[0],color="black")
+
+ind=0#len(bneg)#10+len(bneg)
+plt.figure(figsize=(40,10))
+ax=plt.subplot()
+ax.plot(timind,betas_smart[ind,:],color="black")
+ax.plot(timind,betas[ind,:])
+ax.axvline(timind[k],color="green",linewidth=5)
 
 
 
-#### convert data to probabilities & get times
-alphas = list(deter["h1/h0"].values())
-betas = list(deter["h0/h1"].values())
-
-alphas = np.stack(alphas)
-betas = np.stack(betas)
 
 
 stops0 = [[] for k in range(len(bpos))]
 stops1 = [[] for k in range(len(bpos))]
 
+len(val)
+len(boundsB)
 values1 = list(stop["_1"].values())
 values0 = list(stop["_0"].values())
 for k,val in enumerate(values1):
@@ -244,9 +259,24 @@ sdet/sseq
 counts1, bins1 = np.histogram(ll1, 50, normed=True)
 counts0, bins0 = np.histogram(ll0, 50, normed=True)
 
+
+
+
 plt.plot(alphas[indb0,:])
 plt.plot(betas[indb0,:])
 plt.loglog()
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -349,6 +379,15 @@ ax.axhline(4,color="black")
 
 
 
+np.polyfit(bpos,times_alpha_to_errB,1)
+np.polyfit(bpos,times_sequential,1)
+
+
+
+
+
+
+
 
 
 ### Check if the probabilities agree.
@@ -361,8 +400,7 @@ def dete_alpha(t, b, mu):
     inside = (b + mu*t)/(np.sqrt(mu*t)*2)
     return (1 -  erf(inside))/2
 
-timind = np.array(timind)
-k=20
+k=6
 indb = boundsB[k]
 ax=plt.subplot()
 ini = np.argmin(np.abs(timind-1))
@@ -385,28 +423,16 @@ plt.plot(timind[:fini],betas[k][:fini])
 
 
 
-k=0#len(boundsB)-1
+k=len(boundsB)-1
 indb = boundsB[k]
 ax=plt.subplot()
 fini = np.argmin(np.abs(np.array(timind)-3))
 ax.plot(timind[:fini], alphas[k][:fini] + betas[k][:fini])
 ax.plot(timind[:fini], (np.array([dete_alpha(t, indb, mu1) for t in timind])[:fini] + np.array([dete_beta(t, indb, mu1) for t in timind])[:fini]), color="black", linewidth=10, alpha=0.5, label="analytical result")
+#ax.set_yscale("log")
 
 
 
-
-def dete_beta(t, b, mu):
-    inside = (b - mu*t)/(np.sqrt(mu*t)*2)
-    return (1 +  erf(inside))/2
-
-indb = 3
-ax=plt.subplot()
-fini = np.argmin(np.abs(np.array(timind)-3))
-ax.plot(timind[:fini], betas[k][:fini])
-ax.plot(timind[:fini],  np.array([dete_beta(t, boundsB[indb], mu1) for t in timind])[:fini], color="black", linewidth=10, alpha=0.5, label="analytical result")
-ax.set_xlabel("time")
-ax.set_ylabel("beta error")
-ax.set_title("b={}".format(np.round(boundsB[indb]),4))
 
 
 

@@ -11,14 +11,14 @@ global itraj
 itraj = args.itraj
 
 #cores =  mp.cpu_count()
-cores = 8#32
-gammas = np.linspace(110., 10000, 32)
-
-def simu(gamma):
+cores = 6#32
+#gammas = np.linspace(110., 10000, 32)
+gammas = np.arange(1000,10000,1)
+def simu(itraj):
     st = datetime.now()
-    os.system("python3 numerics/integration/integrate.py --itraj {} --gamma {} --pdt 1 --dt 1e-4".format(itraj,gamma))
-    os.system("python3 numerics/integration/integrate.py --itraj {} --flip_params 1 --gamma {} --pdt 1 --dt 1e-4".format(itraj, gamma))
-    print(itraj, cores, gamma, (datetime.now() - st).seconds)
+    os.system("python3 numerics/integration/integrate.py --itraj {} --pdt 1 --dt 1e-4".format(itraj))
+    os.system("python3 numerics/integration/integrate.py --itraj {} --flip_params 1 --pdt 1 --dt 1e-4".format(itraj))
+    print(itraj)#, cores, gamma, (datetime.now() - st).seconds)
 
 with mp.Pool(cores) as p:
     p.map(simu, gammas)
