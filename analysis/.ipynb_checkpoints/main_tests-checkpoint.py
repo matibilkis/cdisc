@@ -19,8 +19,12 @@ args = parser.parse_args()
 
 #gamma = args.gamma
 indgamma = args.indgamma
-gammas = np.linspace(110., 10000, 32)
+#gammas = np.linspace(110., 10000, 32)
+#gamma = gammas[indgamma]
+gammas = np.linspace(110., 10000, 32) #---> all batch, before 6/11
+gammas = np.linspace(gammas[0] + 10, gammas[1]-10, 32) #---> all batch, before 6/11
 gamma = gammas[indgamma]
+
 Ntraj=int(args.Ntraj)
 
 exp_path = "sweep_gamma/{}/".format(gamma)

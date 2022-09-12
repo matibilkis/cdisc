@@ -12,7 +12,9 @@ itraj = args.itraj
 
 #cores =  mp.cpu_count()
 cores = 8#32
-gammas = np.linspace(110., 10000, 32)
+gammas = np.linspace(110., 10000, 32) #---> all batch, before 6/11
+gammas = np.linspace(gammas[0] + 10, gammas[1]-10, 32) #---> all batch, before 6/11
+
 
 def simu(gamma):
     st = datetime.now()

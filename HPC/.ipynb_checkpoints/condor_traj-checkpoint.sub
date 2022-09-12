@@ -8,4 +8,4 @@ request_memory = 2 GB
 +flavour="short"
 
 args=$(Item)
-queue from seq 25008 8 30000|
+queue from seq 1 8 10000|
