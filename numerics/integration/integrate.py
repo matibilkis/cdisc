@@ -9,10 +9,9 @@ import argparse
 import ast
 from numba import jit
 from scipy.linalg import solve_continuous_are
-#import pyarrow.parquet as pq
-#import pyarrow as pa
+from scipy.linalg import block_diag
 
-def IntegrationLoop(y0_hidden, y0_exp, times, dt):
+def IntegrationLoop(y0_hidden, times, dt):
     """
     dy = f(y,t) *dt + G(y,t) *dW
     """
@@ -22,148 +21,95 @@ def IntegrationLoop(y0_hidden, y0_exp, times, dt):
     _,I=Ikpw(dW,dt)
 
     yhidden = np.zeros((N, d))
-    yexper = np.zeros((N, len(y0_exp)))
-
     yhidden[0] = y0_hidden
-    yexper[0] = y0_exp
     dys = []
 
     for ind, t in enumerate(times):
         yhidden[ind+1] = Robler_step(t, yhidden[ind], dW[ind,:], I[ind,:,:], dt, Fhidden, Ghidden, d, m)
-
         ## measurement outcome
-        x1 = yhidden[ind][:2]
-        dy = model_cte*np.dot(C1,x1)*dt + np.dot(proj_C, dW[ind,:2])
+        x = yhidden[ind][:2]
+        dy = np.dot(C,x)*dt + np.dot(proj_C, dW[ind,:2])
         dys.append(dy)
-
-        yexper[ind+1] = EulerUpdate_x0_logliks(x1, dy, yexper[ind], dt)
-    return yhidden, yexper, dys
-
-def EulerUpdate_x0_logliks(x1,dy,s, dt):
-    """
-    this function updates the value of {x0,cov0} (wrong hypothesis) by using the dy
-    also updates the log likelihoods l1 and l0
-    """
-    ### x1 is the hidden state i use to simulate the data
-    x0 = s[:2]
-    XiCov0C0 = np.dot(XiCov0,C0)
-
-    dx0 = np.dot(A0 - XiCov0C0, x0)*dt + np.dot(XiCov0, dy)/model_cte
-
-    l0, l1 = s[2:]
-    u0 = model_cte*np.dot(C0,x0)
-    u1 = model_cte*np.dot(C1,x1)
-    dl0 = -dt*np.dot(u0,u0)/2 + np.dot(u0, dy)
-    dl1 = -dt*np.dot(u1,u1)/2 + np.dot(u1, dy)
-    return [(x0 + dx0)[0], (x0 + dx0)[1], l0 + dl0, l1+dl1 ]
-
+    return yhidden, dys
 
 @jit(nopython=True)
 def Fhidden(s, t, dt):
     """
     """
-    x1 = s[:2]
-    x1_dot = np.dot(A1,x1)
-    return np.array([x1_dot[0], x1_dot[1]])
+    x = s[:2]
+    x_th = s[2:4]
+    x_dot = np.dot(A,x)
+    x_th_dot = np.dot(A, x_th) + np.dot(A_th,x)
+    return np.array(list(x_dot) + list(x_th_dot))
 
 @jit(nopython=True)
 def Ghidden():
-    return model_cte*XiCov1
+    return big_XiCov
 
 def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
     """
     h1 is the hypothesis i use to get the data. (with al the coefficients gamma1...)
     """
-    global proj_C, A0, A1, XiCov0, XiCov1, C0, C1, dW, model_cte, model
+    global proj_C, A, A_th, XiCov_th, XiCov, C, dW, model, big_XiCov
     model = give_model()
     pdt = kwargs.get("pdt",1)
-    dt *=pdt
+    dt *=pdt #this is to check accuracy of integration
     times = np.arange(0,total_time+dt,dt)
     dW = np.sqrt(dt)*np.random.randn(len(times),2)
+    dW = np.concatenate([dW]*2, axis=1)
+    ### XiCov = S C.T + G.T
+    #### dx  = (A - XiCov.C )x dt + (XiCov dy) = A x dt + XiCov dW
+    #### dy = C x dt + dW
+    #### dCov = AS + SA.T + D - xiCov xiCov.T
+    gamma, omega, n, eta, kappa = params
 
-    if model == "optical":
-        ### XiCov = S C.T + G.T
-        #### dx  = (A - XiCov.C )x dt + (XiCov dy)/sqrt(2) = A x dt + XiCov dW/sqrt(2)
-        #### dy = sqrt(2) C x dt + dW
-        #### dS/dt = AS + SA.T + D - xiCov xiCov.T
+    def give_matrices(gamma, omega, n, eta, kappa):
+        A = np.array([[-gamma/2, omega],[-omega, -gamma/2]])
+        C = np.sqrt(4*eta*kappa)*np.array([[1.,0.],[0., 0.]])#homodyne
+        D = np.diag([gamma*(n+0.5) + kappa]*2)
+        G = np.zeros((2,2))
+        return A, C, D,G
 
-        [kappa0, eta0, omega0, xi0], [kappa1, eta1, omega1, xi1] = params
-        model_cte = np.sqrt(2) ### measurement model
+    A, C, D, G = give_matrices(gamma, omega, n, eta, kappa)
+    proj_C = np.linalg.pinv(C/C[0,0])
+    xin, pin, x_thin, p_thin, dyxin, dypin = np.zeros(6)
 
-        def give_matrices(kappa, eta, omega, xi):
-            A = np.array([[-kappa/2 -xi, omega],[-omega, xi -kappa/2]])
-            B = E = -np.sqrt(eta*kappa)*np.array([[1.,0.],[0.,0.]]) #homodyne
-            D = np.diag([kappa]*2)
-            C = -B.T
-            G = E.T
-            return A, C, D,G
+    cov_st = solve_continuous_are( (A-np.dot(G.T,C)).T, C.T, D - np.dot(G.T, G), np.eye(2))#### A.T because the way it's implemented! https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.solve_continuous_are.html
+    D_th = np.eye(2)*0. ## we estimate \omega
+    A_th = np.array([[0.,1.],[-1.,0.]])
+    cov_st_th = solve_continuous_are( (A-np.dot(cov_st,np.dot(C.T,C))).T, np.eye(2)*0., D_th + np.dot(A_th, cov_st) + np.dot(cov_st, A_th.T), np.eye(2))
 
-        A1, C1, D1, G1 = give_matrices(kappa1, eta1, omega1, xi1)
-        A0, C0, D0, G0 = give_matrices(kappa0, eta0, omega0, xi0)
+    XiCov  = np.dot(cov_st, C.T) #I take G=0.
+    XiCov_th  = np.dot(cov_st_th, C.T) #I take G = 0.
 
-    else:
-        [gamma1, omega1, n1, eta1, kappa1],[gamma0, omega0, n0, eta0, kappa0] = params
-        model_cte = 1. ### measurement model
-        ### XiCov = S C.T + G.T
-        #### dx  = (A - XiCov.C )x dt + (XiCov dy) = A x dt + XiCov dW
-        #### dy = C x dt + dW
-        #### dCov = AS + SA.T + D - xiCov xiCov.T
-
-        def give_matrices(gamma, omega, n, eta, kappa):
-            A = np.array([[-gamma/2, omega],[-omega, -gamma/2]])
-            if "mechanical_damp" in model:
-                mm = np.eye(2)#homodyne but in Rotating Frame
-            elif model =="mechanical_freq":
-                mm = np.array([1.,0.],[0.,0.])#homodyne
-            C = np.sqrt(4*eta*kappa)*mm#
-            D = np.diag([gamma*(n+0.5) + kappa]*2)
-            G = np.zeros((2,2))
-            return A, C, D,G
-
-        A1, C1, D1, G1 = give_matrices(gamma1, omega1, n1, eta1, kappa1)
-        A0, C0, D0, G0 = give_matrices(gamma0, omega0, n0, eta0, kappa0)
-
-    proj_C = np.linalg.pinv(C1/C1[0,0])
-    x1in ,p1in, x0in, p0in, dyxin, dypin, lin0, lin1 = np.zeros(8)
-
-    sst1 = solve_continuous_are( (A1-np.dot(G1.T,C1)).T, C1.T, D1 - np.dot(G1.T, G1), np.eye(2)) #### A.T because the way it's implemented!
-    sst0 = solve_continuous_are( (A0-np.dot(G0.T,C0)).T, C0.T, D0 - np.dot(G0.T, G0), np.eye(2)) #### A.T because the way it's implemented!
-
-    XiCov1  = np.dot(sst1, C1.T) + G1.T
-    XiCov0  = np.dot(sst0, C0.T) + G0.T
-
-    s0_hidden = np.array([x1in, p1in])
-    s0_exper = np.array([x0in, p0in, lin0, lin1])
-
+    big_XiCov = block_diag(XiCov, XiCov_th)
+    s0_hidden = np.array([xin, pin, x_thin, p_thin])
     times = np.arange(0,total_time+dt,dt)#[:(dW.shape[0])]
 
     #### generate long trajectory of noises
     np.random.seed(itraj)
 
-
-    hidden_state, exper_state, signals = IntegrationLoop(s0_hidden, s0_exper,  times, dt)
-    states1 = hidden_state[:,0:2]
-    states0 = exper_state[:,:2]
-    liks = exper_state[:,2:]
+    hidden_state, signals = IntegrationLoop(s0_hidden, times, dt)
+    states = hidden_state[:,:2]
+    states_th = hidden_state[:,2:4]
 
     path = get_path_config(total_time=total_time, dt=dt, itraj=itraj, exp_path=exp_path)
     os.makedirs(path, exist_ok=True)
 
-    if len(times)>1e4:
-        indis = np.linspace(0,len(times)-1, int(1e4)).astype(int)
+    THRESHOLD = int(1e6)
+    if len(times)>THRESHOLD:
+        indis = np.linspace(0,len(times)-1, THRESHOLD).astype(int)
     else:
         indis = np.arange(0,len(times))
 
     timind = [times[ind] for ind in indis]
+    signals_short =  np.array([signals[ii] for ii in indis])
+    states_short =  np.array([states[ii] for ii in indis])
+    states_th_short =  np.array([states_th[ii] for ii in indis])
 
-    logliks_short =  np.array([liks[ii] for ii in indis])
-    states1_short =  np.array([states1[ii] for ii in indis])
-    states0_short =  np.array([states0[ii] for ii in indis])
-
-
-    np.save(path+"logliks",logliks_short)
-    np.save(path+"states1",states1_short)
-    np.save(path+"states0",states0_short)
+    np.save(path+"signals",signals)
+    np.save(path+"states_th",states_th_short)
+    np.save(path+"states",states_short)
 
     return
 
@@ -171,30 +117,26 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument("--itraj", type=int, default=1)
-    parser.add_argument("--flip_params", type=int, default=0)
-    parser.add_argument("--gamma", type=float, default=11000.)
     parser.add_argument("--dt", type=float, default=1e-5)
-    parser.add_argument("--total_time", type=float, default=8.)
-
     parser.add_argument("--pdt", type=int, default=1)
+    parser.add_argument("--total_time", type=float, default=8.)
 
     args = parser.parse_args()
 
     itraj = args.itraj ###this determines the seed
-    flip_params = args.flip_params
-    gamma = args.gamma
     dt = args.dt
     pdt = args.pdt
     total_time = args.total_time
 
-    h0 = gamma0, omega0, n0, eta0, kappa0 = 100., 0., 1., 1., 9
-    h1 = gamma1, omega1, n1, eta1, kappa1 = gamma, 0., 1., 1., 9
-    if flip_params == 1:
-        params = [h0, h1]
-    else:
-        params = [h1,h0]
+
+    gamma, omega, n, eta, kappa = [1000., 1e2, 10., 1., 1e4]
+    params = [gamma, omega, n, eta, kappa]
     exp_path = str(params)+"/"
 
+    N_periods = 1000.
+    single_period=2*np.pi/omega
+    total_time = N_periods*single_period
+    dt = single_period/100.
 
     integrate(params=params,
               total_time = total_time,
