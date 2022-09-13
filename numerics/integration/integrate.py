@@ -96,7 +96,7 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
     path = get_path_config(total_time=total_time, dt=dt, itraj=itraj, exp_path=exp_path)
     os.makedirs(path, exist_ok=True)
 
-    THRESHOLD = int(1e6)
+    THRESHOLD = int(1e8)
     if len(times)>THRESHOLD:
         indis = np.linspace(0,len(times)-1, THRESHOLD).astype(int)
     else:
@@ -129,11 +129,11 @@ if __name__ == "__main__":
     total_time = args.total_time
 
 
-    gamma, omega, n, eta, kappa = [1000., 1e2, 10., 1., 1e4]
+    gamma, omega, n, eta, kappa = [1e1, 1e3, 1., 1., 1e4]
     params = [gamma, omega, n, eta, kappa]
     exp_path = str(params)+"/"
 
-    N_periods = 1000.
+    N_periods = 100.
     single_period=2*np.pi/omega
     total_time = N_periods*single_period
     dt = single_period/100.
@@ -145,5 +145,13 @@ if __name__ == "__main__":
               exp_path = exp_path,
               pdt = pdt)
 
-
-###
+# import numpy as np
+#
+# omega = 1e3
+# N_periods = 100.
+# single_period=2*np.pi/omega
+# total_time = N_periods*single_period
+# dt = single_period/100.
+#
+# times = np.arange(0,total_time+dt,dt)
+# ###
