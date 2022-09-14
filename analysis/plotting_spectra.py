@@ -64,10 +64,13 @@ params = [gamma, omega, n, eta, kappa]
 exp_path = str(params)+"/"
 states = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="states.npy")
 
-states
+signals = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="signals.npy")
 
+c,b = np.histogram(states[:,0]/signals[:,0], bins=100)
 
+plt.plot(b[:-1],c)
 
+(states[:,0]/signals[:,0])[:100]
 
 
 
