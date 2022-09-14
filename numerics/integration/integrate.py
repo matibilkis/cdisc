@@ -145,6 +145,10 @@ if __name__ == "__main__":
               exp_path = exp_path,
               pdt = pdt)
 
+
+total_time
+dt
+
 # import numpy as np
 #
 # omega = 1e3

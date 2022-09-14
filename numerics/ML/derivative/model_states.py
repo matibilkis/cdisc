@@ -62,7 +62,7 @@ class GRCell(tf.keras.layers.Layer):
         cov_dt = tf.einsum('bij,bjk->bik',A_model,cov) + tf.einsum('bij,bjk->bik',cov, tf.transpose(A_model, perm=[0,2,1])) + self.D_matrix - tf.einsum('bij,bjk->bik',XiCov, tf.transpose(XiCov, perm=[0,2,1]))
         new_cov = cov + cov_dt*self.dt
         new_states = tf.concat([x, tf.zeros((1,3))],axis=-1)
-        return output, [new_states]####
+        return x, [new_states]####
 
     def build(self, input_shape):
         self.training_params = self.add_weight(shape=(1, 1),
@@ -116,15 +116,8 @@ class Model(tf.keras.Model):
         with tf.GradientTape() as tape:
             tape.watch(self.trainable_variables)
             preds = self(inputs)
-            diff = tf.squeeze(preds - dys)
-            loss = tf.reduce_sum(tf.einsum('bj,bj->b',diff,diff))
-
-        grads = tape.gradient(loss, self.trainable_variables)
-        self.optimizer.apply_gradients(zip(grads,self.trainable_variables))
-        self.total_loss.update_state(loss)
-        self.target_params_record.update_state(self.trainable_variables[0])
-        self.gradient_history.update_state(grads)
-
+            grad = tape.gradient(preds, self.trainable_variables)
+        self.grads.append(grad)
         return {k.name:k.result() for k in self.metrics}
 
 
@@ -152,11 +145,10 @@ class Model(tf.keras.Model):
             for i,j in zip([loss_save, grads_save, params_save], ["loss", "grads", "params"]):
                 np.save(self.save_dir+j,i)
 
-            if loss<early_stopping:
-                print("Early stopped at loss {}".format(loss))
-                break
+            # if loss<early_stopping:
+            #     print("Early stopped at loss {}".format(loss))
+            #     break
         return history
-
 
 class Metrica(tf.keras.metrics.Metric):
     """

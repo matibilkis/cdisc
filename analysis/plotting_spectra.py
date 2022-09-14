@@ -50,7 +50,7 @@ def load_plot(params,cut=-1):
     signals = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="signals.npy")
     plot(states,signals,cut=cut)
 
-gamma, omega, n, eta, kappa = [1e1, 1e3, 1., 1., 1e4]
+gamma, omega, n, eta, kappa = [1e2, 1e3, 1., 1., 1e4]
 load_plot([gamma, omega, n, eta, kappa], cut=-1)
 
 

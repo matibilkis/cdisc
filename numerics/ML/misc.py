@@ -15,7 +15,6 @@ def pre_process_data_for_ML(times, signals):
 
 
 
-
 def plot_history(logs=None, from_loss=False, data=None, preds=None, signals=None, **kwargs):
     true_parameters = kwargs.get("true_parameters",[10., 2*np.pi])
 
