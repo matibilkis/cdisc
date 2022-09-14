@@ -49,7 +49,8 @@ class GRCell(tf.keras.layers.Layer):
 
         sts = states[0][:,:2]
         self.ss.append(sts)
-        cov = self.cov_in
+        cov = tf.convert_to_tensor(np.array([states[1]#self.cov_in
+
 
         XiCov =tf.einsum('bij,jk->bik',cov,self.C_matrix.T)
         XiCovC = tf.matmul(XiCov,self.C_matrix.T)
