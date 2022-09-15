@@ -72,6 +72,20 @@ A = np.array([[-gamma/2, omega],[-omega, -gamma/2]]).astype("float32")
 C = np.sqrt(4*eta*kappa)*np.array([[1.,0.],[0., 0.]]).astype("float32")
 D = np.diag([gamma*(n+0.5) + kappa]*2).astype("float32")
 cov_st = solve_continuous_are( A.T, C.T, D, np.eye(2))
+D_th = np.eye(2)*0. ## we estimate \omega
+A_th = np.array([[0.,1.],[-1.,0.]])
+cov_st_th = solve_continuous_are( (A-np.dot(cov_st,np.dot(C.T,C))).T, np.eye(2)*0., D_th + np.dot(A_th, cov_st) + np.dot(cov_st, A_th.T), np.eye(2))
+
+from scipy.linalg import block_diag
+
+XiCov  = np.dot(cov_st, C.T) #I take G=0.
+XiCov_th  = np.dot(cov_st_th, C.T) #I take G = 0.
+
+cth = cov_st_th
+
+cth.dot((A - cov_st.dot(C.dot(C))).T) + (A - cov_st.dot(C.dot(C))).dot(cth) + cov_st.dot(A_th.T) + A_th.dot(cov_st)
+
+
 
 
 states = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="states.npy", itraj=itraj)
@@ -122,6 +136,7 @@ class GRCell(tf.keras.layers.Layer):
         sts = states[0][:,:2]
         cc = states[0][0,2:]
         cov=tf.convert_to_tensor(np.array([[cc[0], cc[1]],[cc[1], cc[2]]]))[tf.newaxis]
+        print(cov)
         self.ss.append(sts)
         #cov = self.cov_in
 
@@ -204,6 +219,21 @@ nsignals = np.squeeze(tfsignals)
 plt.plot(times[:tt], states[:tt,0])
 plt.plot(nsignals[:,0],np.squeeze(preds)[:,0])
 
+
+
+
+
+model.reset_states()
+model.layers[0].return_sequences = True
+preds = model(tfsignals[:,:k,:])
+
+with tf.GradientTape(persistent=True) as tape:
+    tape.watch(model.trainable_variables)
+    preds = model(tfsignals[:,:k,:])
+
+tape.gradient(preds,model.trainable_variables)
+
+
 from tqdm import tqdm
 grads = []
 for k in tqdm(range(1,100,1)):
@@ -220,8 +250,8 @@ for k in tqdm(range(1,100,1)):
 grads_ =np.stack(grads)
 
 tt=99
-plt.plot(times[:tt],grads_[:,0])
-plt.plot(times[:tt],states_th[:tt,0])
+plt.plot(times[:tt],grads_[:tt,0])
+#plt.plot(times[:tt],states_th[:tt,0])
 
 
 

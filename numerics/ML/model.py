@@ -47,9 +47,10 @@ class GRCell(tf.keras.layers.Layer):
         inns = tf.squeeze(inputs)
         time, dy = inns[0], inns[1:][tf.newaxis]
 
+        print("WARGNING")
         sts = states[0][:,:2]
         self.ss.append(sts)
-        cov = tf.convert_to_tensor(np.array([states[1]#self.cov_in
+        #cov = tf.convert_to_tensor(np.array([states[1]#self.cov_in
 
 
         XiCov =tf.einsum('bij,jk->bik',cov,self.C_matrix.T)

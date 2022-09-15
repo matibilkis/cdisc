@@ -39,7 +39,7 @@ def Fhidden(s, t, dt):
     x = s[:2]
     x_th = s[2:4]
     x_dot = np.dot(A,x)
-    x_th_dot = np.dot(A, x_th) + np.dot(A_th,x)
+    x_th_dot = np.dot(A - XiCovC, x_th) + np.dot(A_th,x)
     return np.array(list(x_dot) + list(x_th_dot))
 
 @jit(nopython=True)
@@ -50,7 +50,7 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
     """
     h1 is the hypothesis i use to get the data. (with al the coefficients gamma1...)
     """
-    global proj_C, A, A_th, XiCov_th, XiCov, C, dW, model, big_XiCov
+    global proj_C, A, A_th, XiCov_th, XiCov, C, dW, model, big_XiCov, XiCovC
     model = give_model()
     pdt = kwargs.get("pdt",1)
     dt *=pdt #this is to check accuracy of integration
@@ -80,6 +80,7 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
     cov_st_th = solve_continuous_are( (A-np.dot(cov_st,np.dot(C.T,C))).T, np.eye(2)*0., D_th + np.dot(A_th, cov_st) + np.dot(cov_st, A_th.T), np.eye(2))
 
     XiCov  = np.dot(cov_st, C.T) #I take G=0.
+    XiCovC = np.dot(XiCov, C)
     XiCov_th  = np.dot(cov_st_th, C.T) #I take G = 0.
 
     big_XiCov = block_diag(XiCov, XiCov_th)
