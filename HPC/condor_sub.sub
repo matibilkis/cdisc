@@ -1,0 +1,11 @@
+executable=HPC/subash.sh
+
+output = ../jobs/outs/est$(Item).out
+error = ../jobs/errs/est$(Item).err
+log = ../jobs/logs/est$(Item).log
+request_cpus = 1
+request_memory = 1 GB
++flavour="short"
+
+args=$(Item)
+queue from seq 1 1 1000|
