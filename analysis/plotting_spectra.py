@@ -38,7 +38,7 @@ def plot(params, states, signals,cut=-1):
     ax.set_yscale("log")
     ax.set_xscale("log")
 
-def load_plot(params,cut=-1):
+def load_plot(params,cut=-1, itraj=1):
     gamma, omega, n, eta, kappa = params
     N_periods = 100.
     single_period=2*np.pi/omega
@@ -47,12 +47,12 @@ def load_plot(params,cut=-1):
     times = np.arange(0,total_time+dt,dt)
     params = [gamma, omega, n, eta, kappa]
     exp_path = str(params)+"/"
-    states = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="states.npy")
-    signals = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="signals.npy")
+    states = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="states.npy",itraj=itraj)
+    signals = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="signals.npy",itraj=itraj)
     plot(params,states,signals,cut=cut)
 
 gamma, omega, n, eta, kappa = [1e1, 1e3, 10., 1., 1e2]
-load_plot([gamma, omega, n, eta, kappa], cut=-1)
+load_plot([gamma, omega, n, eta, kappa], cut=-1, itraj=9000)
 
 
 

@@ -23,19 +23,21 @@ exp_path = str(params)+"/"
 
 timms = np.linspace(100, len(times)-1,10).astype("int")
 
-trajs = np.array(list(range(1,int(1e3),1)))
+trajs = np.array(list(range(1,int(1e4),1)))
 l=[]
 ers=[]
 for itraj in tqdm(trajs):
     try:
-        l.append(np.load(get_def_path()+"lorentzians/{}.npy".format(itraj)))
+        ll= np.load(get_def_path()+"lorentzians/{}.npy".format(itraj))
+        if np.min(ll[1:])<0:
+            ers.append(itaj)
+            pass
+        else:
+            l.append(ll)
     except Exception:
         ers.append(itraj)
 
-l = np.stack(l)
-l.shape
-
-lstd = np.sum((l-omega)**2, axis=0)/l.shape[0]
+len(trajs)-len(ers)
 
 fi = []
 for itraj in tqdm(trajs):
@@ -44,15 +46,19 @@ for itraj in tqdm(trajs):
 
 fi = np.stack(fi)
 
-fi.shape
 means_der_th_sq = np.mean(fi,axis=0)
 fisher = np.cumsum(means_der_th_sq,axis=0)*4*kappa*dt
+
+l=np.stack(l)
+lstd = np.mean( (l - omega)**2, axis=0)
 
 ax=plt.subplot()
 ax.plot(times,1/fisher, label="Fisher info")
 ax.scatter([times[k] for k in timms], lstd, label="Lorentzian fit - Variance")
 ax.set_yscale("log")
 ax.legend()
+
+
 
 
 #

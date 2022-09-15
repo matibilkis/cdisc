@@ -40,7 +40,32 @@ exp_path = str(params)+"/"
 
 timms = np.linspace(100, len(times)-1,10).astype("int")
 #trajs = np.array(list(range(1,int(1e3),1)))
-trajs = list(range(int(1e3),int(1e4)),1)
+trajs = list(range(int(1e3),int(1e4)))
+
+##$$$
+itraj=8900
+lorentzians = {itraj:[]}
+signals = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="signals.npy",itraj=itraj)
+for t in timms:
+    lorentzians[itraj].append(fit_lorentzian(signals[:t,0],dt))
+##$$$
+
+lorentzians
+def give_spectra(signal, dt):
+    Period = 2*np.pi/omega
+    spectra_signal = np.abs(np.fft.fft(signal))**2
+    freqs_signal = np.fft.fftfreq(n = len(spectra_signal), d= dt)*(2*np.pi)
+    cutoff = 10*omega
+    cond  = np.logical_and(freqs_signal < cutoff, freqs_signal>=0)
+    spectra_signal = spectra_signal[cond]
+    freqs_signal = freqs_signal[cond]
+    return freqs_signal, spectra_signal
+
+ff, ss = give_spectra(signals[:t,0], dt)
+ax=plt.subplot()
+ax.plot(ff,ss)
+ax.set_yscale("log")
+ax.set_xscale("log")
 
 lorentzians = {itraj:[] for itraj in trajs}
 
