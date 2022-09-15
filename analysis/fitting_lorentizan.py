@@ -21,9 +21,9 @@ dt = single_period/100.
 times = np.arange(0,total_time+dt,dt)
 exp_path = str(params)+"/"
 
-timms = np.linspace(100, len(times)-1,20).astype("int")
+timms = np.linspace(100, len(times)-1,10).astype("int")
 
-trajs = np.array(list(range(1,int(1e4),1)))
+trajs = np.array(list(range(1,int(1e3),1)))
 l=[]
 ers=[]
 for itraj in tqdm(trajs):
@@ -43,9 +43,11 @@ for itraj in tqdm(trajs):
     fi.append(np.abs(states_th[:,0])**2)
 
 fi = np.stack(fi)
-fisher = np.mean(fi,axis=0)
 
-fisher_physical = 4*kappa*dt*fisher
+fi.shape
+means_der_th_sq = np.mean(fi,axis=0)
+fisher = np.cumsum(means_der_th_sq,axis=0)*4*kappa*dt
+
 ax=plt.subplot()
 ax.plot(times,1/fisher, label="Fisher info")
 ax.scatter([times[k] for k in timms], lstd, label="Lorentzian fit - Variance")

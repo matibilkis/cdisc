@@ -22,12 +22,9 @@ class GRCell(tf.keras.layers.Layer):
         A = np.array([[-gamma/2, omega],[-omega, -gamma/2]]).astype("float32")
         C = np.sqrt(4*eta*kappa)*np.array([[1.,0.],[0., 0.]]).astype("float32")
         D = np.diag([gamma*(n+0.5) + kappa]*2).astype("float32")
-        #cov_st = solve_continuous_are( A.T, C.T, D, np.eye(2))
         self.A_matrix = A
         self.C_matrix = C
-        self.D_matrix = D
-        #self.XiCov = np.dot(cov_st, C.T)[tf.newaxis]
-        #self.XiCovC = np.dot(self.XiCov,C.T)
+        self.D_matrix = D[tf.newaxis]
         self.symp = np.array([[0,1],[-1,0]]).astype("float32")
 
         self.cov_in = tf.convert_to_tensor(cov_in.astype(np.float32))[tf.newaxis]
@@ -36,22 +33,16 @@ class GRCell(tf.keras.layers.Layer):
 
         self.initial_states = tf.convert_to_tensor(initial_states)
         self.initial_parameters = tf.convert_to_tensor(initial_parameters)
-        self.ss = []
+        self.memory_states = []
 
         super(GRCell, self).__init__(**kwargs)
-    #
-    # def ext_fun(self, params,t):
-    #     return params[0]*tf.cos(params[1]*t)
 
     def call(self, inputs, states):
         inns = tf.squeeze(inputs)
         time, dy = inns[0], inns[1:][tf.newaxis]
-
-        print("WARGNING")
         sts = states[0][:,:2]
-        self.ss.append(sts)
-        #cov = tf.convert_to_tensor(np.array([states[1]#self.cov_in
-
+        cc = states[0][0,2:]
+        cov=tf.convert_to_tensor([[cc[0], cc[1]],[cc[1], cc[2]]])[tf.newaxis]
 
         XiCov =tf.einsum('bij,jk->bik',cov,self.C_matrix.T)
         XiCovC = tf.matmul(XiCov,self.C_matrix.T)
@@ -63,7 +54,8 @@ class GRCell(tf.keras.layers.Layer):
 
         cov_dt = tf.einsum('bij,bjk->bik',A_model,cov) + tf.einsum('bij,bjk->bik',cov, tf.transpose(A_model, perm=[0,2,1])) + self.D_matrix - tf.einsum('bij,bjk->bik',XiCov, tf.transpose(XiCov, perm=[0,2,1]))
         new_cov = cov + cov_dt*self.dt
-        new_states = tf.concat([x, tf.zeros((1,3))],axis=-1)
+        flat_new_cov = tf.squeeze(new_cov)
+        new_states = tf.concat([x, tf.convert_to_tensor([flat_new_cov[0,0], flat_new_cov[1,0], flat_new_cov[1,1]])[tf.newaxis]],axis=-1)
         return output, [new_states]####
 
     def build(self, input_shape):
@@ -78,8 +70,6 @@ class GRCell(tf.keras.layers.Layer):
 
     def reset_states(self,inputs=None, batch_size=1, dtype=np.float32):
         return self.initial_states
-
-
 
 class Model(tf.keras.Model):
     def __init__(self,stateful=True, params=[], dt=1e-4,
