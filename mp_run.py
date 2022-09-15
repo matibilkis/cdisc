@@ -6,7 +6,7 @@ import argparse
 
 cores = 18
 
-trajs = list(range(int(1e3),int(1e4)))
+trajs = [1]#list(range(int(1e3),int(1e4)))
 def simu(itraj):
     os.system("python3 numerics/integration/integrate.py --itraj {}".format(itraj))
     print(itraj)
