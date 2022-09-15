@@ -29,7 +29,7 @@ def fit_lorentzian(signals,dt):
     return out.values["center"]
 
 
-gamma, omega, n, eta, kappa = [1e1, 1e3, 1., 1., 1e4]
+gamma, omega, n, eta, kappa = [1e1, 1e3, 10., 1., 1e2]#[1e1, 1e3, 1., 1., 1e4]
 params = [gamma, omega, n, eta, kappa]
 N_periods = 100.
 single_period=2*np.pi/omega
@@ -38,14 +38,14 @@ dt = single_period/100.
 times = np.arange(0,total_time+dt,dt)
 exp_path = str(params)+"/"
 
-timms = np.linspace(100, len(times)-1,20).astype("int")
-trajs = np.array(list(range(1,int(1e4),1)))
+timms = np.linspace(100, len(times)-1,10).astype("int")
+trajs = np.array(list(range(1,int(1e3),1)))
 lorentzians = {itraj:[] for itraj in trajs}
 
 # signals = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="signals.npy",itraj=1)
 # for t in timms:
 #     lorentzians[t][itraj] = fit_lorentzian(signals[:t,0],dt)
-
+os.makedirs(get_def_path()+"lorentzians/",exist_ok=True)
 
 def simu(itraj):
     signals = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="signals.npy",itraj=itraj)

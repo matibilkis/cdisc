@@ -12,7 +12,7 @@ from tqdm import tqdm
 import pickle
 
 
-gamma, omega, n, eta, kappa = [1e1, 1e3, 1., 1., 1e4]
+gamma, omega, n, eta, kappa = [1e1, 1e3, 10., 1., 1e2]#[1e1, 1e3, 1., 1., 1e4]
 params = [gamma, omega, n, eta, kappa]
 N_periods = 100.
 single_period=2*np.pi/omega

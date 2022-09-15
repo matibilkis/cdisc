@@ -4,7 +4,7 @@ from numerics.utilities.misc import *
 from datetime import datetime
 import argparse
 
-cores = 2
+cores = 18
 
 trajs = list(range(1,int(1e3)))
 def simu(itraj):
