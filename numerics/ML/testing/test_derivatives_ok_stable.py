@@ -4,7 +4,6 @@ sys.path.insert(0, os.getcwd())
 from numerics.utilities.misc import *
 import warnings
 import matplotlib.pyplot as plt
-from tqdm import tqdm
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 warnings.filterwarnings("ignore", category=DeprecationWarning)
@@ -69,15 +68,31 @@ dt = single_period/100.
 times = np.arange(0,total_time+dt,dt)
 params = [gamma, omega, n, eta, kappa]
 exp_path = str(params)+"/"
-states = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="states.npy",itraj=itraj)
-states_th = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="states_th.npy",itraj=itraj)
-signals = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="signals.npy",itraj=itraj)
+
 gamma, omega, n, eta, kappa = np.array(params).astype("float32")
 A = np.array([[-gamma/2, omega],[-omega, -gamma/2]]).astype("float32")
 C = np.sqrt(4*eta*kappa)*np.array([[1.,0.],[0., 0.]]).astype("float32")
 D = np.diag([gamma*(n+0.5) + kappa]*2).astype("float32")
 cov_st = solve_continuous_are( A.T, C.T, D, np.eye(2))
+D_th = np.eye(2)*0. ## we estimate \omega
+A_th = np.array([[0.,1.],[-1.,0.]])
+cov_st_th = solve_continuous_are( (A-np.dot(cov_st,np.dot(C.T,C))).T, np.eye(2)*0., D_th + np.dot(A_th, cov_st) + np.dot(cov_st, A_th.T), np.eye(2))
 
+from scipy.linalg import block_diag
+
+XiCov  = np.dot(cov_st, C.T) #I take G=0.
+XiCov_th  = np.dot(cov_st_th, C.T) #I take G = 0.
+
+cth = cov_st_th
+
+cth.dot((A - cov_st.dot(C.dot(C))).T) + (A - cov_st.dot(C.dot(C))).dot(cth) + cov_st.dot(A_th.T) + A_th.dot(cov_st)
+
+cov_st.dot(A.T) + A.dot(cov_st) + D - cov_st.dot(C.dot(C.T).dot(cov_st))
+# itraj=53
+# states = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="states.npy", itraj=itraj)
+# states_th = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="states_th.npy", itraj=itraj)
+# signals = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="signals.npy", itraj=itraj)
+# plt.plot(states_th[:,0])
 
 class GRCell(tf.keras.layers.Layer):
     def __init__(self,
@@ -117,7 +132,7 @@ class GRCell(tf.keras.layers.Layer):
     def call(self, inputs, states):
         inns = tf.squeeze(inputs)
         time, dy = inns[0], inns[1:][tf.newaxis]
-        # print("\n")
+        print("\n")
         sts = states[0][:,:2]
         cc = states[0][0,2:]
         cov=tf.convert_to_tensor(np.array([[cc[0], cc[1]],[cc[1], cc[2]]]))[tf.newaxis]
@@ -133,10 +148,10 @@ class GRCell(tf.keras.layers.Layer):
         dx = tf.einsum('bij,bj->bi',A_model - XiCovC, sts)*self.dt + tf.einsum('bij,bj->bi', XiCov, dy)# + self.ext_fun(self.training_params[0], t=time)*self.x_signal*self.dt ##  + params...
         x = sts + dx
 
-        # t1 = tf.einsum('bij,bjk->bik',A_model,cov)
-        # t2 = tf.einsum('bij,bjk->bik',cov, tf.transpose(A_model, perm=[0,2,1]))
-        # t3 = self.D_matrix
-        # t4 = - tf.einsum('bij,bjk->bik',XiCov, tf.transpose(XiCov, perm=[0,2,1]))
+        t1 = tf.einsum('bij,bjk->bik',A_model,cov)
+        t2 = tf.einsum('bij,bjk->bik',cov, tf.transpose(A_model, perm=[0,2,1]))
+        t3 = self.D_matrix
+        t4 = - tf.einsum('bij,bjk->bik',XiCov, tf.transpose(XiCov, perm=[0,2,1]))
         # print(t1)
         # print(t2)
         # print(t3)
@@ -159,6 +174,7 @@ class GRCell(tf.keras.layers.Layer):
 
     def reset_states(self,inputs=None, batch_size=1, dtype=np.float32):
         return self.initial_states
+
 class Model(tf.keras.Model):
     def __init__(self,stateful=True, params=[], dt=1e-4,
                 true_parameters=[1e1, 1e3, 1., 1., 1e4],
@@ -203,16 +219,67 @@ tt=100
 tfsignals = misc_ML.pre_process_data_for_ML(times[:tt], signals[:tt-1])
 preds = model(tfsignals[:,:tt,:])
 
+model.recurrent_layer.cell.memory_states[-1]
+
+cov_st
+
+
+
+t1 = tf.einsum('bij,bjk->bik',A_model,cov)
+t2 = tf.einsum('bij,bjk->bik',cov, tf.transpose(A_model, perm=[0,2,1]))
+t3 = self.D_matrix
+t4 = - tf.einsum('bij,bjk->bik',XiCov, tf.transpose(XiCov, perm=[0,2,1]))
+
+
+A.dot(cov_st)
+cov_st.dot(A.T)
+
+cov_st.dot(C.T).dot((cov_st.dot(C.T)).T)
+
+
+cov_st
+
+
+model.recurrent_layer.cell.memory_states[-10]
+
+
+model.recurrent_layer.cell.memory_states[0]
+
 plt.plot(preds[0,:tt,0])
 plt.plot(states[:tt,0])
 
-model.reset_states()
-model.layers[0].return_sequences = False
-preds = model(tfsignals[:,:10,:])
 
-tt = 25
+model.recurrent_layer.cell.memory_states[-1]
+model.recurrent_layer.cell.memory_states[0]
+
+cov_st
+
+
+nsignals = np.squeeze(tfsignals)
+# plt.plot(nsignals[:,0], nsignals[:,1],'--')
+plt.plot(times[:tt], states[:tt,0])
+plt.plot(nsignals[:,0],np.squeeze(preds)[:,0])
+
+
+
+
+
+model.reset_states()
+model.layers[0].return_sequences = True
+preds = model(tfsignals[:,:k,:])
+
+with tf.GradientTape(persistent=True) as tape:
+    tape.watch(model.trainable_variables)
+    preds = model(tfsignals[:,:k,:])
+
+tape.gradient(preds,model.trainable_variables)
+
+
+from tqdm import tqdm
 grads = []
-for k in tqdm(range(1,tt,1)):
+for k in tqdm(range(1,100,1)):
+
+    model.trainable_variables
     model.reset_states()
     model.layers[0].return_sequences = False
     with tf.GradientTape() as tape:
@@ -223,20 +290,9 @@ for k in tqdm(range(1,tt,1)):
 
 grads_ =np.stack(grads)
 
-path_fig="analysis/figures/tests/"
-os.makedirs(path_fig,exist_ok=True)
-ax=plt.subplot()
-ax.plot(times[:tt-1],grads_[:tt-1,0],'.',label="integrated")
-ax.plot(times[:tt-1],states_th[:tt-1,0],'x', label=r'$\partial D$')
-ax.set_xlabel(r'$time$',size=20)
-ax.set_ylabel(r'$\partial_\theta x$',size=20)
-ax.legend(prop={"size":20})
-plt.savefig(path_fig+"derivatives_check.pdf")
-
-
-
-
-
+tt=99
+plt.plot(times[:tt],grads_[:tt,0])
+#plt.plot(times[:tt],states_th[:tt,0])
 
 
 

@@ -59,6 +59,8 @@ parser.add_argument("--itraj", type=int, default=1)
 args = parser.parse_args()
 itraj = args.itraj
 
+itraj=53
+
 
 train_id=0
 params = [1e1, 1e3, 1., 1., 1e4]

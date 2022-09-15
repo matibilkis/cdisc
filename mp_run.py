@@ -4,9 +4,9 @@ from numerics.utilities.misc import *
 from datetime import datetime
 import argparse
 
-cores = 18
+cores = 2
 
-trajs = list(range(1,int(1e4)))
+trajs = list(range(1,int(1e3)))
 def simu(itraj):
     os.system("python3 numerics/integration/integrate.py --itraj {}".format(itraj))
     print(itraj)

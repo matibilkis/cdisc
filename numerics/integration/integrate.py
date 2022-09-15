@@ -130,7 +130,7 @@ if __name__ == "__main__":
     total_time = args.total_time
 
 
-    gamma, omega, n, eta, kappa = [1e1, 1e3, 1., 1., 1e4]
+    gamma, omega, n, eta, kappa = [1e1, 1e3, 10., 1., 1e2]
     params = [gamma, omega, n, eta, kappa]
     exp_path = str(params)+"/"
 
@@ -147,8 +147,6 @@ if __name__ == "__main__":
               pdt = pdt)
 
 
-total_time
-dt
 
 # import numpy as np
 #
