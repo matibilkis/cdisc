@@ -39,7 +39,8 @@ times = np.arange(0,total_time+dt,dt)
 exp_path = str(params)+"/"
 
 timms = np.linspace(100, len(times)-1,10).astype("int")
-trajs = np.array(list(range(1,int(1e3),1)))
+#trajs = np.array(list(range(1,int(1e3),1)))
+trajs = list(range(int(1e3),int(1e4)))
 lorentzians = {itraj:[] for itraj in trajs}
 
 # signals = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="signals.npy",itraj=1)
