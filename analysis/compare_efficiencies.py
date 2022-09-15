@@ -23,7 +23,7 @@ exp_path = str(params)+"/"
 
 timms = np.linspace(100, len(times)-1,10).astype("int")
 
-trajs = np.array(list(range(1,int(1e4),1)))
+trajs = np.array(list(range(1,int(1e3),1)))
 l=[]
 ers=[]
 for itraj in tqdm(trajs):
@@ -58,7 +58,27 @@ ax.scatter([times[k] for k in timms], lstd, label="Lorentzian fit - Variance")
 ax.set_yscale("log")
 ax.legend()
 
+exp_path
 
+import numerics.ML.misc as misc_ML
+import numerics.ML.model as model_ML
 
+ml_params = {}
+erro = []
+for itraj in tqdm(trajs):
+    ml_params[itraj] = []
+    try:
 
-#
+        for train_id in range(9):
+                save_dir = misc_ML.get_training_save_dir(exp_path, total_time, dt, itraj,train_id)
+                loss = np.load(save_dir+"loss.npy")
+                params = np.load(save_dir+"params.npy")
+                ml_params[itraj].append(params[np.argmin(loss)])#
+    except Exception:
+        erro.append(itraj)
+        pass
+
+ml_params_ok = []
+for v in ml_params.values():
+    if len(v) != 0:
+        ml_params_ok.append(v)
