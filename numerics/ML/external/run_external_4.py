@@ -50,12 +50,12 @@ reload(model_ML)
 reload(misc_external)
 
 itraj = 1
-params= [5., 0., 1., 1., 1e2]
+params= [100., 0., 1., 1., 1e1]
 
 total_time = 20.#N_periods*single_period
-dt = total_time*1e-4
+dt = total_time*1e-5
 times = np.arange(0,total_time+dt,dt)
-id = train_id=2
+id = train_id=3
 
 gamma, omega, n, eta, kappa = params
 gamma, omega, n, eta, kappa = np.array(params).astype("float32")
@@ -67,22 +67,26 @@ exp_path = str(params)+"/"
 states = misc_external.load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="states.npy", itraj=itraj, id=id)
 signals = misc_external.load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="signals.npy", itraj=itraj, id=id)
 
+plt.plot(states[:,0])
+
+plt.plot(signals[:,0])
+
+
 
 tfsignals = misc_ML.pre_process_data_for_ML(times[:], signals[:-1])
 
 save_dir = misc_ML.get_training_save_dir(exp_path, total_time, dt, itraj,train_id)
 os.makedirs(save_dir, exist_ok=True)
 
-initial_parameters = np.array([0., 1000.]).astype("float32")
-true_parameters = np.array([100., 5.]).astype("float32")
+initial_parameters = np.array([10., 1050.]).astype("float32")
+true_parameters = np.array([10., 1000.]).astype("float32")
 
-epochs = 10
+epochs=100
 learning_rate = float(true_parameters[0]/50)
 batch_size = 250
 with open(save_dir+"training_details.txt", 'w') as f:
     f.write("BS: {}\nepochs: {}\n learning_rate: {}\n".format(len(times), batch_size, epochs, learning_rate))
 f.close()
-
 
 ### Predict some ###
 def give_batched_data(tfsignals, batch_size):
@@ -110,8 +114,18 @@ model.recurrent_layer.cell.train_id
 model.recurrent_layer.build(tf.TensorShape([1, None, 3])) #None frees the batch_size
 model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate))
 
+
 model.trainable_variables[0][0][1]
-history = model.craft_fit(tfsignals[:,:-1,:], batch_size=500, epochs=200, early_stopping=1e-14, verbose=1)
+history = model.craft_fit(tfsignals[:,:-1,:], batch_size=100, epochs=200, early_stopping=1e-14, verbose=1, not_split=False)
+
+
+
+
+
+history[-1]
+
+
+#
 
 batched_data = give_batched_data(tfsignals, batch_size )
 model.reset_states()
@@ -121,7 +135,7 @@ for b in tqdm(batched_data[:3]):
     preds_after.append(model(b))
 ints = [model.recurrent_layer.cell.memory_states[k+6][0][0] for k in range(600)]
 
-model.trainable_variables[0].assign(tf.convert_to_tensor([[0., 0.]]))
+model.trainable_variables[0].assign(tf.convert_to_tensor([[0.]]))
 
 model.reset_states()
 preds_in=[]
@@ -160,9 +174,8 @@ ax.plot(np.stack(ints_initial)[:,0], label="(ML-tracked) hidden state: untrained
 ax.plot(np.stack(ints)[:,0], label="(ML-tracked) hidden state: trained")
 ax=plt.subplot(122)
 par_hist = np.squeeze([history[k]["PARAMS"] for k in range(len(history))])
-ax.plot(par_hist[:,0])
-ax.plot(true_parameters[0]*np.ones(len(par_hist)), '--')
-
+ax.plot(par_hist)
+ax.plot(true_parameters*np.ones(len(par_hist)), '--')
 
 
 

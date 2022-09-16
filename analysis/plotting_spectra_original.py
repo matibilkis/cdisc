@@ -7,14 +7,12 @@ import numerics.utilities.external.misc_external as misc_external
 from importlib import reload
 
 reload(misc_external)
-np.exp()
 
 
 itraj = 1
-params= [5., 0., 1., 1., 1e2]
-gamma, omega, n, eta, kappa = params
+gamma, omega, n, eta, kappa = [100., 0., 1., 1., 1e5]
 total_time = 20.#N_periods*single_period
-dt = total_time*1e-4
+dt = total_time*1e-5
 
 id=3
 times = np.arange(0,total_time+dt,dt)
@@ -25,9 +23,7 @@ signals = misc_external.load_data(exp_path=exp_path,total_time=total_time, dt=dt
 #states_0 = misc_external.load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="states.npy",itraj=itraj, id=0)
 
 plt.plot(times,states[:,0])
-
-
-
+plt.plot(times,signals[:,0])
 
 
 

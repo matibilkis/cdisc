@@ -47,7 +47,7 @@ class GRCell(tf.keras.layers.Layer):
         elif self.train_id==2:
             return x[0][0][0]*tf.math.exp(-t/5.)*tf.convert_to_tensor([[1., 0.]])
         elif self.train_id==3:
-            return 100.*tf.math.sin(-t*x[0][0][1])*tf.convert_to_tensor([[1., 0.]])
+            return 1000.*tf.math.cos(t*x[0][0][1])*tf.convert_to_tensor([[1., 0.]])
 
 
     def call(self, inputs, states):
@@ -63,7 +63,7 @@ class GRCell(tf.keras.layers.Layer):
 
         output = tf.einsum('ij,bj->bi',self.C_matrix, sts)*self.dt
         #A_model = (self.training_params[0]*self.symp -0.5*self.gamma*np.eye(2).astype("float32"))[tf.newaxis]
-        dx = tf.einsum('bij,bj->bi',self.A_matrix - XiCovC, sts)*self.dt + tf.einsum('bij,bj->bi', XiCov, dy) + self.ext_fun(self.trainable_variables, t=time)*self.dt ## [...]+ f(\theta, t) dt
+        dx = tf.einsum('bij,bj->bi',self.A_matrix - XiCovC, sts)*self.dt + tf.einsum('bij,bj->bi', XiCov, dy) + self.ext_fun(self.training_params, t=time)*self.dt ## [...]+ f(\theta, t) dt
         x = sts + dx
 
         cov_dt = tf.einsum('bij,bjk->bik',self.A_matrix,cov) + tf.einsum('bij,bjk->bik',cov, tf.transpose(self.A_matrix, perm=[0,2,1])) + self.D_matrix - tf.einsum('bij,bjk->bik',XiCov, tf.transpose(XiCov, perm=[0,2,1]))
@@ -139,18 +139,21 @@ class Model(tf.keras.Model):
 
 
 
-    def craft_fit(self, tfsignals, batch_size=50, epochs=10,early_stopping=1e-6, verbose=1):
-        if tfsignals.shape[1] < batch_size:
-            raise ValueError("Batch size is too big for this amount of data: {} vs {}".format(batch_size, tfsignals.shape[1]))
-        ll = tfsignals.shape[1]
-        for k in list(range(int(ll/2), ll,1))[::-1]:
-            if k%batch_size==0:
-                break
-        tfsignals = tfsignals[:,:k,:]
-        if tfsignals.shape[1]%batch_size != 0:
-            raise ValueError("check your batch_size and training set, i can't split that")
-        Ns = tfsignals.shape[1]/batch_size
-        batched_data  = tf.split(tfsignals, int(Ns), axis=1)
+    def craft_fit(self, tfsignals, batch_size=50, epochs=10,early_stopping=1e-6, verbose=1,not_split=False):
+        if not_split == True:
+            batched_data = [tfsignals]
+        else:
+            if tfsignals.shape[1] < batch_size:
+                raise ValueError("Batch size is too big for this amount of data: {} vs {}".format(batch_size, tfsignals.shape[1]))
+            ll = tfsignals.shape[1]
+            for k in list(range(int(ll/2), ll,1))[::-1]:
+                if k%batch_size==0:
+                    break
+            tfsignals = tfsignals[:,:k,:]
+            if tfsignals.shape[1]%batch_size != 0:
+                raise ValueError("check your batch_size and training set, i can't split that")
+            Ns = tfsignals.shape[1]/batch_size
+            batched_data  = tf.split(tfsignals, int(Ns), axis=1)
 
         history = []
         for epoch in range(epochs):

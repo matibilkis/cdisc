@@ -59,7 +59,6 @@ parser.add_argument("--itraj", type=int, default=1)
 args = parser.parse_args()
 itraj = args.itraj
 
-itraj=1
 params = [1e1, 1e3, 10., 1., 1e2]#[#1e1, 1e3, 1., 1., 1e4]
 gamma, omega, n, eta, kappa = params
 N_periods = 100.
@@ -85,13 +84,13 @@ for train_id, tt in enumerate(timms):
     save_dir = misc_ML.get_training_save_dir(exp_path, total_time, dt, itraj,train_id)
     os.makedirs(save_dir, exist_ok=True)
 
+    # One could argue here that we are cheating, but another one could argue that with more gradient descent steps it will converge to the same.
     initial_parameters = np.array([np.abs(abs(omega*np.random.normal()*0.1) + omega)]).astype("float32")
-    #    initial_parameters = np.array([900.]).astype("float32")
-
     true_parameters = np.array([omega]).astype("float32")
 
     epochs = 50
     learning_rate = float(omega/50)
+    batch_size = len(times)
     with open(save_dir+"training_details.txt", 'w') as f:
         f.write("Length {}/{}\n BS: {}\nepochs: {}\n learning_rate: {}\n".format(tt, len(times), tt, epochs, learning_rate))
     f.close()
@@ -103,7 +102,7 @@ for train_id, tt in enumerate(timms):
     model.recurrent_layer.build(tf.TensorShape([1, None, 3])) #None frees the batch_size
     model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate))
 
-    history = model.craft_fit(tfsignals[:,:tt,:], batch_size=batch_size, epochs=epochs, early_stopping=1e-14, verbose=1, not_split=True)
+    history = model.craft_fit(tfsignals[:,:tt,:], batch_size=batch_size, epochs=epochs, early_stopping=1e-14, verbose=0, not_split=True)
 
 
 

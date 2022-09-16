@@ -46,7 +46,7 @@ def Fhidden(s, t, dt):
     elif id ==2:
         x_dot += 100*(np.exp(-t/5.))*np.array([1.,0.])
     elif id ==3:
-        x_dot += 100*(np.sin(10*t))*np.array([1.,0.])
+        x_dot += 10.*(np.cos(100*t))*np.array([1.,0.])
     return np.array(list(x_dot))# + list(x_th_dot))
 
 @jit(nopython=True)
@@ -131,8 +131,7 @@ if __name__ == "__main__":
     id = args.id
 
 
-#    gamma, omega, n, eta, kappa = [1e1, 1e3, 10., 1., 1e2]
-    gamma, omega, n, eta, kappa = [5., 0., 1., 1., 1e2]
+    gamma, omega, n, eta, kappa = [100., 0., 1., 1., .1]
 
     params = [gamma, omega, n, eta, kappa]
     exp_path = str(params)+"/"
