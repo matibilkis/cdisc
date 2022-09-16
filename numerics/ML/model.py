@@ -120,7 +120,9 @@ class Model(tf.keras.Model):
         return {k.name:k.result() for k in self.metrics}
 
 
-    def craft_fit(self, tfsignals, batch_size=50, epochs=10,early_stopping=1e-6, verbose=0):
+
+
+    def craft_fit(self, tfsignals, batch_size=50, epochs=10,early_stopping=1e-6, verbose=1):
         if tfsignals.shape[1] < batch_size:
             raise ValueError("Batch size is too big for this amount of data: {} vs {}".format(batch_size, tfsignals.shape[1]))
         ll = tfsignals.shape[1]
@@ -142,8 +144,7 @@ class Model(tf.keras.Model):
             loss =  np.squeeze(bb["LOSS"].numpy())
             params =  np.squeeze(bb["PARAMS"].numpy())
             grads = np.squeeze(bb["GRADS"].numpy())
-            if verbose > 0:
-                
+            if verbose>0:
                 print("\r EPOCH {}/{}   loss:{}    initial_params   {}    params{}    true_params {}    grads{}".format(epoch, epochs,loss,np.round(self.recurrent_layer.cell.initial_parameters,2), np.round(params,2), np.round(self.recurrent_layer.cell.true_parameters,2), np.round(grads,3)),end="")
 
             loss_save = [history[k]["LOSS"].numpy() for k in range(len(history))]
@@ -153,7 +154,7 @@ class Model(tf.keras.Model):
             for i,j in zip([loss_save, grads_save, params_save], ["loss", "grads", "params"]):
                 np.save(self.save_dir+j,i)
 
-            if loss<early_stopping:
+            if loss<early_stopping: ### we could do something like std here
                 print("Early stopped at loss {}".format(loss))
                 break
         return history

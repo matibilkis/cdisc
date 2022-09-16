@@ -78,6 +78,7 @@ D = np.diag([gamma*(n+0.5) + kappa]*2).astype("float32")
 cov_st = solve_continuous_are( A.T, C.T, D, np.eye(2))
 
 timms = np.linspace(100, len(times)-1,10).astype("int")
+timms = [timms[k] for k in [2, 4, 6, 8, 9]]
 
 for train_id, tt in enumerate(timms):
     tfsignals = misc_ML.pre_process_data_for_ML(times[:tt], signals[:tt-1])
@@ -85,12 +86,14 @@ for train_id, tt in enumerate(timms):
     save_dir = misc_ML.get_training_save_dir(exp_path, total_time, dt, itraj,train_id)
     os.makedirs(save_dir, exist_ok=True)
 
-    initial_parameters = np.array([np.abs(2*np.random.uniform()*omega)]).astype("float32")
+    initial_parameters = np.array([np.abs(abs(omega*np.random.normal()*0.1) + omega)]).astype("float32")
+#    initial_parameters = np.array([900.]).astype("float32")
+
     true_parameters = np.array([omega]).astype("float32")
 
-    epochs = 100
-    learning_rate = 1.
-    batch_size = 100
+    epochs = 50
+    learning_rate = float(omega/50)
+    batch_size = 200
     with open(save_dir+"training_details.txt", 'w') as f:
         f.write("Length {}/{}\n BS: {}\nepochs: {}\n learning_rate: {}\n".format(tt, len(times), batch_size, epochs, learning_rate))
     f.close()
@@ -101,7 +104,7 @@ for train_id, tt in enumerate(timms):
                   save_dir = save_dir)
     model.recurrent_layer.build(tf.TensorShape([1, None, 3])) #None frees the batch_size
     model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate))
-    history = model.craft_fit(tfsignals[:,:tt,:], batch_size=batch_size, epochs=epochs, early_stopping=1e-14)
+    history = model.craft_fit(tfsignals[:,:tt,:], batch_size=batch_size, epochs=epochs, early_stopping=1e-14, verbose=0)
 
 
 

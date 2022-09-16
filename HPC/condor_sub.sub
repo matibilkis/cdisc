@@ -9,4 +9,4 @@ requirements= has_avx
 +flavour="short"
 
 args=$(Item)
-queue from seq 5 1 5|
+queue from seq 6 1 6|
