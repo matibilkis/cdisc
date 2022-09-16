@@ -78,9 +78,10 @@ D = np.diag([gamma*(n+0.5) + kappa]*2).astype("float32")
 cov_st = solve_continuous_are( A.T, C.T, D, np.eye(2))
 
 timms = np.linspace(100, len(times)-1,10).astype("int")
-timms = [timms[k] for k in [2, 4, 6, 8, 9]]
+ids = [2, 4, 6, 8, 9]
+timms = [timms[k] for k in ids]
 
-for train_id, tt in enumerate(timms):
+for train_id, tt in zip(ids,timms):
     tfsignals = misc_ML.pre_process_data_for_ML(times[:tt], signals[:tt-1])
 
     save_dir = misc_ML.get_training_save_dir(exp_path, total_time, dt, itraj,train_id)
