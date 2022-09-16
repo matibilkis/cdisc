@@ -28,15 +28,15 @@ def get_def_path():
     return defpath
 
 
-def get_path_config(exp_path="", itraj=1, total_time=1, dt=.1, noitraj=False):
+def get_path_config(exp_path="", itraj=1, total_time=1, dt=.1, noitraj=False, id=0):
     if noitraj == True:
-        pp = get_def_path()+ exp_path +"/T_{}_dt_{}/".format(total_time, dt)
+        pp = get_def_path()+ exp_path +"/T_{}_dt_{}/{}/".format(total_time, dt, id)
     else:
-        pp = get_def_path()+ exp_path +"{}itraj/T_{}_dt_{}/".format(itraj, total_time, dt)
+        pp = get_def_path()+ exp_path +"{}itraj/T_{}_dt_{}/{}/".format(itraj, total_time, dt,id)
     return pp
 
 
-def load_data(exp_path="", itraj=1, total_time=1, dt=0.1, what="states"):
-    path = get_path_config(total_time = total_time, dt= dt, itraj=itraj, exp_path=exp_path)
+def load_data(exp_path="", itraj=1, total_time=1, dt=0.1, what="states",id=0):
+    path = get_path_config(total_time = total_time, dt= dt, itraj=itraj, exp_path=exp_path,id=id)
     states = np.load(path+what,allow_pickle=True,fix_imports=True,encoding='latin1') ### this is \textbf{q}(t)
     return states

@@ -41,14 +41,19 @@ class GRCell(tf.keras.layers.Layer):
 
     def ext_fun(self, x,t):
         if self.train_id==0:
-            return x[0][0]
+            return x[0][0]*tf.convert_to_tensor([[1., 0.]])
         elif self.train_id==1:
-            return x[0][0]*tf.math.sin(2000.*t)
+            return x[0][0]*tf.convert_to_tensor([[1., 0.]]) ###with noise
+        elif self.train_id==2:
+            return x[0][0][0]*tf.math.exp(-t/5.)*tf.convert_to_tensor([[1., 0.]])
+        elif self.train_id==3:
+            return 100.*tf.math.sin(-t*x[0][0][1])*tf.convert_to_tensor([[1., 0.]])
 
 
     def call(self, inputs, states):
         inns = tf.squeeze(inputs)
         time, dy = inns[0], inns[1:][tf.newaxis]
+        self.memory_states.append(states)
         sts = states[0][:,:2]
         cc = states[0][0,2:]
         cov=tf.convert_to_tensor([[cc[0], cc[1]],[cc[1], cc[2]]])[tf.newaxis]
@@ -68,7 +73,8 @@ class GRCell(tf.keras.layers.Layer):
         return output, [new_states]####
 
     def build(self, input_shape):
-        self.training_params = self.add_weight(shape=(1, 1),
+        lens={0:1,1:1,2:2,3:2,4:2}
+        self.training_params = self.add_weight(shape=(1, lens[self.train_id]),
                                       initializer='uniform',
                                       name='kernel')
         self.training_params[0].assign(self.initial_parameters)
@@ -78,6 +84,7 @@ class GRCell(tf.keras.layers.Layer):
         return self.initial_states
 
     def reset_states(self,inputs=None, batch_size=1, dtype=np.float32):
+        self.memory_states = []
         return self.initial_states
 
 class Model(tf.keras.Model):
@@ -92,9 +99,9 @@ class Model(tf.keras.Model):
         save_dir = kwargs.get("save_dir","/")
         self.recurrent_layer =tf.keras.layers.RNN(GRCell(units=5, params=params, dt=dt, true_parameters=true_parameters,
                                                     initial_parameters=initial_parameters,
-                                                    initial_states=initial_states,cov_in = cov_in),
+                                                    initial_states=initial_states,cov_in = cov_in, train_id=int(save_dir[-2])),
                                                     return_sequences=True, stateful=True,  batch_input_shape=batch_size,
-                                                    train_id=int(save_dir[-2]))
+                                                    )
         self.total_loss = Metrica(name="LOSS")
         self.target_params_record = Metrica(name="PARAMS")
         self.gradient_history = Metrica(name="GRADS")

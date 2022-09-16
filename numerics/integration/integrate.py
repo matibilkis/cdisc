@@ -137,7 +137,7 @@ if __name__ == "__main__":
     N_periods = 100.
     single_period=2*np.pi/omega
     total_time = N_periods*single_period
-    dt = single_period/100.
+    dt = single_period/50.
 
     integrate(params=params,
               total_time = total_time,

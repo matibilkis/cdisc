@@ -38,29 +38,32 @@ def Fhidden(s, t, dt):
     """
     """
     x = s[:2]
-    x_th = s[2:4]
     x_dot = np.dot(A,x)
     if id==0:
         x_dot += 100.*np.array([1.,0.])
-    x_th_dot = np.dot(A - XiCovC, x_th) + np.dot(A_th,x)
-    return np.array(list(x_dot) + list(x_th_dot))
+    elif id==1:
+        x_dot += (100. + np.random.normal())*np.array([1.,0.])
+    elif id ==2:
+        x_dot += 100*(np.exp(-t/5.))*np.array([1.,0.])
+    elif id ==3:
+        x_dot += 100*(np.sin(10*t))*np.array([1.,0.])
+    return np.array(list(x_dot))# + list(x_th_dot))
 
 @jit(nopython=True)
 def Ghidden():
-    return big_XiCov
+    return XiCov
 
 def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
     """
     h1 is the hypothesis i use to get the data. (with al the coefficients gamma1...)
     """
-    global proj_C, A, A_th, XiCov_th, XiCov, C, dW, model, big_XiCov, XiCovC, id
+    global proj_C, A, XiCov, C, dW, model, id
     model = give_model()
     pdt = kwargs.get("pdt",1)
     id = kwargs.get("id",0)
     dt *=pdt #this is to check accuracy of integration
     times = np.arange(0,total_time+dt,dt)
     dW = np.sqrt(dt)*np.random.randn(len(times),2)
-    dW = np.concatenate([dW]*2, axis=1)
     ### XiCov = S C.T + G.T
     #### dx  = (A - XiCov.C )x dt + (XiCov dy) = A x dt + XiCov dW
     #### dy = C x dt + dW
@@ -79,16 +82,11 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
     xin, pin, x_thin, p_thin, dyxin, dypin = np.zeros(6)
 
     cov_st = solve_continuous_are( (A-np.dot(G.T,C)).T, C.T, D - np.dot(G.T, G), np.eye(2))#### A.T because the way it's implemented! https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.solve_continuous_are.html
-    D_th = np.eye(2)*0. ## we estimate \omega
-    A_th = np.array([[0.,1.],[-1.,0.]])
-    cov_st_th = solve_continuous_are( (A-np.dot(cov_st,np.dot(C.T,C))).T, np.eye(2)*0., D_th + np.dot(A_th, cov_st) + np.dot(cov_st, A_th.T), np.eye(2))
 
     XiCov  = np.dot(cov_st, C.T) #I take G=0.
     XiCovC = np.dot(XiCov, C)
-    XiCov_th  = np.dot(cov_st_th, C.T) #I take G = 0.
 
-    big_XiCov = block_diag(XiCov, XiCov_th)
-    s0_hidden = np.array([xin, pin, x_thin, p_thin])
+    s0_hidden = np.array([xin, pin])
     times = np.arange(0,total_time+dt,dt)#[:(dW.shape[0])]
 
     #### generate long trajectory of noises
@@ -96,9 +94,8 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
 
     hidden_state, signals = IntegrationLoop(s0_hidden, times, dt)
     states = hidden_state[:,:2]
-    states_th = hidden_state[:,2:4]
 
-    path = get_path_config(total_time=total_time, dt=dt, itraj=itraj, exp_path=exp_path)
+    path = get_path_config(total_time=total_time, dt=dt, itraj=itraj, exp_path=exp_path, id=id)
     os.makedirs(path, exist_ok=True)
 
     THRESHOLD = int(1e8)
@@ -110,10 +107,8 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
     timind = [times[ind] for ind in indis]
     signals_short =  np.array([signals[ii] for ii in indis])
     states_short =  np.array([states[ii] for ii in indis])
-    states_th_short =  np.array([states_th[ii] for ii in indis])
 
     np.save(path+"signals",signals)
-    np.save(path+"states_th",states_th_short)
     np.save(path+"states",states_short)
 
     return
@@ -125,7 +120,7 @@ if __name__ == "__main__":
     parser.add_argument("--dt", type=float, default=1e-5)
     parser.add_argument("--pdt", type=int, default=1)
     parser.add_argument("--total_time", type=float, default=8.)
-    parser.add_argument("--id", type=int, default=0)
+    parser.add_argument("--id", type=int, default=1)
 
     args = parser.parse_args()
 
@@ -137,18 +132,16 @@ if __name__ == "__main__":
 
 
 #    gamma, omega, n, eta, kappa = [1e1, 1e3, 10., 1., 1e2]
-    gamma, omega, n, eta, kappa = [1e1, 1e3, 10., 1., 1e2]
+    gamma, omega, n, eta, kappa = [5., 0., 1., 1., 1e2]
 
     params = [gamma, omega, n, eta, kappa]
     exp_path = str(params)+"/"
 
-    N_periods = 100.
-    single_period=2*np.pi/omega
-    total_time = N_periods*single_period
-    dt = single_period/100.
+    #N_periods = 100.
+    #single_period=2*np.pi/omega
+    total_time = 20.#N_periods*single_period
+    dt = total_time*1e-4
 
-    global ext_params
-    ext_params = [[1.]]
 
     integrate(params=params,
               total_time = total_time,

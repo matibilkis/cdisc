@@ -3,8 +3,39 @@ import sys
 sys.path.insert(0, os.getcwd())
 import numpy as np
 import matplotlib.pyplot as plt
-import numerics.utilities.misc as misc
+import numerics.utilities.external.misc_external as misc_external
 from importlib import reload
+
+reload(misc_external)
+np.exp()
+
+
+itraj = 1
+params= [5., 0., 1., 1., 1e2]
+gamma, omega, n, eta, kappa = params
+total_time = 20.#N_periods*single_period
+dt = total_time*1e-4
+
+id=3
+times = np.arange(0,total_time+dt,dt)
+params = [gamma, omega, n, eta, kappa]
+exp_path = str(params)+"/"
+states = misc_external.load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="states.npy",itraj=itraj, id=id)
+signals = misc_external.load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="signals.npy",itraj=itraj,id=id)
+#states_0 = misc_external.load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="states.npy",itraj=itraj, id=0)
+
+plt.plot(times,states[:,0])
+
+
+
+
+
+
+
+
+
+
+
 
 
 def give_spectra(signal, dt):
@@ -22,7 +53,7 @@ def plot(params, states, signals,cut=-1):
     N_periods = 100.
     single_period=2*np.pi/omega
     total_time = N_periods*single_period
-    dt = single_period/50.
+    dt = single_period/100.
     times = np.arange(0,total_time+dt,dt)
     freqs_state,spectra_state = give_spectra(states[:cut,0],dt)
     freqs_signal,spectra_sisg = give_spectra(signals[:cut,0],dt)
@@ -45,32 +76,30 @@ def load_plot(params,cut=-1, itraj=1):
     N_periods = 100.
     single_period=2*np.pi/omega
     total_time = N_periods*single_period
-    dt = single_period/50.
+    dt = single_period/100.
     times = np.arange(0,total_time+dt,dt)
     params = [gamma, omega, n, eta, kappa]
     exp_path = str(params)+"/"
-    states = misc.load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="states.npy",itraj=itraj)
-    signals = misc.load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="signals.npy",itraj=itraj)
+    states = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="states.npy",itraj=itraj)
+    signals = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="signals.npy",itraj=itraj)
     plot(params,states,signals,cut=cut)
-gamma, omega, n, eta, kappa = [1e1, 1e3, 10., 1., 1e2]
-load_plot([gamma, omega, n, eta, kappa], cut=-1, itraj=1)
 
-
-N_periods = 100.
-single_period=2*np.pi/omega
-total_time = N_periods*single_period
-dt = single_period/50.
-times = np.arange(0,total_time+dt,dt)
-params = [gamma, omega, n, eta, kappa]
-exp_path = str(params)+"/"
-states = misc.load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="states.npy",itraj=itraj)
-signals = misc.load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="signals.npy",itraj=itraj)
+load_plot([gamma, omega, n, eta, kappa], cut=-1, itraj=9000)
 
 
 
 
 
-#
+
+
+
+
+
+
+
+
+
+
 
 
 

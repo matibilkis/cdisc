@@ -122,18 +122,21 @@ class Model(tf.keras.Model):
 
 
 
-    def craft_fit(self, tfsignals, batch_size=50, epochs=10,early_stopping=1e-6, verbose=1):
-        if tfsignals.shape[1] < batch_size:
-            raise ValueError("Batch size is too big for this amount of data: {} vs {}".format(batch_size, tfsignals.shape[1]))
-        ll = tfsignals.shape[1]
-        for k in list(range(int(ll/2), ll,1))[::-1]:
-            if k%batch_size==0:
-                break
-        tfsignals = tfsignals[:,:k,:]
-        if tfsignals.shape[1]%batch_size != 0:
-            raise ValueError("check your batch_size and training set, i can't split that")
-        Ns = tfsignals.shape[1]/batch_size
-        batched_data  = tf.split(tfsignals, int(Ns), axis=1)
+    def craft_fit(self, tfsignals, batch_size=50, epochs=10,early_stopping=1e-6, verbose=1,not_split=False):
+        if not_split == True:
+            batched_data = [tfsignals]
+        else:
+            if tfsignals.shape[1] < batch_size:
+                raise ValueError("Batch size is too big for this amount of data: {} vs {}".format(batch_size, tfsignals.shape[1]))
+            ll = tfsignals.shape[1]
+            for k in list(range(int(ll/2), ll,1))[::-1]:
+                if k%batch_size==0:
+                    break
+            tfsignals = tfsignals[:,:k,:]
+            if tfsignals.shape[1]%batch_size != 0:
+                raise ValueError("check your batch_size and training set, i can't split that")
+            Ns = tfsignals.shape[1]/batch_size
+            batched_data  = tf.split(tfsignals, int(Ns), axis=1)
 
         history = []
         for epoch in range(epochs):
