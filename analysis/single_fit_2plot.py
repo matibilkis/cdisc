@@ -87,9 +87,20 @@ fisher = np.load("analysis/data_comparison/fisher.npy")
 times_compa = np.load("analysis/data_comparison/times.npy")
 times_metohd = np.load("analysis/data_comparison/times_method.npy")
 
-
-
-
+plt.figure(figsize=(15,15))
+ax = plt.subplot(111)
+S=600
+ax.plot(times_compa, 1/fisher, label=r'$I^{-1}_t[\omega]$', color="blue", linewidth=10, alpha=0.75,)
+ax.scatter(times_metohd, error_lor,  s=S,label="Var"+r'$_{L.F.}[\hat{\omega}]$', color="black", linewidth=5, alpha=0.75, edgecolor="black")
+ax.scatter(times_metohd, error_ml, s=S, label="Var"+r'$_{M.L.}[\hat{\omega}]$', color="green", linewidth=5, alpha=0.75, edgecolor="black")
+ax.legend(prop={"size":35})
+ax.set_xlabel(r'$t$', size=60)
+ax.set_ylabel(r'$Variance$', size=60)
+ax.set_yscale("log")
+#ax.set_xscale("log")
+ax.xaxis.set_tick_params(labelsize=24)
+ax.yaxis.set_tick_params(labelsize=24)
+plt.savefig("figures_poster/variance_comparison.pdf")
 
 
 

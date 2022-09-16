@@ -29,13 +29,25 @@ ers=[]
 for itraj in tqdm(trajs):
     try:
         ll= np.load(get_def_path()+"lorentzians/{}.npy".format(itraj))
-        if np.min(ll[1:])<0:
-            ers.append(itaj)
-            pass
-        else:
-            l.append(ll)
+        #if np.min(ll[1:])<0:
+        #    ers.append(itaj)
+    #        pass
+#        else:
+        l.append(ll)
     except Exception:
         ers.append(itraj)
+
+lf = []
+for k in l:
+    op=[]
+    for jj in k:
+        if jj<0:
+            op.append(np.nan)
+        else:
+            op.append(jj)
+    lf.append(op)
+lstdbis = np.nanmean( (np.stack(lf) - omega)**2, axis=0)
+np.save("lorentzian_fits_errors",lstd)
 
 len(trajs)-len(ers)
 
