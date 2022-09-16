@@ -3,34 +3,7 @@ import sys
 sys.path.insert(0, os.getcwd())
 import numpy as np
 import matplotlib.pyplot as plt
-from numerics.utilities.external.misc_external import *
-
-
-
-
-
-itraj = 1
-params= [1e1, 1e-2, 10., 1., 1e2]
-gamma, omega, n, eta, kappa = params
-N_periods = 100.
-single_period=2*np.pi/omega
-total_time = N_periods*single_period
-dt = single_period/100.
-times = np.arange(0,total_time+dt,dt)
-params = [gamma, omega, n, eta, kappa]
-exp_path = str(params)+"/"
-states = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="states.npy",itraj=itraj)
-signals = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="signals.npy",itraj=itraj)
-
-plt.plot(times,states[:,0])
-
-
-
-
-
-
-
-
+from numerics.utilities.misc import load_data
 
 def give_spectra(signal, dt):
     Period = 2*np.pi/omega
@@ -78,6 +51,7 @@ def load_plot(params,cut=-1, itraj=1):
     signals = load_data(exp_path=exp_path,total_time=total_time, dt=dt,what="signals.npy",itraj=itraj)
     plot(params,states,signals,cut=cut)
 
+gamma, omega, n, eta, kappa = [1e1, 1e3, 10., 1., 1e2]
 load_plot([gamma, omega, n, eta, kappa], cut=-1, itraj=9000)
 
 
