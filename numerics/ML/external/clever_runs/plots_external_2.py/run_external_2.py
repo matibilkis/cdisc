@@ -89,7 +89,7 @@ lo=10
 lop=2
 ss=4
 LSs=15
-ax.plot(times, true_parameters[0]*np.exp(-times/true_parameters[1]), '--',color="blue", linewidth=LL, alpha=A, zorder=1, label=r'$f^{\;t}_{true}$')
+ax.plot(times, true_parameters[0]*np.exp(-times/true_parameters[1]), '--',color="blue", linewidth=LL, alpha=A, zorder=1, label=r'$f^{\;t}_{true} = A e^{-t/\tau}$')
 ax.plot(times, initial_parameters[0]*np.exp(-times/initial_parameters[1]), color="red", linewidth=LL, alpha=A, zorder=2, label=r'${\hat{f^{\;t}}_\theta}$'+" -untrained")
 ax.plot(times, final_params[0]*np.exp(-times/final_params[1]), color="black", linewidth=LL, alpha=A, zorder=3, label=r'${\hat{f^{\;t}}_\theta}$'+" -trained")
 # ax.legend(prop={"size":20}, loc="upper left")
