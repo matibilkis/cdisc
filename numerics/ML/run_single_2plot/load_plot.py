@@ -48,6 +48,8 @@ from scipy.linalg import solve_continuous_are
 import numerics.ML.misc as misc_ML
 import numerics.ML.model as model_ML
 from importlib import reload
+import matplotlib.pyplot as plt
+
 reload(misc_ML)
 reload(model_ML)
 
@@ -91,18 +93,9 @@ with open(save_dir+"training_details.txt", 'w') as f:
     f.write("Length {}/{}\n BS: {}\nepochs: {}\n learning_rate: {}\n".format(tt, len(times), tt, epochs, learning_rate))
 f.close()
 
-model = model_ML.Model(params=params, dt=dt, initial_parameters=initial_parameters,
-              true_parameters=true_parameters, initial_states = np.zeros((1,5)).astype(np.float32),
-              cov_in=cov_st, batch_size=tuple([None,None,3]),
-              save_dir = save_dir)
-model.recurrent_layer.build(tf.TensorShape([1, None, 3])) #None frees the batch_size
-model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate))
+list(os.walk(save_dir))
+np.load(save_dir+"params.npy")
 
-history = model.craft_fit(tfsignals[:,:tt,:], batch_size=batch_size, epochs=epochs, early_stopping=1e-14, verbose=1, not_split=True)
-
-history += model.craft_fit(tfsignals[:,:tt,:], batch_size=batch_size, epochs=epochs, early_stopping=1e-14, verbose=1, not_split=True)
-
-import matplotlib.pyplot as plt
 
 
 
