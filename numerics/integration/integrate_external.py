@@ -131,8 +131,8 @@ if __name__ == "__main__":
     id = args.id
 
 
-    gamma, omega, n, eta, kappa = [100., 0., 1., 1., .1]
-
+    # gamma, omega, n, eta, kappa = [100., 0., 1., 1., .1]
+    gamma, omega, n, eta, kappa  = [5., 0., 1e-5, .5, 10]
     params = [gamma, omega, n, eta, kappa]
     exp_path = str(params)+"/"
 

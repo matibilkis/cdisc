@@ -36,7 +36,7 @@ class GRCell(tf.keras.layers.Layer):
         self.initial_states = tf.convert_to_tensor(initial_states)
         self.initial_parameters = tf.convert_to_tensor(initial_parameters)
         self.memory_states = []
-
+        self.times_states = []
         super(GRCell, self).__init__(**kwargs)
 
     def ext_fun(self, x,t):
@@ -49,11 +49,15 @@ class GRCell(tf.keras.layers.Layer):
         elif self.train_id==3:
             return 1000.*tf.math.cos(t*x[0][0][1])*tf.convert_to_tensor([[1., 0.]])
 
+    def reset_memory(self):
+        self.memory_states = []
+        self.times_states = []
 
     def call(self, inputs, states):
         inns = tf.squeeze(inputs)
         time, dy = inns[0], inns[1:][tf.newaxis]
         self.memory_states.append(states)
+        self.times_states.append(time)
         sts = states[0][:,:2]
         cc = states[0][0,2:]
         cov=tf.convert_to_tensor([[cc[0], cc[1]],[cc[1], cc[2]]])[tf.newaxis]

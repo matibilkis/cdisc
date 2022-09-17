@@ -116,7 +116,6 @@ ax.set_ylabel(r'$\hat{\omega}_{M.L.}$', size=60)
 ax.xaxis.set_tick_params(labelsize=24)
 ax.yaxis.set_tick_params(labelsize=24)
 ax.legend(prop={"size":35}, loc="lower right")
-
 plt.savefig("figures_poster/ml_fit.pdf")
 
 
