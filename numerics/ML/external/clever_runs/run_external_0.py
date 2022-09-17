@@ -60,7 +60,7 @@ id = train_id=0
 gamma, omega, n, eta, kappa = params
 gamma, omega, n, eta, kappa = np.array(params).astype("float32")
 A = np.array([[-gamma/2, omega],[-omega, -gamma/2]]).astype("float32")
-C = np.sqrt(4*eta*kappa)*np.array([[1.,0.],[0., 0.]]).astype("float32")
+C = np.sqrt(4*eta*kappa)*np.array([[1.,0.],[0., 1.]]).astype("float32")
 D = np.diag([gamma*(n+0.5) + kappa]*2).astype("float32")
 cov_st = solve_continuous_are( A.T, C.T, D, np.eye(2))
 exp_path = str(params)+"/"
