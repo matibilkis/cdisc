@@ -45,7 +45,7 @@ class GRCell(tf.keras.layers.Layer):
         elif self.train_id==1:
             return x[0][0]*tf.convert_to_tensor([[1., 0.]]) ###with noise
         elif self.train_id==2:
-            return x[0][0][0]*tf.math.exp(-t/5.)*tf.convert_to_tensor([[1., 0.]])
+            return x[0][0]*tf.math.exp(-t/x[0][1])*tf.convert_to_tensor([[1., 0.]])
         elif self.train_id==3:
             return 1000.*tf.math.cos(t*x[0][0][1])*tf.convert_to_tensor([[1., 0.]])
 
