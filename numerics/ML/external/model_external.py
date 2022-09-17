@@ -22,7 +22,7 @@ class GRCell(tf.keras.layers.Layer):
         gamma, omega, n, eta, kappa = np.array(params).astype(np.float32)
         self.gamma, self.omega, self.n, self.eta, self.kappa = np.array(params).astype(np.float32)
         A = np.array([[-gamma/2, omega],[-omega, -gamma/2]]).astype("float32")
-        C = np.sqrt(4*eta*kappa)*np.array([[1.,0.],[0., 0.]]).astype("float32")
+        C = np.sqrt(4*eta*kappa)*np.array([[1.,0.],[0., 1.]]).astype("float32") ## homodyne --> rotating frame
         D = np.diag([gamma*(n+0.5) + kappa]*2).astype("float32")
         self.A_matrix = A[tf.newaxis]
         self.C_matrix = C
