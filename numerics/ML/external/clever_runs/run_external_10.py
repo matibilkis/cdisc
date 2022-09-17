@@ -180,82 +180,25 @@ plt.savefig("figures_poster/external_learn_track.pdf")
 
 
 
-
-
-
-
-
-
-ax = plt.subplot(111)
-ax.plot(np.squeeze([history[k]["PARAMS"] for k in range(len(history))]),  color="green", linewidth=10, alpha=0.75, label=r'$\hat{f}_{M.L.}$',zorder=2)
-ax.plot(np.ones(len(history))*true_parameters[0],  linestyle="--", color="blue", linewidth=10, alpha=0.75, label=r'$f_{true}$',zorder=1)
-ax.set_xlabel("ML-iteration", size=20)
-ax.set_ylabel(r'$\hat{f}_{M.L.}$', size=20)
-ax.legend(prop={"size":20})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-batched_data = give_batched_data(tfsignals, batch_size )
-model.reset_states()
-preds_after=[]
-model.recurrent_layer.cell.memory_states=[]
-for b in tqdm(batched_data[:3]):
-    preds_after.append(model(b))
-ints = [model.recurrent_layer.cell.memory_states[k+6][0][0] for k in range(600)]
-
-model.trainable_variables[0].assign(tf.convert_to_tensor([[0.]]))
-model.reset_states()
-preds_in=[]
-model.recurrent_layer.cell.memory_states = []
-for b in tqdm(batched_data[:3]):
-    preds_in.append(model(b))
-ints_initial = [model.recurrent_layer.cell.memory_states[k+6][0][0] for k in range(600)]
-
-
-plt.plot(np.stack(ints_initial)[:,0])
-plt.plot(np.stack(ints)[:,0])
-
-
-plt.plot(preds_after[0][0,:,0])
-plt.plot(preds_in[0][0,:,0])
-
-
-
-a=0
-b=-1
-preds_in = tf.concat(preds_in,axis=1)[0,:,0]
-preds_after = tf.concat(preds_after,axis=1)[0,:,0]
-
-a=100
-b= 300
-plt.plot(preds_in[a:b],color="red")
-plt.plot(preds_after[a:b], color="blue")
-plt.plot(signals[:,0][:len(preds_in)][a:b], color="black")
-
-
-
-
-ax=plt.subplot(121)
-ax.plot(states[:600,0], label="hidden state")
-ax.plot(np.stack(ints_initial)[:,0], label="(ML-tracked) hidden state: untrained")
-ax.plot(np.stack(ints)[:,0], label="(ML-tracked) hidden state: trained")
-ax=plt.subplot(122)
-par_hist = np.squeeze([history[k]["PARAMS"] for k in range(len(history))])
-ax.plot(par_hist)
-ax.plot(true_parameters*np.ones(len(par_hist)), '--')
-
-
-
-#
+plt.figure(figsize=(15,15))
+ax=plt.subplot(111)
+step=4
+S=300
+ss_untrained = np.squeeze(np.concatenate(preds_in,axis=1))[:,0]
+ss_trained = np.squeeze(np.concatenate(preds_after,axis=1))[:,0]
+ax.plot(times[:len(ss_trained)], signals[:len(ss_trained),0] , color="blue", linewidth=15, alpha=1., zorder=1, label=r'$dy^t_{true}$')
+ax.scatter(times[:len(ss_trained)][::step], ss_trained[::step], s=S,  color="black", alpha=1.,zorder=2, label=r'$\hat{dy}^t_{trained}$')
+ax.scatter(times[:len(ss_trained)][::step], ss_untrained[::step], color="red", s=S,  linewidth=5, alpha=1., label=r'$\hat{dy}^t_{untrained}$')
+ax.set_xlabel("t", size=60)
+ax.set_ylabel(r'$\hat{dy}^t_{M.L.}$', size=60)
+ax.xaxis.set_tick_params(labelsize=24)
+ax.yaxis.set_tick_params(labelsize=24)
+ax.legend(prop={"size":35}, loc="upper left")
+axins = ax.inset_axes([.7,.05, 0.25, 0.25])
+#axins.plot(freqs_signal[aa:bb], spectra_signal[aa:bb], color="red", linewidth=5, alpha=0.75)
+axins.plot(np.squeeze([history[k]["PARAMS"] for k in range(len(history))]),  color="green", linewidth=10, alpha=0.75, label=r'$\hat{f}_{M.L.}$',zorder=2)
+axins.plot(np.ones(len(history))*true_parameters[0],  linestyle="--", color="blue", linewidth=10, alpha=0.75, label=r'$f_{true}$',zorder=1)
+axins.set_xlabel("ML-iteration", size=20)
+axins.set_ylabel(r'$\hat{f}_{M.L.}$', size=20)
+axins.legend(prop={"size":20})
+plt.savefig("figures_poster/external_learn_signals.pdf")
