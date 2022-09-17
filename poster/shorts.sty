@@ -1,0 +1,164 @@
+\usepackage{amsmath}
+\usepackage{bbm}
+\usepackage{scalerel}
+
+\newcommand{\sqneg}{S_{I}^{q}}
+\newcommand{\sqpos}{S_{II}^{q}}
+
+
+\newcommand{\conjunto}{\ket{\Phi_{\textit{S-A}}}}
+\newcommand{\premedido}{\ket{\Phi_{\textit{S-A}}}^{P}}
+\newcommand{\autores}{Olliver y Zurek }%-------unidad imaginaria iiiii----
+\newcommand{\ii}{\mathrm{i}\mkern1mu}
+\newcommand{\rhosapre}{\rho_{\textit{S-A}}^{P}}
+\newcommand{\sa}{\textit{S-A }}
+\newcommand{\ps}{estados puntero}
+\newcommand{\rhosadec}{\rho_{\textit{S-A}}^{D}}
+
+% ---- Para {} ----
+\newcommand{\llaves}[1]{\lbrace #1\rbrace}
+
+%-----versores ---
+\newcommand{\vk}{\mathbf{\vec{k}}}
+
+%-------entropias-----
+\newcommand{\ssf}{S_{f}}
+
+%-----estaditos-----
+\newcommand{\wwn}{x \proj{\psi} + \dfrac{1-x}{d} \qid}
+\newcommand{\psiab}{\ket{\Psi_{AB}}}
+\newcommand{\ppsiab}{\psi_{AB}}
+\newcommand{\purqbqt}{\sqrt{q} \ket{00} + \sqrt{1-q} \ket{11}}
+\newcommand{\qutrit}{\llaves{\ket{-1},\ket{0},\ket{1}}}
+\newcommand{\psiiab}{\proj{\psi^{i}_{AB}}}
+
+
+%%% numero schmidt
+\newcommand{\ns}{n_{s}}
+
+% ---- Estados: convenci�n, para usar dentro de la equation los llamo con q antes %
+
+\newcommand{\rr}{\rho}
+\newcommand{\est}{$\rho_{AB}$ }
+\newcommand{\esta}{$\rho _{A}$ }
+\newcommand{\estb}{$\rho _{B}$ }
+\newcommand{\qest}{\rho_{AB}}
+\newcommand{\qesta}{\rho _{A}}
+\newcommand{\qestb}{\rho _{B}}
+\newcommand{\qestapos}{\rho _{A/P_{\pm \textbf{k}}}}
+\newcommand{\kk}{\textbf{k}}
+\newcommand{\kkt}{\tilde{\kk}}
+
+
+%---- S�mbolos ----
+\DeclareMathOperator{\tr}{Tr}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\DeclareMathOperator{\schmidt}{Sch}
+\DeclareMathOperator{\prob}{Pr}
+\newcommand{\ox}{$\otimes$}
+\newcommand{\dg}{$\dagger$}
+\newcommand{\qox}{\otimes}
+\newcommand{\qdg}{\dagger}
+
+
+%---- Identidad ----
+\newcommand{\id}{$\mathbbm{1}$}
+\newcommand{\qid}{\mathbbm{1}}
+
+
+
+%--- Dimension del sistema A ---
+\newcommand{\qda}{d_{A}}
+\newcommand{\da}{$d_{A}$}
+
+% ----Operadores en A y En B
+\newcommand{\sgamu}{$\sigma_{\mu}^{A}$}
+\newcommand{\qsgamu}{\sigma_{\mu}^{A}}
+\newcommand{\sga}{$\sigma_{\mu}^{A}$}
+\newcommand{\qsga}{\sigma_{\mu}^{A}}
+\newcommand{\ssga}{$\sigma_{\nu}^{A}$}
+\newcommand{\qssga}{\sigma_{\nu}^{A}}
+\newcommand{\sgb}{$\sigma_{\nu}^{B}$}
+\newcommand{\ssgb}{$\sigma_{\nu}^{B}$}
+\newcommand{\qsgb}{\sigma_{\mu}^{B}}
+\newcommand{\qssgb}{\sigma_{\nu}^{B}}%\newcommand{\qsgb1}{\sigma_{\nu}^{B}}
+
+%------ Radios de Bloch rA y rB -----
+\newcommand{\ra}{$\textbf{r}_{\textsc{\tiny A}}$}
+\newcommand{\qra}{\textbf{r}_{\textsc{\tiny A}}}
+\newcommand{\rb}{$\textbf{r}_{\textsc{\tiny B}}$}
+\newcommand{\qrb}{\textbf{r}_{\textsc{\tiny B}}}
+\newcommand{\rapos}{$\textbf{r}_{A / P_{\pm \textbf{k}}}$}
+\newcommand{\qrapos}{\textbf{r}_{A / P_{\pm \textbf{k}}}}
+
+% ----Vectores de operadores A y B ---
+\newcommand{\qsgva}{\bm{\sigma}^{\textsc{\tiny A}}}
+\newcommand{\qsgvb}{\bm{\sigma}^{\textsc{\tiny B}}}
+
+
+
+
+
+%---- Notaci�n de Dirac b�sica ----%
+\newcommand{\bra}[2][]{%
+  \def\@tempa{#1}%
+  \ifx\@tempa\@empty\relax%
+    \mathinner{\langle #2\rvert}%
+  \else%
+    \mathinner{\langle #2\rvert}_{#1}%
+  \fi}
+\newcommand{\ket}[2][]{%
+  \def\@tempa{#1}%
+  \ifx\@tempa\@empty\relax%
+    \mathinner{\lvert#2\rangle}%
+  \else%
+    \mathinner{\lvert#2\rangle}_{\hspace{-0.1em}#1}%
+  \fi}
+
+
+% ---- Proyectores! ----
+\newcommand{\ketbra}[3][]{%
+  \def\@tempa{#1}%
+  \ifx\@tempa\@empty\relax%
+    \mathinner{\lvert#2\rangle\langle #3\rvert}%
+  \else%
+    \mathinner{\lvert#2\rangle\langle #3\rvert}_{#1}%
+  \fi}
+\newcommand{\Ketbra}[3][]{%
+  \def\@tempa{#1}%
+  \ifx\@tempa\@empty\relax%
+    \left|#2\middle>\middle<#3\right|%
+  \else%
+    \left|#2\middle>\middle<#3\right|_{#1}%
+  \fi}
+\newcommand{\proj}[2][]{\ketbra[#1]{#2}{#2}}
+\newcommand{\Proj}[2][]{\Ketbra[#1]{#2}{#2}}
+
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+\newcommand{\te}{\theta}
+\newcommand{\tedos}{\frac{\te}{2}}
+
+% ---- Valor esperado ----
+\newcommand{\expect}[1]{\mathinner{\langle #1\rangle}}
+\newcommand{\Expect}[1]{\left< #1 \right>}
+\newcommand{\bigExpect}[1]{\bigl< #1 \bigr>}
+\newcommand{\BigExpect}[1]{\Bigl< #1 \Bigr>}
+\newcommand{\biggExpect}[1]{\biggl< #1 \biggr>}
+\newcommand{\BiggExpect}[1]{\Biggl< #1 \Biggr>}
+
+
+%---- Conmutadores ----
+\newcommand{\comm}[2]{[#1,#2]}
+\newcommand{\Comm}[2]{\left[#1,#2\right]}
+\newcommand{\Anticomm}[2]{\left\{#1,#2\right\}}
+\newcommand{\anticomm}[2]{\{#1,#2\}}
+
+% ---- Normas ----
+\newcommand\abs[1]{\lvert#1\rvert}
+\newcommand\Abs[1]{\left|#1\right|}
+\newcommand\norm[1]{\lVert#1\rVert}
+\newcommand\Norm[1]{\left\|#1\right\|}
+
+

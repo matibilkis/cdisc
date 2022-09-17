@@ -87,7 +87,7 @@ fisher = np.load("analysis/data_comparison/fisher.npy")
 times_compa = np.load("analysis/data_comparison/times.npy")
 times_metohd = np.load("analysis/data_comparison/times_method.npy")
 
-plt.figure(figsize=(15,15))
+plt.figure(figsize=(20,10))
 ax = plt.subplot(111)
 S=600
 ax.plot(times_compa, 1/fisher, label=r'$I^{-1}_t[\omega]$', color="blue", linewidth=10, alpha=0.75,)
@@ -100,7 +100,7 @@ ax.set_yscale("log")
 #ax.set_xscale("log")
 ax.xaxis.set_tick_params(labelsize=24)
 ax.yaxis.set_tick_params(labelsize=24)
-plt.savefig("figures_poster/variance_comparison.pdf")
+plt.savefig("figures_poster/variance_comparison_hori.pdf")
 
 
 
