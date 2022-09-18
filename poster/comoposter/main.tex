@@ -55,7 +55,7 @@ where $(x_t,\Sigma_t)$ denote the first two moments of the mechanical mode at ti
 \end{block}
 \begin{block}{Estimation}
   \parshape 1 0cm \dimexpr\linewidth-0cm\relax
-  We focus on estimating the value of parameter $\theta$, appearing in Eq.~\eqref{eq:evo}. The log-likelihood $\lambda(y|\theta) = \log p(y|\theta)$ of getting a string of outcomes $y= (dy_0, ... dy_t)$ under $\theta$ can be computed through the measurement model, and in particular an evolution for the (derivative of ) the score $\partial^2_\theta \lambda(y|\theta)$ can be derived as
+  We focus on estimating the value of parameter $\theta$, appearing in Eq.~\eqref{eq:evo}. The log-likelihood $\lambda(y|\theta) = \log p(y|\theta)$ of getting a string of outcomes $y= (dy_0, ... dy_t)$ under $\theta$ can be computed through the measurement model, and in particular an evolution for the (derivative of) the score (e.g. $s = \partial_\theta \lambda(y|\theta)$) can be derived as
 \begin{equation*}
 d \partial^2_\theta \lambda = - |\partial_\theta C x| ^2 dt + (\partial_\theta^2 C x) dW_t,
 \end{equation*}which in turn allows us to to numerically obtain the Fisher information $I[\theta] = \sum_t \mathbb{E}[|\partial_\theta C x|^2] dt$. This quantity lower bounds the variance of any unbiased estimation $\hat{\theta}$.
