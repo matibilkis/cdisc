@@ -29,17 +29,17 @@
   \usebeamertemplate{enumerate item}}
 \setlist{nosep,leftmargin=*}
 
-\renewenvironment{figure}{%
-  \refstepcounter{figure}%
-  {\usebeamerfont{block title}\usebeamercolor[fg]{block title}\MakeUppercase{\figurename}~\thefigure}\par\vskip.75ex
-  \renewcommand\caption[1]{\par\small\raggedright\usebeamercolor[fg]{caption}##1}
-}{%
-  \vspace*{\baselineskip}
-}
+% \renewenvironment{figure}{%
+%   \refstepcounter{figure}%
+%   {\usebeamerfont{block title}\usebeamercolor[fg]{block title}\MakeUppercase{\figurename}~\thefigure}\par\vskip.75ex
+%   \renewcommand\caption[1]{\par\small\raggedright\usebeamercolor[fg]{caption}##1}
+% }{%
+%   \vspace*{\baselineskip}
+% }
 
 \renewenvironment{table}{%
   \refstepcounter{table}%
-  {\usebeamerfont{block title}\usebeamercolor[fg]{block title}\MakeUppercase{\tablename}~\thefigure}\par\vskip1ex
+  {\usebeamerfont{block title}\usebeamercolor[fg]{\textbf{block title}}\MakeUppercase{\tablename}~\thefigure}\par\vskip1ex
   \renewcommand\caption[1]{\par{\small\raggedright\usebeamercolor[fg]{caption}##1}}
   \usebeamercolor[fg]{tabular}
   \rowcolors{1}{tabular.bg}{tabular.bg}
@@ -89,10 +89,10 @@
 
   \if@beamerposter@portrait
     \setlength{\logowidth}{0.\textwidth}
-    \setlength{\titleindent}{\dimexpr 0.5\logowidth+2em\relax}
+    \setlength{\titleindent}{\dimexpr 0.0\logowidth+0.00em\relax}
   \else
     \setlength{\logowidth}{0.167\textwidth}
-    \setlength{\titleindent}{\dimexpr\logowidth+1em\relax}
+    \setlength{\titleindent}{\dimexpr0.0\logowidth+0.0em\relax}
   \fi
   \begingroup\raggedright
   \null\begin{minipage}{\logowidth}
