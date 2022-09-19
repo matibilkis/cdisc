@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.5.17)  18 SEP 2022 11:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.5.17)  19 SEP 2022 14:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1906,6 +1906,15 @@ LaTeX Warning: Command \c invalid in math mode on input line 53.
 
 LaTeX Warning: Command \c invalid in math mode on input line 53.
 
+./main.tex:63: Extra }, or forgotten $.
+l.63 ...a}{\text{argmax}}\lambda(y|\hat{x}_\theta}
+                                                  )$ where $\hat{x}_{\theta}...
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
 <figures_poster/evolution.pdf, id=15, 1445.4pt x 722.7pt>
 File: figures_poster/evolution.pdf Graphic file (type pdf)
 <use figures_poster/evolution.pdf>
@@ -1920,12 +1929,12 @@ nput line 70.
 <figures_poster/dos.pdf, id=17, 639.58951pt x 289.8027pt>
 File: figures_poster/dos.pdf Graphic file (type pdf)
 <use figures_poster/dos.pdf>
-Package pdftex.def Info: figures_poster/dos.pdf  used on input line 74.
+Package pdftex.def Info: figures_poster/dos.pdf  used on input line 72.
 (pdftex.def)             Requested size: 1064.28967pt x 482.30168pt.
-./main.tex:74: Extra }, or forgotten \endgroup.
+./main.tex:72: Extra }, or forgotten \endgroup.
 <recently read> }
                  
-l.74 ...s[width=1.\hsize]{figures_poster/dos.pdf}}
+l.72 ...s[width=1.\hsize]{figures_poster/dos.pdf}}
                                                   
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -1937,17 +1946,17 @@ deleted material, e.g., by typing `I$}'.
 File: figures_poster/external_learn_signals.pdf Graphic file (type pdf)
 <use figures_poster/external_learn_signals.pdf>
 Package pdftex.def Info: figures_poster/external_learn_signals.pdf  used on inp
-ut line 90.
+ut line 88.
 (pdftex.def)             Requested size: 957.8542pt x 957.88724pt.
 <figures_poster/external_learn_track_example2.pdf, id=20, 1084.05pt x 1084.05pt
 >
 File: figures_poster/external_learn_track_example2.pdf Graphic file (type pdf)
 <use figures_poster/external_learn_track_example2.pdf>
 Package pdftex.def Info: figures_poster/external_learn_track_example2.pdf  used
- on input line 92.
+ on input line 90.
 (pdftex.def)             Requested size: 957.8542pt x 957.88724pt.
-./main.tex:93: Extra }, or forgotten \endgroup.
-l.93   }
+./main.tex:91: Extra }, or forgotten \endgroup.
+l.91   }
         
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -1955,10 +1964,10 @@ you forgot something else, as in `\hbox{$x}'. In such cases
 the way to recover is to insert both the forgotten and the
 deleted material, e.g., by typing `I$}'.
 
-./main.tex:96: Missing } inserted.
+./main.tex:94: Missing } inserted.
 <inserted text> 
                 }
-l.96 \end{block}
+l.94 \end{block}
                 
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -1966,20 +1975,41 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
+LaTeX Font Info:    Calculating math sizes for size <46.28> on input line 102.
+LaTeX Font Info:    Font shape `T1/qhv/m/n' will be
+(Font)              scaled to size 31.75722pt on input line 102.
+LaTeX Font Info:    Font shape `T1/qhv/m/n' will be
+(Font)              scaled to size 23.92694pt on input line 102.
+LaTeX Font Info:    Font shape `T1/qhv/m/it' will be
+(Font)              scaled to size 43.50331pt on input line 102.
+LaTeX Font Info:    Font shape `T1/qhv/m/it' will be
+(Font)              scaled to size 31.75722pt on input line 102.
+LaTeX Font Info:    Font shape `T1/qhv/m/it' will be
+(Font)              scaled to size 23.92694pt on input line 102.
 <figures_poster/qr_repo.pdf, id=21, 2213.26875pt x 2213.26875pt>
 File: figures_poster/qr_repo.pdf Graphic file (type pdf)
 <use figures_poster/qr_repo.pdf>
-Package pdftex.def Info: figures_poster/qr_repo.pdf  used on input line 105.
+Package pdftex.def Info: figures_poster/qr_repo.pdf  used on input line 103.
 (pdftex.def)             Requested size: 159.63695pt x 159.60513pt.
+<logo_quantera.png, id=22, 236.38312pt x 97.86563pt>
+File: logo_quantera.png Graphic file (type png)
+<use logo_quantera.png>
+Package pdftex.def Info: logo_quantera.png  used on input line 104.
+(pdftex.def)             Requested size: 372.50787pt x 154.22725pt.
+<LogoGIQ_Text_Positiu.pdf, id=23, 1764.07053pt x 711.3185pt>
+File: LogoGIQ_Text_Positiu.pdf Graphic file (type pdf)
+<use LogoGIQ_Text_Positiu.pdf>
+Package pdftex.def Info: LogoGIQ_Text_Positiu.pdf  used on input line 105.
+(pdftex.def)             Requested size: 446.99971pt x 180.23874pt.
 
-LaTeX Warning: Empty bibliography on input line 109.
+LaTeX Warning: Empty bibliography on input line 110.
 
 
-Overfull \vbox (61.4051pt too high) detected at line 115
+Overfull \vbox (90.52094pt too high) detected at line 116
  []
 
 LaTeX Font Info:    Font shape `T1/qhv/m/n' will be
-(Font)              scaled to size 3.76001pt on input line 115.
+(Font)              scaled to size 3.76001pt on input line 116.
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./figures_poster/evolution
@@ -1989,6 +2019,10 @@ n_track_example2.pdf> <./figures_poster/qr_repo.pdf
 
 pdfTeX warning: pdflatex (file ./figures_poster/qr_repo.pdf): PDF inclusion: mu
 ltiple pdfs with page group included in a single page
+> <./logo_quantera.png> <./LogoGIQ_Text_Positiu.pdf
+
+pdfTeX warning: pdflatex (file ./LogoGIQ_Text_Positiu.pdf): PDF inclusion: mult
+iple pdfs with page group included in a single page
 >]
 \tf@nav=\write7
 \openout7 = `main.nav'.
@@ -2011,11 +2045,11 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 40049 strings out of 478287
- 800343 string characters out of 5849289
- 1612108 words of memory out of 5000000
- 57461 multiletter control sequences out of 15000+600000
- 526295 words of font info for 94 fonts, out of 8000000 for 9000
+ 40095 strings out of 478287
+ 801393 string characters out of 5849289
+ 1613108 words of memory out of 5000000
+ 57509 multiletter control sequences out of 15000+600000
+ 550874 words of font info for 125 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,17n,122p,1129b,963s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ec.enc}</usr/share/texlive/texmf
@@ -2027,10 +2061,10 @@ ts/type1/public/newtx/txexs.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
 ic/newtx/txsys.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtxsf/zs
 fmi-reg.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtxsf/zsfmia-re
 g.pfb>
-Output written on main.pdf (1 page, 601967 bytes).
+Output written on main.pdf (1 page, 1037108 bytes).
 PDF statistics:
- 263 PDF objects out of 1000 (max. 8388607)
- 88 compressed objects within 1 object stream
+ 640 PDF objects out of 1000 (max. 8388607)
+ 372 compressed objects within 4 object streams
  4 named destinations out of 1000 (max. 500000)
- 73 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 83 words of extra memory for PDF output out of 10000 (max. 10000000)
 

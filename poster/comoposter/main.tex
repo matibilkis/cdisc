@@ -60,7 +60,7 @@ where $(x_t,\Sigma_t)$ denote the first two moments of the mechanical mode at ti
 d \partial^2_\theta \lambda = - |\partial_\theta C x| ^2 dt + (\partial_\theta^2 C x) dW_t,
 \end{equation*}which in turn allows us to to numerically obtain the Fisher information $I[\theta] = \sum_t \mathbb{E}[|\partial_\theta C x|^2] dt$. This quantity lower bounds the variance of any unbiased estimation $\hat{\theta}$.
 
-Here, we propose a recurrent unit which computes $\hat{\theta} = \text{argmax}\lambda(y|\hat{x}_{\hat{\theta}})$ where $\hat{x}_{\hat{\theta}}$ \textit{tracks} the hidden state in ressemblance to Kalman filters. As an example, we consider estimating the mechanical mode's frequency $\omega$, appearning in $A$ matrix in Eq~\eqref{eq:evo}. We compare recurrent unit performance with  Lorentzian fits over the spectral power and the Fisher information.
+Here, we propose a recurrent unit which computes $\hat{\theta} = \underset{\theta}{\text{argmax}}\lambda(y|\hat{x}_\theta})$ where $\hat{x}_{\theta}$ is the estimated value of the hidden state obtained via Kalman Filtering. As an example, we consider estimating the mechanical mode's frequency $\omega$, appearning in $A$ matrix in Eq~\eqref{eq:evo}. We compare recurrent unit performance with Lorentzian fits over the spectral power $S(\omega)$ and the Fisher information.
 
 \end{block}
 
@@ -68,8 +68,6 @@ Here, we propose a recurrent unit which computes $\hat{\theta} = \text{argmax}\l
 \centering
 \includegraphics[width=.49\hsize]{figures_poster/evolution.pdf}
 \includegraphics[width=.49\hsize]{figures_poster/variance_comparison_hori.pdf}
-
-\vspace{1cm}
 
 \includegraphics[width=1.\hsize]{figures_poster/dos.pdf}}
 \end{figure}
@@ -101,8 +99,11 @@ Here, we propose a recurrent unit which computes $\hat{\theta} = \text{argmax}\l
   \end{block}
 
 
-\begin{block}{Code}
+\begin{block}{Code $\&$ Affiliations}
 \includegraphics[width=.15\textwidth]{figures_poster/qr_repo.pdf}
+\includegraphics[width=.35\textwidth]{logo_quantera.png}
+\includegraphics[width=.42\textwidth]{LogoGIQ_Text_Positiu.pdf}
+
 \end{block}
 
 
