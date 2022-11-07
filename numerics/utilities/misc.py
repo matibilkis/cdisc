@@ -6,7 +6,7 @@ import getpass
 #import pyarrow as pa
 
 def give_model():
-    return "mechanical_damp"
+    return "mechanical_freq"
 
 def get_def_path():
     """

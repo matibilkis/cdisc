@@ -114,7 +114,7 @@ def integrate(params, total_time=1, dt=1e-1, itraj=1, exp_path="",**kwargs):
             if "mechanical_damp" in model:
                 mm = np.eye(2)#homodyne but in Rotating Frame
             elif model =="mechanical_freq":
-                mm = np.array([1.,0.],[0.,0.])#homodyne
+                mm = np.array([[1.,0.],[0.,0.]])#homodyne
             C = np.sqrt(4*eta*kappa)*mm#
             D = np.diag([gamma*(n+0.5) + kappa]*2)
             G = np.zeros((2,2))
@@ -186,9 +186,22 @@ if __name__ == "__main__":
     dt = args.dt
     pdt = args.pdt
     total_time = args.total_time
+    
+    gamma0 = gamma1 = 100
+    eta0 = eta1 = 1
+    kappa0 = kappa1 = 1e3
+    n0 = n1 = 1
+    omega0, omega1 = 1e4, 1.05e4
 
-    h0 = gamma0, omega0, n0, eta0, kappa0 = 100., 0., 1., 1., 9
-    h1 = gamma1, omega1, n1, eta1, kappa1 = gamma, 0., 1., 1., 9
+    h0 = [gamma0, omega0, n0, eta0, kappa0]
+    h1 = [gamma1, omega1, n1, eta1, kappa1]
+
+    omega_pro = (omega0 + omega1)/2
+    period = (2*np.pi/omega_pro)
+    dt = period/100
+    total_time = 100*period
+#    h0 = gamma0, omega0, n0, eta0, kappa0 = 100., 0., 1., 1., 9
+#    h1 = gamma1, omega1, n1, eta1, kappa1 = gamma, 0., 1., 1., 9
     if flip_params == 1:
         params = [h0, h1]
     else:

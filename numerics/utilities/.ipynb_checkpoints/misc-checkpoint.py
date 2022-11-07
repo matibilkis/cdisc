@@ -2,11 +2,11 @@ import numpy as np
 import ast
 import os
 import getpass
-import pyarrow.parquet as pq
-import pyarrow as pa
+#import pyarrow.parquet as pq
+#import pyarrow as pa
 
 def give_model():
-    return "mechanical_damp"
+    return "mechanical_freq"
 
 def get_def_path():
     """
@@ -51,7 +51,7 @@ def def_params(flip =0):
             gamma0 = 10.02
             gamma1 = 4*gamma0
             n1 = n0 = .05
-            kappa0 = kappa1 = 4. 
+            kappa0 = kappa1 = 4.
             eta0 = eta1 = 1
         elif "2" in model:
             gamma0 = 20.02
@@ -105,7 +105,7 @@ def get_path_config(exp_path="", itraj=1, total_time=1, dt=.1, noitraj=False):
     if noitraj == True:
         pp = get_def_path()+ exp_path +"/T_{}_dt_{}/".format(total_time, dt)
     else:
-        
+
         pp = get_def_path()+ exp_path +"{}itraj/T_{}_dt_{}/".format(itraj, total_time, dt)
     return pp
 
@@ -114,9 +114,7 @@ def load_data(exp_path="", itraj=1, total_time=1, dt=0.1, what="logliks"):
     path = get_path_config(total_time = total_time, dt= dt, itraj=itraj, exp_path=exp_path)
     logliks = np.load(path+what,allow_pickle=True,fix_imports=True,encoding='latin1') ### this is \textbf{q}(t)
     return logliks
-    #path = get_path_config(total_time = total_time, dt= dt, itraj=itraj, exp_path=exp_path)
-    #pq.read_table(path+what)["data"].to_numpy()
-    #return logliks
+
 
 
 def load_liks(itraj=1, dt=1e-1, total_time=1):
@@ -143,8 +141,8 @@ def get_timind_indis(total_time, dt, N=1e4, begin=0, rrange=True):
     else:
         return timind, indis
 
-    
-    
+
+
 def get_stop_time(ell,b, times, mode_log=True):
     logicals = np.logical_and(ell < b, ell > -b)
     ind_times = np.argmin(logicals)
@@ -153,17 +151,3 @@ def get_stop_time(ell,b, times, mode_log=True):
         return np.nan
     else:
         return times[ind_times]
-
-    
-    
-    ### this is shortcut for sweeping fgamma...
-#def get_exp_path(gamma, flip_params=0):#
-#
-#    h0 = gamma0, omega0, n0, eta0, kappa0 = 100., 0., 1., 1., 9
-#    h1 = gamma1, omega1, n1, eta1, kappa1 = gamma, 0., 1., 1., 9
-#    if flip_params == 1:
-#        params = [h0, h1]
-#    else:
-#        params = [h1,h0]
-#    exp_path = str(params)+"/"
-#    return exp_path

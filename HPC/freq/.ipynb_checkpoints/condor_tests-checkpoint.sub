@@ -1,0 +1,11 @@
+executable=HPC/subash_tests.sh
+
+output = ../jobs/outs/tf$(Item).out
+error = ../jobs/errs/tf$(Item).err
+log = ../jobs/logs/tf$(Item).log
+request_cpus = 1
+request_memory = 8 GB
++flavour="short"
+
+args=$(Item)
+queue from seq 0 1 0|
