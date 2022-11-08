@@ -34,8 +34,8 @@ timind = [times[k] for k in indis]
 indis_range = list(range(len(indis)))
 
 
-B = 6.
-dB = .05
+B = 100
+dB = 10
 boundsB= np.arange(-B,B+dB,dB)
 
 bpos = boundsB[boundsB>=0]
