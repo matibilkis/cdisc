@@ -191,7 +191,7 @@ if __name__ == "__main__":
     eta0 = eta1 = 1
     kappa0 = kappa1 = 1e3
     n0 = n1 = 1
-    omega0, omega1 = 1e4, 1.05e4
+    omega0, omega1 = 1e4, 1.1e4
 
     h0 = [gamma0, omega0, n0, eta0, kappa0]
     h1 = [gamma1, omega1, n1, eta1, kappa1]
@@ -199,7 +199,7 @@ if __name__ == "__main__":
     omega_pro = (omega0 + omega1)/2
     period = (2*np.pi/omega_pro)
     dt = period/100
-    total_time = 100*period
+    total_time = 200*period
 #    h0 = gamma0, omega0, n0, eta0, kappa0 = 100., 0., 1., 1., 9
 #    h1 = gamma1, omega1, n1, eta1, kappa1 = gamma, 0., 1., 1., 9
     if flip_params == 1:

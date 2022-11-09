@@ -5,7 +5,7 @@ error = ../jobs/errs/freq$(Item).err
 log = ../jobs/logs/frq$(Item).log
 request_cpus = 8
 request_memory = 8 GB
-+flavour="short"
++flavour="medium"
 
 args=$(Item)
 queue from seq 1 8 5000|
