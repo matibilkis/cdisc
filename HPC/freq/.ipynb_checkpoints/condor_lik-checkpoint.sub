@@ -1,0 +1,11 @@
+executable=HPC/freq/subash_lik.sh
+
+output = ../jobs/outs/tfl$(Item).out
+error = ../jobs/errs/tfl$(Item).err
+log = ../jobs/logs/tfl$(Item).log
+request_cpus = 1
+request_memory = 8 GB
++flavour="short"
+
+args=$(Item)
+queue from seq 0 1 0|
